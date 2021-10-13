@@ -1,0 +1,20 @@
+baseURL: https://zen-of-fauna.github.io/
+languageCode: en-us
+title: The Zen of Fauna
+
+theme: hugo-theme-learn
+
+params:
+  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  themeVariant: "fauna"
+
+menu:
+  shortcuts:
+    - name: <i class='fab fa-fw fa-github'></i> GitHub repo
+      identifier: ds
+      url: https://github.com/fauna-labs/zen-of-fauna/
+      weight: 10
+    - name: <i class='fas fa-fw fa-chalkboard-teacher'></i> Next.js workshop
+      identifier: nw
+      url: https://fauna-labs.github.io/second-workshop/
+      weight: 20
