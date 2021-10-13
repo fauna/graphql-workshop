@@ -13,11 +13,19 @@ params:
 
 menu:
   shortcuts:
-    - name: <i class='fab fa-fw fa-github'></i> GitHub repo
-      identifier: ds
-      url: https://github.com/fauna-labs/zen-of-fauna/
+    - name: <i class='fas fa-fw fa-book'></i> Fauna Docs
+      identifier: docs
+      url: https://docs.fauna.com/fauna/current/api/graphql/
       weight: 10
-    - name: <i class='fas fa-fw fa-chalkboard-teacher'></i> Next.js workshop
-      identifier: nw
-      url: https://fauna-labs.github.io/second-workshop/
+    - name: <i class='fas fa-fw fa-flask'></i> Fauna Labs
+      identifier: labs
+      url: https://github.com/fauna-labs/
       weight: 20
+    - name: <i class='fab fa-fw fa-github'></i> GitHub repo
+      identifier: repo
+      url: https://github.com/fauna-labs/zen-of-fauna/
+      weight: 30
+    - name: <i class='fas fa-fw fa-chalkboard-teacher'></i> Next workshop
+      identifier: next
+      url: https://fauna-labs.github.io/second-workshop/
+      weight: 40
