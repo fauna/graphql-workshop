@@ -1,12 +1,15 @@
-baseURL: https://zen-of-fauna.github.io/
+baseURL: https://fauna-labs.github.io/
 languageCode: en-us
 title: The Zen of Fauna
 
 theme: hugo-theme-learn
 
 params:
-  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  # Change default color scheme with a variant one. Optional: can also be one of "red", "blue", or "green".
   themeVariant: "fauna"
+  # themeVariant: "fauna-dark"
+
+  disableLandingPageButton: true
 
 menu:
   shortcuts:
