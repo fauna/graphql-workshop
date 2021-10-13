@@ -3,6 +3,7 @@ title: "Data modeling"
 date: 2021-09-15T13:35:32-04:00
 draft: false
 weight: 30
+disableMermaid: false
 ---
 
 The following diagram shows the relationships between data in a typical multi-vendor e-commerce application (similar to Shopify or Amazon).

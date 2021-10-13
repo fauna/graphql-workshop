@@ -10,6 +10,9 @@ params:
   # themeVariant: "fauna-dark"
 
   disableLandingPageButton: true
+  disableMermaid: true
+  customMermaidURL: "https://cdn.jsdelivr.net/npm/mermaid/dist/mermaid.min.js"
+  showVisitedLinks: true
 
 menu:
   shortcuts:
