@@ -3,3 +3,7 @@ languageCode = 'en-us'
 title = 'The Zen of Fauna'
 
 theme = 'hugo-theme-learn'
+
+[params]
+  # Change default color scheme with a variant one. Can be "red", "blue", "green".
+  themeVariant = "mine"
