@@ -1,14 +1,18 @@
 ---
-title: "Getting started with Fauna"
+title: "Uploading your schema"
 date: 2021-10-13T13:35:32-04:00
 draft: false
 weight: 1
-chapter: true
-pre: "<b>1. </b>"
+pre: "<b>a. </b>"
 ---
 
+{{< attachments
+      title="Files for this section" 
+      pattern=".*(graphql)" 
+      style="fauna"
+/>}}
 
-In this section, you learn how to get and running with a fully functional GraphQL backend in less than 5 minutes with Fauna. Create a simple GraphQL schema with only one type. Refer to the following example. Save your schema as `schema.graphql`.
+Create a simple GraphQL schema with only one type. Refer to the following example. Save your schema as `schema.graphql`.
 
 ```gql
 # schema.graphql

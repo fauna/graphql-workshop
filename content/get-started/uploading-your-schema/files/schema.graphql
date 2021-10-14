@@ -1,0 +1,8 @@
+# schema.graphql
+
+type Store {
+    name: String!
+    email: String!
+    paymentMethods: [String]
+    categories: [String]
+}
