@@ -38,6 +38,23 @@ erDiagram
     STORE_OWNER ||--o{ STORE : has
 {{< /mermaid >}}
 
+{{< mermaid >}}
+erDiagram
+    OWNER ||--O{ STORE : has
+    OWNER {
+        string name
+        string email
+        reference stores
+    }
+    STORE {
+        string name
+        string paymentMethods
+        string categories
+        string email
+        reference owner
+    }
+{{< /mermaid >}}
+
 In the database, you have 
 
 1. A collection of Store Owners. 

@@ -7,7 +7,7 @@ pre: "<b>1. </b>"
 ---
 
 
-Create a simple GraphQL schema with only one type. Refer to the following example. Save your schema as `schema.graphql`.
+In this section, you learn how to get and running with a fully functional GraphQL backend in less than 5 minutes with Fauna. Create a simple GraphQL schema with only one type. Refer to the following example. Save your schema as `schema.graphql`.
 
 ```gql
 # schema.graphql
