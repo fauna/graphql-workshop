@@ -1,0 +1,13 @@
+type Owner {
+    name: String!
+    email: String!
+    stores: [Store]! @relation
+}
+
+type Store {
+    name: String!
+    email: String!
+    paymentMethods: [String]
+    categories: [String]
+    owner: Owner!
+}
