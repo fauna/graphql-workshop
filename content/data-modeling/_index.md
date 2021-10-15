@@ -38,31 +38,15 @@ erDiagram
     STORE_OWNER ||--o{ STORE : has
 {{< /mermaid >}}
 
-{{< mermaid >}}
-erDiagram
-    OWNER ||--O{ STORE : has
-    OWNER {
-        string name
-        string email
-        reference stores
-    }
-    STORE {
-        string name
-        string paymentMethods
-        string categories
-        string email
-        reference owner
-    }
-{{< /mermaid >}}
 
 In the database, you have 
 
 1. A collection of Store Owners. 
-1. Each owner can own multiple stores. 
-1. Stores have many orders and customers. 
-1. Stores also have many items. 
-1. Customers can have many orders and 
-1. Each order has at least one or more items
+2. Each owner can own multiple stores. 
+3. Stores have many orders and customers. 
+4. Stores also have many items. 
+5. Customers can have many orders and 
+6. Each order has at least one or more items
 
 Define this relationships with the following GraphQL schema.
 
