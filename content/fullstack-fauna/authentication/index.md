@@ -300,10 +300,10 @@ After you update the `Signup` component, try registering a user. Navigate to *Co
 Next, create a simple login component. Create a new file `components/Login.js`. Add the following code to your file. 
 
 ```jsx
+// components/Login.js
+
 import { useState, useEffect } from 'react'
 import { useMutation, gql } from '@apollo/client'
-import { useRouter } from 'next/router'
-import Cookie from 'js-cookie';
 
 
 const LOGIN = gql`
@@ -311,16 +311,13 @@ const LOGIN = gql`
     login(email: $email, password: $password) {
       ttl
       secret
-      email
-      ownerID
     }
   }
 `;
 
 export default function Login() {
   const [loginFunc, { data, loading, error }] = useMutation(LOGIN)
-  const router = useRouter()
-  
+    
   const [state, setState] = useState({
     email: '',
     password: ''
@@ -328,43 +325,39 @@ export default function Login() {
 
   useEffect(() => {
     if(data) {
-      Cookie.set(
-        'fauna-session', 
-        JSON.stringify(data.login),
-        { expires: new Date(new Date().getTime() + 30 * 60 * 1000) } // 30 mins from now
-      )
-      router.push('/')
+      // TODO: Save User Session
+      alert('User Logged in')
+      console.log(data);
     }
   }, [data])
     
   const doLogin = e => {
     e.preventDefault();
-    Cookie.remove('fauna-session')
     loginFunc({
       variables: {
-        ...state
+          ...state
       }
     }).catch(e => console.log(e))   
   }
 
   const handleChange = (e) => {
     setState({
-      ...state,
-      [e.target.name]: e.target.value
+        ...state,
+        [e.target.name]: e.target.value
     })
   }
 
   if (loading) return 'Submitting...';
 
   return (
-    <div uk-grid="true">
+    <div>
       <div>
         <div className="uk-card uk-card-default uk-card-body">
           <h3 className="uk-card-title">Login</h3>
           {error ? 
-            <div className="uk-alert-danger" uk-alert style={{ maxWidth: '300px', padding: '10px'}}>
-              Incorrect email and password
-            </div> : null 
+              <div className="uk-alert-danger" uk-alert style={{ maxWidth: '300px', padding: '10px'}}>
+                  Incorrect email and password
+              </div> : null 
           }
           <form onSubmit={doLogin}>
             <div className="uk-margin">
@@ -377,19 +370,19 @@ export default function Login() {
                 value={state.email}
               />
             </div>
-            <div className="uk-margin">
-              <input 
-                className="uk-input" 
-                type="password" 
-                placeholder="Password" 
-                name="password"
-                onChange={handleChange}
-                value={state.password}
-              />
-            </div>
-            <div className="uk-margin">
-              <input className="uk-input" type="submit" />
-            </div>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="password" 
+                  placeholder="Password" 
+                  name="password"
+                  onChange={handleChange}
+                  value={state.password}
+                />
+              </div>
+              <div className="uk-margin">
+                <input className="uk-input" type="submit" />
+              </div>
           </form>
         </div>
       </div>
