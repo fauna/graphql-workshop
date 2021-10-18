@@ -124,6 +124,9 @@ NEXT_PUBLIC_FAUNA_SECRET=fnxxxxxxxxxxxxx
 Once you update the environment variable, you need to restart your next.js application. 
 Add apollo provider to your `_app.js` file. Make the following changes to your `_app.js` file. This will allow you to execute GraphQL queries and mutations from your components.
 
+> 💡  You can add the following css styles to to your `_app.js` to make sure your application has a certain look and feel to it. Feel free to use custom css or a css framework of your choice.
+
+
 ```jsx
 // _app.js
 
