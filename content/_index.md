@@ -22,6 +22,6 @@ To follow along this workshoop you need a Fauna account. If you don't have one s
 We assume you come here knowing GraphQL and wanting to use Fauna for its native GraphQL support.
 {{% /notice %}}
 
-Once you have your account, [move on]({{< ref "get-started">}}) to get started.
+Once you have your account, [move on]({{< ref "getting-started">}}) to get started.
 
 ---
