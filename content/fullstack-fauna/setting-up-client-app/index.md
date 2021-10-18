@@ -150,3 +150,71 @@ function MyApp({ Component, pageProps }) {
 export default MyApp
 
 ```
+
+Replace the contents of `pages/index.js` with the following code. Make sure to use a valid `username` and `password`. If you don't have a user registered refere back to the [Authentication section]({{< ref "/get-started/user-authentication" >}}) to signup a new user.
+
+```jsx
+import styles from '../styles/Home.module.css'
+import { useMutation, gql } from "@apollo/client";
+
+
+const LOGIN = gql`
+  mutation OwnerLogin($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
+      ttl
+      secret
+      email
+      ownerID
+    }
+  }
+`;
+
+
+export default function Home() {
+
+  const [loginFunc, { data, loading, error }] = useMutation(LOGIN)
+
+  if (loading) {
+    return <div>Loading...</div>;
+  }
+
+  if (error) {
+    console.error(error);
+    return null;
+  }
+
+  const doLogin = e => {
+    e.preventDefault();
+    loginFunc({
+        variables: {
+          email: 'johndoe@email.com',
+          password: 'pass123456'
+        }
+    })
+    .then(resp => console.log('==>', resp))
+    .catch(e => console.log(e))   
+  }
+
+  return (
+    <div className={styles.container}>
+      <button onClick={doLogin}>Login</button>
+    </div>
+  )
+}
+
+```
+
+Run your application with the following command.
+
+```sh
+npm run dev
+```
+
+Navigate to [localhost:3000](http://localhost:3000/) and select login button. Observe the network tab in your browser. 
+
+{{< figure
+  src="./images/7.png" 
+  alt="Login response"
+>}}
+
+You have successfully configured your next application with your Fauna backend. You can get the complete code for this section at this link. Head over to the next section to learn about client-side user authentication. 
