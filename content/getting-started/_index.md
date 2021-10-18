@@ -8,3 +8,5 @@ pre: "<b>1. </b>"
 ---
 
 # Getting started with Fauna
+
+Should take one hour

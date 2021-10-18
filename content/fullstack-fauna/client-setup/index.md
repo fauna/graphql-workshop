@@ -1,5 +1,5 @@
 ---
-title: "Setting up the front end application"
+title: "Client setup"
 date: 2021-10-13T13:35:32-04:00
 draft: false
 weight: 20
@@ -89,7 +89,7 @@ Name your role `UnAuthRole`. Every unauthenticated user who lands in your applic
 
 > ℹ️ To register a user you need write permission on the `Owner` collection. To log in as a user you need read permission on the `Owner` collection and the `findOwnerByEmail` index as your function finds an owner by their email. 
 
-In the Functions section, add `UserRegistration` and `UserLogin` UDF to this role. Refer back to the [Authentication section]({{< ref "/get-started/user-authentication" >}}) of this workshop to learn how to create these UDFs.
+In the Functions section, add `UserRegistration` and `UserLogin` UDF to this role. Refer back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) of this workshop to learn how to create these UDFs.
 
 {{< figure
   src="./images/3.png" 
@@ -154,7 +154,7 @@ export default MyApp
 
 ```
 
-Replace the contents of `pages/index.js` with the following code. Make sure to use a valid `username` and `password`. If you don't have a user registered refere back to the [Authentication section]({{< ref "/get-started/user-authentication" >}}) to signup a new user.
+Replace the contents of `pages/index.js` with the following code. Make sure to use a valid `username` and `password`. If you don't have a user registered refere back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) to signup a new user.
 
 ```jsx
 import styles from '../styles/Home.module.css'

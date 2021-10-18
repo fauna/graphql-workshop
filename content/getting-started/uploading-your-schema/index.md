@@ -107,4 +107,4 @@ It returns a response simmilar to following.
 }
 ```
 
-That’s about it for this section. In the next [section]({{< ref "/get-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.
+That’s about it for this section. In the next [section]({{< ref "/getting-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.
