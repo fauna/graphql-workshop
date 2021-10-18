@@ -376,3 +376,7 @@ Run your application with `npm run dev` command and sign in with a user you have
   src="./images/1.png" 
   alt="session from cookies"
 >}}
+
+In the next section, you learn how to retrieve the user access token from your cookies and make GraphQL queries and mutations using it. 
+
+Get the complete code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.3-sessions).
