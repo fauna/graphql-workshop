@@ -3,25 +3,30 @@ title: "Introduction to Fauna"
 date: 2021-09-15T13:35:32-04:00
 draft: false
 ---
-# Introduction to Fauna
+# Fauna for GraphQL developers
 
-{{< youtube id="E13U4uuU2pQ" >}}
+<!-- {{< youtube id="E13U4uuU2pQ" >}} -->
 
-This workshop teaches you Fauna from zero to deploy in two hours. If you are coming from a GraphQL 
+Welcome to Fauna! This workshop helps [GraphQL][graphql] developers build performant applications with [Fauna][fauna] that scale to any size userbase. You start with the basics, using only the GraphQL playground in the [Fauna dashboard][fauna-dashboard], then build a complete fullstack application with [Next.js][nextjs], adding functionality as you go along.
 
+In the first section, [Getting started with Fauna]({{< ref "getting-started" >}}), you learn how Fauna automatically creates queries, mutations, and other resources based on your GraphQL schema. You learn how to accomplish common tasks with GraphQL, how to use the Fauna Query Language (FQL) to perform more advanced tasks, and 
 
-Fauna is a flexible, developer-friendly, transactional serverless database delivered as a secure and scalable cloud API with native GraphQL. When you use Fauna you don't have to worry about database provisioning, scaling, sharding, replication, or correctness.  If you know GraphQL you will feel right at home with Fauna.
-
-In this workshop, you learn the fundamental concepts of Fauna while building a full-stack serverless application.
+In the second section, [Building with Fauna]({{< ref "building" >}}), you learn how Fauna automatically creates queries, mutations, and other resources based on your GraphQL schema. You learn how to accomplish common tasks with GraphQL, how to use the Fauna Query Language (FQL) to perform more advanced tasks, and 
 
 ## Pre-requisites
 
-To follow along this workshoop you need a Fauna account. If you don't have one sign up [here](https://dashboard.fauna.com/accounts/register) for a free tier. You do not need to provide payment information until you upgrade your plan. 
+To follow along this workshop you need a Fauna account. If you don't have one already, you can [sign up for an account][fauna-signup] and complete this workshop using Fauna's. You do not need to provide payment information until you upgrade your plan. 
 
 {{% notice note %}}
-We assume you come here knowing GraphQL and wanting to use Fauna for its native GraphQL support.
+This workshop assumes that you are already familiar with GraphQL and are exploring Fauna for its native GraphQL support. If you are not familiar with GraphQL, visit [Introduction to GraphQL](https://graphql.org/learn/) on the GraphQL website.
 {{% /notice %}}
 
 Once you have your account, [move on]({{< ref "getting-started">}}) to get started.
 
 ---
+
+[fauna]: https://fauna.com
+[fauna-dashboard]: https://dashboard.fauna.com
+[fauna-signup]: https://dashboard.fauna.com/accounts/register
+[graphql]: https://graphql.org
+[nextjs]: https://nextjs.org

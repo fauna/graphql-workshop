@@ -1,6 +1,6 @@
-baseURL: https://fauna-labs.github.io/
+baseURL: https://graphql.workshops.fauna.com/
 languageCode: en-us
-title: The Zen of Fauna
+title: Getting started with Fauna and GraphQL
 
 theme: hugo-theme-learn
 
@@ -9,7 +9,7 @@ params:
   themeVariant: "fauna"
   # themeVariant: "fauna-dark"
 
-  disableLandingPageButton: true
+  disableLandingPageButton: false
   disableMermaid: true
   showVisitedLinks: true
 
@@ -27,7 +27,3 @@ menu:
       identifier: repo
       url: https://github.com/fauna-labs/zen-of-fauna/
       weight: 30
-    - name: <i class='fas fa-fw fa-chalkboard-teacher'></i> Next workshop
-      identifier: next
-      url: https://fauna-labs.github.io/second-workshop/
-      weight: 40

@@ -2,7 +2,7 @@
 title: "Uploading your schema"
 date: 2021-10-13T13:35:32-04:00
 draft: false
-weight: 1
+weight: 20
 pre: "<b>a. </b>"
 ---
 
