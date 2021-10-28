@@ -14,6 +14,9 @@ You can find the completed code for this section in this [Github link](https://g
 ### User Signup
 To get started, create a new file called `components/Signup.js` in the root of your application and add the following code. This React component is your signup form.
 
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 ```jsx
 import { useState } from 'react'
 import { useQuery, gql } from "@apollo/client";
@@ -84,9 +87,15 @@ export default function Signup() {
     )
 }
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 Next, create a new file called `pages/signup.js`. Creating a file under pages creates a new route in Next.js. Adding the `pages/signup.js` file adds a new `/signup` route to your application. Make the following changes to your `pages/signup.js` file. 
 
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 ```jsx
 // pages/signup.js
 
@@ -101,8 +110,13 @@ export default function SignUpPage() {
   )
 }
 ```
+{{% /tab %}}
 
-> Notice, we are plugging in the `Signup` component to signup page. We do this because it is a good practice not to have API logic in your page level component.
+{{< /tabs >}}
+
+{{% notice note %}}
+You are plugging in the `Signup` component to signup page. You do this because it is a good practice not to have API logic in your page level component.
+{{% /notice %}}
 
 Run the application with npm run dev command and visit [localhost:3000/signup](http://localhost:3000/signup). Ensure that the signup page is loading.  
 

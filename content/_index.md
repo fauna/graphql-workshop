@@ -21,7 +21,7 @@ To follow along this workshop you need a Fauna account. If you don't have one al
 This workshop assumes that you are already familiar with GraphQL and are exploring Fauna for its native GraphQL support. If you are not familiar with GraphQL, visit [Introduction to GraphQL](https://graphql.org/learn/) on the GraphQL website.
 {{% /notice %}}
 
-Once you have your account, [move on]({{< ref "getting-started">}}) to get started.
+Once you have access to your Fauna account, continue to the first section, [Getting started with Fauna]({{< ref "getting-started">}}).
 
 ---
 

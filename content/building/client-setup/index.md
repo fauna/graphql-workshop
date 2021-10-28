@@ -38,6 +38,9 @@ npm install @apollo/client graphql
 
 With all the dependencies in place, it is time to set up your GraphQL client. Create a new file called `apollo-client.js` in the project's root and add the following code to it.
 
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 ```jsx
 // apollo-client.js
 
@@ -70,6 +73,9 @@ const client = new ApolloClient({
 
 export default client;
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 {{% notice note %}}
 Region groups give you control over where your data resides. To lean more about region group head over to [offical documentation site](https://docs.fauna.com/fauna/current/learn/understanding/region_groups).
@@ -126,7 +132,9 @@ Add apollo provider to your `_app.js` file. Make the following changes to your `
 
 > 💡  You can add the following css styles to to your `_app.js` to make sure your application has a certain look and feel to it. Feel free to use custom css or a css framework of your choice.
 
+{{< tabs groupId="frontend" >}}
 
+{{% tab name="Next.js" %}}
 ```jsx
 // _app.js
 
@@ -153,9 +161,15 @@ function MyApp({ Component, pageProps }) {
 export default MyApp
 
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 Replace the contents of `pages/index.js` with the following code. Make sure to use a valid `username` and `password`. If you don't have a user registered refere back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) to signup a new user.
 
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 ```jsx
 import styles from '../styles/Home.module.css'
 import { useMutation, gql } from "@apollo/client";
@@ -206,6 +220,9 @@ export default function Home() {
 }
 
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 Run your application with the following command.
 

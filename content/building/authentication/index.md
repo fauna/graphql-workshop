@@ -14,6 +14,10 @@ You can find the completed code for this section in this [Github link](https://g
 ### User Signup
 To get started, create a new file called `components/Signup.js` in the root of your application and add the following code. This React component is your signup form.
 
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
+
 ```jsx
 import { useState, useEffect } from 'react'
 
@@ -93,8 +97,15 @@ export default function Signup() {
   )
 }
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 Next, create a new file called `pages/signup.js`. Creating a file under pages creates a new route in Next.js. Adding the `pages/signup.js` file adds a new `/signup` route to your application. Make the following changes to your `pages/signup.js` file. 
+
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 
 ```jsx
 // pages/signup.js
@@ -111,6 +122,10 @@ export default function SignUpPage() {
 }
 ```
 
+{{% /tab %}}
+
+{{< /tabs >}}
+
 > Notice, we are plugging in the `Signup` component to signup page. We do this because it is a good practice not to have API logic in your page level component.
 
 Run the application with npm run dev command and visit [localhost:3000/signup](http://localhost:3000/signup). Ensure that the signup page is loading.  
@@ -124,8 +139,11 @@ Run the application with npm run dev command and visit [localhost:3000/signup](h
 In the previous section, you created a signup mutation in GraphQL. On the signup page on form submit, you call this `signup` mutation using the apollo-client library. Make the following changes to your Signup component.
 
 
-{{% expand %}}
 First, import the `useMutation` and `gql` funciton from apollo-client library. Define the `signup` mutation as a JavaScript query string constant.
+
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 
 ```jsx
 ...
@@ -141,10 +159,15 @@ const SIGN_UP = gql`
   }
 `;
 ```
-{{% /expand %}}
+{{% /tab %}}
 
-{{% expand %}}
+{{< /tabs >}}
+
 Next, attach the mutation with a button. So when the button is selected the mutation fires. Create a `useEffect` hook to listen on the signup response. 
+
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 
 ```jsx
 export default function Signup() {
@@ -178,13 +201,16 @@ export default function Signup() {
 
 }
 ```
+{{% /tab %}}
 
-
-{{% /expand %}}
-
+{{< /tabs >}}
 
 
 With all the updates applied your `components/Signup.js` will be simmilar to the following code snippet.
+
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 
 ```jsx
 // components/Signup.js
@@ -287,6 +313,9 @@ export default function Signup() {
   )
 }
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 After you update the `Signup` component, try registering a user. Navigate to *Collections* in your Fauna dashboard and review the `Owner` collection. Your newly registered users will appear in this collection.
 
@@ -298,6 +327,10 @@ After you update the `Signup` component, try registering a user. Navigate to *Co
 ### User Login
 
 Next, create a simple login component. Create a new file `components/Login.js`. Add the following code to your file. 
+
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 
 ```jsx
 // components/Login.js
@@ -390,9 +423,15 @@ export default function Login() {
   )
 }
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 Create a new page `pages/login.js`. Add the following code to this file. You plug your `Login` component into your login page component.
 
+{{< tabs groupId="frontend" >}}
+
+{{% tab name="Next.js" %}}
 ```jsx
 // pages/login.js
 
@@ -407,6 +446,9 @@ export default function LoginPage() {
   )
 }
 ```
+{{% /tab %}}
+
+{{< /tabs >}}
 
 To ensure everything is working as intended, run the application with `npm run dev command`, and visit [localhost:3000/login](http://localhost:3000/login). Verify the login function is working. Log in with a user you have registered before. Observe the console tab in your browser.
 
