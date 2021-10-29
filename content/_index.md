@@ -5,7 +5,7 @@ draft: false
 ---
 # Fauna for GraphQL developers
 
-<!-- {{< youtube id="E13U4uuU2pQ" >}} -->
+{{< youtube id="TWrN8_SdqjU" >}}
 
 Welcome to Fauna! This workshop helps [GraphQL][graphql] developers build performant applications with [Fauna][fauna] that scale to any size userbase. You start with the basics, using only the GraphQL playground in the [Fauna dashboard][fauna-dashboard], then build a complete fullstack application with [Next.js][nextjs], adding functionality as you go along.
 
