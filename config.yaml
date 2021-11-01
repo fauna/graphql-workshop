@@ -6,8 +6,8 @@ theme: fauna-workshop-theme
 
 params:
   # Change default color scheme with a variant one. Optional: can also be one of "red", "blue", or "green".
-  themeVariant: "fauna"
-  # themeVariant: "fauna-dark"
+  themeVariant: "flora"
+  # themeVariant: "flora-dark"
 
   disableLandingPageButton: false
   disableMermaid: true
