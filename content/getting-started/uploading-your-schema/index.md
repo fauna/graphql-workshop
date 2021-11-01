@@ -14,7 +14,9 @@ pre: "<b>a. </b>"
 
 Create a simple GraphQL schema with only one type. Refer to the following example. Save your schema as `schema.graphql`.
 
-```gql
+{{< tabs groupId="query-language" >}}
+{{% tab name="GraphQL" %}}
+```graphql
 # schema.graphql
 
 type Store {
@@ -24,6 +26,8 @@ type Store {
     categories: [String]
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Head over to [Fauna Dashboard](https://dashboard.fauna.com/). Create a new database by selecting Create Database.
 
@@ -49,7 +53,9 @@ Once the schema is uploaded, the GraphQL playground will initiate. Navigate to t
 
 Your GraphQL backend is ready. Create a new store by running the following mutation in the playground. 
 
-```gql
+{{< tabs groupId="query-language" >}}
+{{% tab name="GraphQL" %}}
+```graphql
 mutation {
   createStore(data: {
     name: "Bed and Bath 24"
@@ -65,6 +71,9 @@ mutation {
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+
 Navigate to *Collections* and review the `Store` Collection and the store document you created.
 
 {{< figure
@@ -74,7 +83,9 @@ Navigate to *Collections* and review the `Store` Collection and the store docume
 
 Let's go and find a store by its id. Write the following query into your GraphQL playground. Make sure to replace the *<store-id>* placeholder with an _id of a document in store collection.
 
-```gql
+{{< tabs groupId="query-language" >}}
+{{% tab name="GraphQL" %}}
+```graphql
 {
   findStoreByID(id: "<store-id>") {
     _id
@@ -85,8 +96,13 @@ Let's go and find a store by its id. Write the following query into your GraphQL
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
+
 It returns a response simmilar to following.
 
+{{< tabs groupId="output-format" >}}
+{{% tab name="JSON" %}}
 ```json
 {
   "data": {
@@ -106,5 +122,7 @@ It returns a response simmilar to following.
   }
 }
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 That’s about it for this section. In the next [section]({{< ref "/getting-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.

@@ -11,16 +11,24 @@ In this section, you learn how to set up your serverless application with Next.j
 
 To create a new Next.js app, run the following command in your terminal.
 
+{{< tabs groupId="shell" >}}
+{{% tab name="Shell" %}}
 ```sh
 npx create-next-app fauna-shops
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Run your Next.js app with the following command to ensure everything is working after the Next CLI scaffolds a new application.
 
+{{< tabs groupId="shell" >}}
+{{% tab name="Shell" %}}
 ```sh
 cd fauna-shop
 npm run dev
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Navigate to [localhost:3000](http://localhost:3000/) in your browser and review the running application.
 
@@ -32,14 +40,17 @@ Navigate to [localhost:3000](http://localhost:3000/) in your browser and review 
 
 Next, add apollo client and GraphQL dependencies to your application. Run the following command. 
 
+{{< tabs groupId="shell" >}}
+{{% tab name="Shell" %}}
 ```sh
 npm install @apollo/client graphql
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 With all the dependencies in place, it is time to set up your GraphQL client. Create a new file called `apollo-client.js` in the project's root and add the following code to it.
 
 {{< tabs groupId="frontend" >}}
-
 {{% tab name="Next.js" %}}
 ```jsx
 // apollo-client.js
@@ -74,7 +85,6 @@ const client = new ApolloClient({
 export default client;
 ```
 {{% /tab %}}
-
 {{< /tabs >}}
 
 {{% notice note %}}
@@ -123,9 +133,13 @@ In the *new key* form, select your database in the database field. Select `Unaut
 
 Copy this secret key. Create a `.env.local` file in the root of your application and add this secret key as an environment variable.
 
+{{< tabs groupId="shell" >}}
+{{% tab name="Shell" %}}
 ```env
 NEXT_PUBLIC_FAUNA_SECRET=fnxxxxxxxxxxxxx
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Once you update the environment variable, you need to restart your next.js application. 
 Add apollo provider to your `_app.js` file. Make the following changes to your `_app.js` file. This will allow you to execute GraphQL queries and mutations from your components.
@@ -133,7 +147,6 @@ Add apollo provider to your `_app.js` file. Make the following changes to your `
 > 💡  You can add the following css styles to to your `_app.js` to make sure your application has a certain look and feel to it. Feel free to use custom css or a css framework of your choice.
 
 {{< tabs groupId="frontend" >}}
-
 {{% tab name="Next.js" %}}
 ```jsx
 // _app.js
@@ -162,13 +175,11 @@ export default MyApp
 
 ```
 {{% /tab %}}
-
 {{< /tabs >}}
 
 Replace the contents of `pages/index.js` with the following code. Make sure to use a valid `username` and `password`. If you don't have a user registered refere back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) to signup a new user.
 
 {{< tabs groupId="frontend" >}}
-
 {{% tab name="Next.js" %}}
 ```jsx
 import styles from '../styles/Home.module.css'
@@ -221,14 +232,17 @@ export default function Home() {
 
 ```
 {{% /tab %}}
-
 {{< /tabs >}}
 
 Run your application with the following command.
 
+{{< tabs groupId="shell" >}}
+{{% tab name="Shell" %}}
 ```sh
 npm run dev
 ```
+{{% /tab %}}
+{{< /tabs >}}
 
 Navigate to [localhost:3000](http://localhost:3000/) and select login button. Observe the network tab in your browser. 
 

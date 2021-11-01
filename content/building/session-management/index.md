@@ -7,120 +7,406 @@ pre: "<b>c. </b>"
 ---
 
 
-In this section, you will learn how to do user authentication from your client application. 
+In this section, you learn about session management in your client application. There are several ways to manage sessions in single-page web applications. The most common one is to manage sessions through browser cookies. In this section, you learn how to manage sessions with browser cookies.
 
-You can find the completed code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.2-user-auth).
+Install the `js-cookie` dependency in your project by running the following command in your terminal.
 
-### User Signup
-To get started, create a new file called `components/Signup.js` in the root of your application and add the following code. This React component is your signup form.
+{{< tabs groupId="shell" >}}
+{{% tab name="Shell" %}}
+```sh
+npm i js-cookie
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Open the `components/Login.js` file and add the following code changes. You use the js-cookie library to store the login response in the browser cookies section. You can retrieve this cookie and the secret inside it whenever needed and query Fauna.
+
 
 {{< tabs groupId="frontend" >}}
+{{% tab name="Next.js" %}}
+```jsx {hl_lines=["5-6",12,"20-27",32]}
+// components/Login.js
 
+import { useState, useEffect } from 'react'
+import { useMutation, gql } from '@apollo/client'
+import Cookie from 'js-cookie';
+import { useRouter } from 'next/router'
+
+...
+
+export default function Login() {
+  const [loginFunc, { data, loading, error }] = useMutation(LOGIN)
+  const router = useRouter()
+    
+  const [state, setState] = useState({
+    email: '',
+    password: ''
+  })
+
+  useEffect(() => {
+    if(data) {
+    Cookie.set(
+      'fauna-session', 
+      JSON.stringify(data.login),
+      { expires: data.ttl }
+    )
+    router.push('/')
+  }
+    }, [data])
+    
+    const doLogin = e => {
+        e.preventDefault();
+        Cookie.remove('fauna-session')
+        loginFunc({
+            variables: {
+                ...state
+            }
+        }).catch(e => console.log(e))   
+    }
+
+...
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+After you make the changes your `components/Login.js` file should be simmilar to the following code snippet. 
+
+{{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}
 ```jsx
-import { useState } from 'react'
-import { useQuery, gql } from "@apollo/client";
+// components/Login.js
 
-export default function Signup() {
-    const { data, loading, error } = useQuery(QUERY);
+import { useState, useEffect } from 'react'
+import { useMutation, gql } from '@apollo/client'
+import { useRouter } from 'next/router'
+import Cookie from 'js-cookie';
+
+
+const LOGIN = gql`
+  mutation OwnerLogin($email: String!, $password: String! ) {
+    login(email: $email, password: $password) {
+        ttl
+        secret
+    }
+  }
+`;
+
+export default function Login() {
+  const [loginFunc, { data, loading, error }] = useMutation(LOGIN)
+  const router = useRouter()
     
-    const [state, setState] = useState({
-        name: '',
-        email: '',
-        password: '',
-    });
+  const [state, setState] = useState({
+    email: '',
+    password: ''
+  })
 
-    const handleChange = e => {
-        setState({
-            ...state,
-            [e.target.name]: e.target.value
-        })
+  useEffect(() => {
+    if(data) {
+      Cookie.set(
+        'fauna-session', 
+        JSON.stringify(data.login),
+        { expires: data.ttl } // 30 mins from now
+      )
+      router.push('/')
     }
+  }, [data])
+    
+  const doLogin = e => {
+    e.preventDefault();
+    Cookie.remove('fauna-session')
+    loginFunc({
+      variables: {
+          ...state
+      }
+    }).catch(e => console.log(e))   
+  }
 
-    const doSignup = e => {
-        e.preventDefault();
-    }
+  const handleChange = (e) => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  if (loading) return 'Submitting...';
 
     return (
-        <div uk-grid="true">
-            <div>
-                <div className="uk-card uk-card-default uk-card-body">
-                    <h3 className="uk-card-title">Sign up</h3>
-                    <form onSubmit={doSignup}>
-                        <div className="uk-margin">
-                            <input 
-                                className="uk-input" 
-                                type="text"
-                                placeholder="Username" 
-                                name="name" 
-                                onChange={handleChange} 
-                                value={state.name}
-                            />
-                        </div>
-                        <div className="uk-margin">
-                            <input 
-                                className="uk-input" 
-                                type="text" 
-                                placeholder="Email" 
-                                name="email"
-                                onChange={handleChange}
-                                value={state.email}
-                            />
-                        </div>
-                        <div className="uk-margin">
-                            <input 
-                                className="uk-input" 
-                                type="password" 
-                                placeholder="Password" 
-                                name="password"
-                                onChange={handleChange}
-                                value={state.password}
-                            />
-                        </div>
-                        <div className="uk-margin">
-                            <input className="uk-input" type="submit" />
-                        </div>
-                    </form>
-                </div>
-            </div>
+      <div uk-grid="true">
+        <div>
+          <div className="uk-card uk-card-default uk-card-body">
+            <h3 className="uk-card-title">Login</h3>
+            {error ? 
+              <div className="uk-alert-danger" uk-alert style={{ maxWidth: '300px', padding: '10px'}}>
+                Incorrect email and password
+              </div> : null 
+            }
+            <form onSubmit={doLogin}>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="text" 
+                  placeholder="Email" 
+                  name="email"
+                  onChange={handleChange}
+                  value={state.email}
+                />
+              </div>
+              <div className="uk-margin">
+                <input 
+                  className="uk-input" 
+                  type="password" 
+                  placeholder="Password" 
+                  name="password"
+                  onChange={handleChange}
+                  value={state.password}
+                />
+              </div>
+              <div className="uk-margin">
+                <input className="uk-input" type="submit" />
+              </div>
+            </form>
+          </div>
         </div>
+      </div>
     )
 }
 ```
 {{% /tab %}}
-
 {{< /tabs >}}
 
-Next, create a new file called `pages/signup.js`. Creating a file under pages creates a new route in Next.js. Adding the `pages/signup.js` file adds a new `/signup` route to your application. Make the following changes to your `pages/signup.js` file. 
+Create a new component `components/Dashboard`. Authenticated users are presented with a dashboard view. If a user is not authenticated that user is redirected to the login view. Add the following code to your Dashboard component.
 
 {{< tabs groupId="frontend" >}}
-
 {{% tab name="Next.js" %}}
 ```jsx
-// pages/signup.js
+// components/Dashboard.js
 
-import Signup from '../components/Signup'
+import { useEffect } from 'react'
+import { useRouter } from 'next/router'
+import Cookie from 'js-cookie'
+
+export default function Dashboard() {
+  const router = useRouter()
+  const cookies = Cookie.get('fauna-session');
+
+  useEffect(() => {
+    if(!cookies) {
+      router.push('/login')
+    } 
+  }, [cookies])
+
+  return <div>Dashboard</div>
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Replace the contents of your index page with the following code. 
+
+{{< tabs groupId="frontend" >}}
+{{% tab name="Next.js" %}}
+```jsx
+// pages/index.js
+import Dashboard from '../components/Dashboard'
 import styles from '../styles/Home.module.css'
 
-export default function SignUpPage() {
+export default function Home() {
   return (
     <div className={styles.container}>
-      <Signup />
+      <Dashboard />
     </div>
   )
 }
 ```
 {{% /tab %}}
-
 {{< /tabs >}}
 
-{{% notice note %}}
-You are plugging in the `Signup` component to the signup page. You do this because it is a good practice not to have API logic in your page level component.
-{{% /notice %}}
+When a new user signs up you want to clear the session cookies as well. Add the following code changes to your `SignUp` component.
 
-Run the application with npm run dev command and visit [localhost:3000/signup](http://localhost:3000/signup). Ensure that the signup page is loading.  
+{{< tabs groupId="frontend" >}}
+{{% tab name="Next.js" %}}
+```jsx {hl_lines=[5,12]}
+// components/Signup.js
+
+import { useState, useEffect } from 'react'
+import { useMutation, gql } from '@apollo/client'
+import Cookie from 'js-cookie'
+
+
+export default function Signup() {
+  ...
+  const doSignup = e => {
+    e.preventDefault(); 
+    Cookie.remove('fauna-session')
+    signupUserFunc({
+      variables: {
+        ...state,
+      },
+    })
+  }
+  ...
+  return (
+      ...
+  )
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Once you make the changes your final `components/Signup.js` file will look like following.
+
+{{< tabs groupId="frontend" >}}
+{{% tab name="Next.js" %}}
+```jsx
+import { useState, useEffect } from 'react'
+import { useMutation, gql } from '@apollo/client'
+import Cookie from 'js-cookie'
+
+const SIGN_UP = gql`
+  mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
+    signup(email: $email, name: $name, password: $password) {
+      _id
+      name
+      email
+    }
+  }
+`;
+
+const INITAL_STATE = {
+  name: '',
+  email: '',
+  password: '',
+}
+
+export default function Signup() {
+  const [signupUserFunc, { data, loading, error }] = useMutation(SIGN_UP);
+
+  const [state, setState] = useState(INITAL_STATE);
+
+  useEffect(() => {
+    if(data) {
+      alert('Signup Complete')
+      setState(INITAL_STATE);
+      console.log(data);
+    }
+  }, [data])
+
+  const handleChange = e => {
+    setState({
+      ...state,
+      [e.target.name]: e.target.value
+    })
+  }
+
+  const doSignup = e => {
+    e.preventDefault(); 
+    Cookie.remove('fauna-session')
+    signupUserFunc({
+      variables: {
+          ...state,
+      },
+    })
+  }
+
+  if (loading) return 'Submitting...';
+  if (error) return 'Something went wrong...'
+
+  return (
+    <div uk-grid>
+      <div>
+        <div className="uk-card uk-card-default uk-card-body">
+          <h3 className="uk-card-title">Sign up</h3>
+          <form onSubmit={doSignup}>
+            <div className="uk-margin">
+              <input 
+                className="uk-input" 
+                type="text"
+                placeholder="Username" 
+                name="name" 
+                onChange={handleChange} 
+                value={state.name}
+                autoComplete="off"
+              />
+            </div>
+            <div className="uk-margin">
+              <input 
+                className="uk-input" 
+                type="text" 
+                placeholder="Email" 
+                name="email"
+                onChange={handleChange}
+                value={state.email}
+              />
+            </div>
+            <div className="uk-margin">
+              <input 
+                className="uk-input" 
+                type="password" 
+                placeholder="Password" 
+                name="password"
+                onChange={handleChange}
+                value={state.password}
+              />
+            </div>
+              <div className="uk-margin">
+                <input className="uk-input" type="submit" />
+              </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  )
+}
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+You can take advantage of the apollo-client library’s `setContext` function to dynamically update the authorization token for every GraphQL request when cookies update. Make the following changes in your `apollo-client.js` file. 
+
+{{< tabs groupId="frontend" >}}
+{{% tab name="Next.js" %}}
+```jsx
+// apollo-client.js
+
+import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
+import { setContext } from '@apollo/client/link/context';
+import Cookie from 'js-cookie';
+
+const httpLink = createHttpLink({
+    uri: 'https://graphql.fauna.com/graphql',
+});
+
+const authLink = setContext((_, { headers }) => {
+  // get the authentication token from local storage if it exists
+  const cookies = Cookie.get('fauna-session');
+  const token = cookies ? JSON.parse(cookies).secret : process.env.NEXT_PUBLIC_FAUNA_SECRECT
+  // return the headers to the context so httpLink can read them
+  return {
+    headers: {
+      ...headers,
+      authorization: token ? `Bearer ${token}` : ''
+    }
+  };
+});
+
+const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+});
+
+export default client;
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Run your application with `npm run dev` command and sign in with a user you have registered. Observe your browser cookies. Notice that a cookie value named fauna-session is saved. 
 
 {{< figure
-  src="./images/9.png" 
-  alt="Signup page"
+  src="./images/1.png" 
+  alt="session from cookies"
 >}}
+
+In the next section, you learn how to retrieve the user access token from your cookies and make GraphQL queries and mutations using it. 
+
+Get the complete code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.3-sessions).
