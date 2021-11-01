@@ -2,7 +2,7 @@ baseURL: https://graphql.workshops.fauna.com/
 languageCode: en-us
 title: Getting started with Fauna and GraphQL
 
-theme: hugo-theme-learn
+theme: fauna-workshop-theme
 
 params:
   # Change default color scheme with a variant one. Optional: can also be one of "red", "blue", or "green".

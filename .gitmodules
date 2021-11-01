@@ -1,3 +1,6 @@
 [submodule "themes/hugo-theme-learn"]
 	path = themes/hugo-theme-learn
 	url = https://github.com/fauna-labs/hugo-theme-learn.git
+[submodule "themes/fauna-workshop-theme"]
+	path = themes/fauna-workshop-theme
+	url = git@github.com:fauna/fauna-workshop-theme.git
