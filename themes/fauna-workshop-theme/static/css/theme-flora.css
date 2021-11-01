@@ -1,0 +1,269 @@
+:root{
+    /* Flora colors */
+    /* Primary
+     *
+     * The violet is based on our brand colors. We use it sparingly to draw attention to 
+     * interactive elements and those that we want the user to take action on.
+     */
+    --VIOLET-2: #DBD5F7;
+    --VIOLET-5: #604BE9;
+    --VIOLET-8: #2D168A;
+
+    /* Gray
+     * 
+     * These colors are used largely for text, background blocks and large content areas. 
+     * When alternating between tones, be sure to use enough contrast between adjacent colors. 
+     * We use it mainly to denote structure with borders (lighter tones), denote elements that 
+     * are disabled or de-emphasized (middle tones), and on primary text elements (darker tones).
+     */
+    --GRAY-4: #DBDFE1;
+    --GRAY-5: #C3CACD;
+    --GRAY-6: #9FA5A9;
+    --GRAY-7: #797E80;
+    --GRAY-8: #64696C;
+    --GRAY-10: #363A3D;
+
+    /* Semantic
+     *
+     * We use the following colors to convey states, such as health, and to highlight 
+     * successful, warning, and critical messages. Red is used sparingly for destructive or
+     * critical actions, and blue for informational messages. 
+     */
+    --PINE-2: #ABEDBD;
+    --PINE-6: #2A8543;
+    --ROSE-2: #FAD6D4;
+    --ROSE-6: #DE1A26;
+    --MARIGOLD-2: #FADCAF;
+    --MARIGOLD-6: #AD6800;
+    --PERIWINKLE-2: #E1EDFF;
+    --PERIWINKLE-5: #278EF8;
+    --PERIWINKLE-6: #0C74DF;
+
+    /* Background
+     *
+     * We use this color to help set content sections apart from each other within the page.
+     */
+    --DHALIA-1: #F9F9F9;
+    --DHALIA-2: #F5F2F1;
+    --DHALIA-3: #E9E0DD;
+
+    /* Accent
+     * 
+     * We use accent colors primarily for displaying staic content in graphs and marketing materials.
+     */
+    --SAGE-6: #99AEAE;
+    --LILAC-6: #888198;
+
+    /* Hugo theme colors */
+    --MAIN-TEXT-color: var(--GRAY-10); /* Color of text by default */
+    --MAIN-TITLES-TEXT-color: var(--GRAY-10); /* Color of titles h2-h3-h4-h5 */
+    --MAIN-LINK-color: var(--VIOLET-5); /* Color of links */
+    --MAIN-LINK-HOVER-color: var(--VIOLET-8); /* Color of hovered links */
+    --MAIN-ANCHOR-color: var(--VIOLET-5); /* color of anchors on titles */
+
+    --MENU-HEADER-BG-color: var(--DHALIA-1); /* Background color of menu header */
+    --MENU-HEADER-BORDER-color: var(--VIOLET-5); /*Color of menu header border */ 
+    
+    --MENU-SEARCH-BG-color: var(--DHALIA-1); /* Search field background color (by default borders + icons) */
+    --MENU-SEARCH-BG-FOCUS-color: #fff; /* Search field background color when in focus */
+    --MENU-SEARCH-BOX-color: var(--GRAY-7); /* Override search field border color */
+    --MENU-SEARCH-BOX-FOCUS-color: var(--PERIWINKLE-5); /* Override search field border color when it has focus */
+    --MENU-SEARCH-BOX-ICONS-color: var(--GRAY-6); /* Override search field icons color */
+
+    --MENU-SECTIONS-ACTIVE-BG-color: #fff; /* Background color of the active section and its childs */
+    --MENU-SECTIONS-BG-color: var(--DHALIA-1); /* Background color of other sections */
+    --MENU-SECTIONS-EXTERNAL-LINK-color: var(--VIOLET-5); /* Color of links in menu */
+    --MENU-SECTIONS-EXTERNAL-LINK-HOVER-color: var(--VIOLET-8);  /* Color of links in menu, when hovered */
+    --MENU-SECTIONS-LINK-color: var(--GRAY-10); /* Color of links in menu */
+    --MENU-SECTIONS-LINK-HOVER-color: var(--GRAY-8);  /* Color of links in menu, when hovered */
+    --MENU-SECTION-ACTIVE-CATEGORY-color: var(--GRAY-10); /* Color of active category text */
+    --MENU-SECTION-ACTIVE-CATEGORY-BG-color: var(--DHALIA-2); /* Color of background for the active category (only) */
+
+    --MENU-VISITED-color: var(--VIOLET-8); /* Color of 'page visited' icons in menu */
+    --MENU-SECTION-HR-color: var(--GRAY-4); /* Color of <hr> separator in menu */
+}
+
+#chapter h3 {
+    font-family: 'proxima-nova', 'Arial', sans-serif;
+    font-size: 1.375rem;
+    font-weight: 600;
+    line-height: 1.27;
+}
+
+body {
+    color: var(--MAIN-TEXT-color) !important;
+    font-family: 'proxima-nova', 'Arial', sans-serif;
+    font-size: 14px; 
+    font-weight: 400;
+    line-height: 1.4;
+    /* max-width: 644px; */
+}
+
+p {
+    font-family: 'proxima-nova', 'Arial', sans-serif;
+    font-size: 1rem;
+    font-weight: 400;
+    line-height: 1.4;
+}
+
+small {
+    font-family: 'proxima-nova', 'Arial', sans-serif;
+    font-size: 0.75rem;
+    font-weight: 400;
+    line-height: 1.3;
+}
+
+textarea:focus, input[type="email"]:focus, input[type="number"]:focus, input[type="password"]:focus, input[type="search"]:focus, input[type="tel"]:focus, input[type="text"]:focus, input[type="url"]:focus, input[type="color"]:focus, input[type="date"]:focus, input[type="datetime"]:focus, input[type="datetime-local"]:focus, input[type="month"]:focus, input[type="time"]:focus, input[type="week"]:focus, select[multiple=multiple]:focus {
+    border-color: none;
+    box-shadow: none;
+}
+
+h1, h2, h3, h4 {
+    color: var(--MAIN-TITLES-TEXT-color) !important;
+    font-family: 'proxima-nova', 'Arial', sans-serif;
+    font-weight: 600;
+}
+
+h1 {
+    font-size: 2rem;
+    line-height: 1.25;
+    text-transform: none;
+}
+
+h2 {
+    font-size: 1.75rem;
+    line-height: 1.2;
+}
+
+h3 {
+    font-size: 1.375rem;
+    line-height: 1.27;
+}
+
+h4 {
+    font-size: 1.125rem;
+    line-height: 1;
+}
+
+h2, h3, h4, h5 {
+    color: var(--MAIN-TITLES-TEXT-color) !important;
+}
+
+a {
+    color: var(--MAIN-LINK-color);
+}
+
+.anchor {
+    color: var(--MAIN-ANCHOR-color);
+}
+
+a:hover {
+    color: var(--MAIN-LINK-HOVER-color);
+}
+
+code, kbd, pre, samp {
+    font-family: menlo, monospace;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 21px;
+}
+
+.highlightable {
+    /* max-width: 1140px; /* 1140 is the aligned, padded width at full-screen on a recent MacBook Pro. */
+    /* max-width: 1022px; /* 1022 caps the #body-inner content at 832px, the recommended max for Flora. */
+    max-width: 1022px;
+}
+
+#body-inner .tabs-wrapper.ui-theme-badges .tabs-nav li {
+    text-transform: none;
+}
+
+#sidebar ul li.visited > a .read-icon {
+	color: var(--MENU-VISITED-color);
+}
+
+#body a.highlight:after {
+    display: block;
+    content: "";
+    height: 1px;
+    width: 0%;
+    -webkit-transition: width 0.5s ease;
+    -moz-transition: width 0.5s ease;
+    -ms-transition: width 0.5s ease;
+    transition: width 0.5s ease;
+    background-color: var(--MAIN-LINK-HOVER-color);
+}
+#sidebar {
+	background-color: var(--MENU-SECTIONS-BG-color);
+}
+#sidebar #header-wrapper {
+    background: var(--MENU-HEADER-BG-color);
+    color: var(--MENU-SEARCH-BOX-color);
+    border-color: var(--MENU-HEADER-BORDER-color);
+}
+#sidebar .searchbox {
+	border-color: var(--MENU-SEARCH-BOX-color);
+    background: var(--MENU-SEARCH-BG-color);
+}
+#sidebar .searchbox:focus-within {
+	border-color: var(--MENU-SEARCH-BOX-FOCUS-color);
+    background: var(--MENU-SEARCH-BG-FOCUS-color);
+}
+#sidebar ul.topics > li.parent, #sidebar ul.topics > li.active {
+    background: var(--MENU-SECTIONS-ACTIVE-BG-color);
+}
+#sidebar .searchbox * {
+    color: var(--MENU-SEARCH-BOX-ICONS-color);
+}
+
+#sidebar a {
+    color: var(--MENU-SECTIONS-LINK-color);
+}
+
+#sidebar a:hover {
+    color: var(--MENU-SECTIONS-LINK-HOVER-color);
+}
+
+#sidebar ul li.active > a {
+    background: var(--MENU-SECTION-ACTIVE-CATEGORY-BG-color);
+    color: var(--MENU-SECTION-ACTIVE-CATEGORY-color) !important;
+}
+
+#sidebar #shortcuts a {
+    color: var(--MENU-SECTIONS-EXTERNAL-LINK-color);
+}
+
+#sidebar #shurtcuts a:hover {
+    color: var(--MENU-SECTIONS-EXTERNAL-LINK-HOVER-color);
+}
+#sidebar #shortcuts h3 {
+    font-family: 'proxima-nova', 'Arial', sans-serif;
+}
+
+#sidebar hr {
+    border-color: var(--MENU-SECTION-HR-color);
+}
+
+#homelinks {
+    background-color: #fff;
+    color: #fff;
+    padding: 7px 0;
+    border-bottom: 4px solid var(--GRAY-4);
+}
+
+div.notices.info p {
+    border-top: 30px solid var(--MARIGOLD-6);
+    background: var(--MARIGOLD-2);
+}
+div.notices.warning p {
+    border-top: 30px solid var(--ROSE-6);
+    background: var(--ROSE-2);
+}
+div.notices.note p {
+    border-top: 30px solid var(--PERIWINKLE-6);
+    background: var(--PERIWINKLE-2);
+}
+div.notices.tip p {
+    border-top: 30px solid var(--PINE-6);
+    background: var(--PINE-2);
+}
