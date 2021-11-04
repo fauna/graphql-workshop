@@ -13,7 +13,7 @@ Install the `js-cookie` dependency in your project by running the following comm
 
 {{< tabs groupId="shell" >}}
 {{% tab name="Shell" %}}
-```sh
+```console
 npm i js-cookie
 ```
 {{% /tab %}}

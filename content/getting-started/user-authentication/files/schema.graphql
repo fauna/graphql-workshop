@@ -1,0 +1,21 @@
+type Owner {
+  name: String!
+  email: String!
+  stores: [Store]! @relation
+}
+
+type Store {
+  name: String!
+  email: String!
+  paymentMethods: [String]
+  categories: [String]
+  owner: Owner!
+}
+
+type Query {
+  findOwnerByEmail(email: String): [Owner] @relation(name: "OwnerByEmail")
+}
+
+type Mutation {
+  signup(email: String!, password: String!, name: String!): Owner @resolver(name: "UserRegistration")
+}

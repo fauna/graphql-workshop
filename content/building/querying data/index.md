@@ -44,7 +44,7 @@ When an owner logs in to your application you want to show that user their basic
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 query findbyEmail($email: String!) {
   findOwnerByEmail(email: $email) {
     data {

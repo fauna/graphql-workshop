@@ -29,7 +29,7 @@ You first defined the `login` function in your schema, as shown in the following
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 ...
 
 type Mutation {
@@ -48,7 +48,7 @@ Head over to the Fauna > Dashboard > Functions > UserLogin to view the function.
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 // UserLogin
 
 Query(
@@ -84,7 +84,7 @@ First on all, review the `Login` keyword in the previous code snippet. `Login` f
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 Login(
   Ref(Collection('characters'), '<user-referece>'),
   { password: 'abracadabra' },

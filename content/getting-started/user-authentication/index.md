@@ -6,6 +6,12 @@ weight: 40
 pre: "<b>c. </b>"
 ---
 
+{{< attachments
+      title="Files for this section" 
+      pattern=".*(graphql|fql)" 
+      style="fauna"
+/>}}
+
 In the previous section, you learned how to access data using different access patterns in Fauna. You also learned how to create custom resolvers and UDFs to perform computation on your data. In this section, you learn how to do user authentication using the fundamentals of data access and UDFs that you learned previously. 
 
 Notice that the previous GraphQL schema represents a data model of a simple multi-vendor e-commerce application. You have a `one_to_many` relationship between `Owner` and `Store` types. An owner can have multiple stores, and a store belongs to exactly one owner. 
@@ -19,7 +25,7 @@ Navigate to *Function* > *New Function* to create a new UDF.  Name your UDF `Use
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 Query(
   Lambda(
     ["email", "password", "name"],
@@ -47,7 +53,7 @@ Navigate to *Shell* from Fauna dashboard. In the shell, add the following code t
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 Call("UserRegistration", "johndoe@email.com", "pass123456", "Jon Doe" )
 ```
 {{% /tab %}}
@@ -71,7 +77,7 @@ Lets attach this UDF to a GraphQL mutation. Create a new mutation called `signup
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 type Owner {
   name: String!
   email: String!
@@ -101,7 +107,7 @@ Navigate back to GraphQL playground and upload the updated schema. Run the follo
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 mutation {
   signup(email: "shadid@fauna.com", name: "Shadid", password: "Pass12345") {
     _id
@@ -136,7 +142,7 @@ Navigate to *Function > New Function* again to create a new UDF. Name your UDF `
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 Query(
   Lambda(
     ["email", "password"],
@@ -163,7 +169,7 @@ Once the UDF is created you can run it in the Fauna shell. Navigate to Dashboard
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 Call("UserLogin", "johndoe@email.com", "pass123456")
 ```
 {{% /tab %}}
@@ -171,7 +177,7 @@ Call("UserLogin", "johndoe@email.com", "pass123456")
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="FQL" %}}
-```FQL
+```js
 // response 
 {
   secret: "fnEEVx2xB2ACRARTR_-UQAZEgHZB-rfk_CHWpf3Z02Mn08ZS_Qc",
@@ -188,7 +194,7 @@ Create a new mutation called `login` in your GraphQL schema and attach the `User
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 type Owner {
   name: String!
   email: String!
@@ -227,7 +233,7 @@ Upload your updated GraphQL schema. Run the following mutation in the GraphQL pl
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 mutation {
   login(email: "shadid@fauna.com", password: "Pass12345") {
     ttl

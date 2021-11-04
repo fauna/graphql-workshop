@@ -16,7 +16,7 @@ Create a simple GraphQL schema with only one type. Refer to the following exampl
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 # schema.graphql
 
 type Store {
@@ -55,7 +55,7 @@ Your GraphQL backend is ready. Create a new store by running the following mutat
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 mutation {
   createStore(data: {
     name: "Bed and Bath 24"
@@ -85,7 +85,7 @@ Let's go and find a store by its id. Write the following query into your GraphQL
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
-```graphql
+```gql
 {
   findStoreByID(id: "<store-id>") {
     _id

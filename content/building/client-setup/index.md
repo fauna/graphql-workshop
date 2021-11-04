@@ -11,21 +11,34 @@ In this section, you learn how to set up your serverless application with Next.j
 
 To create a new Next.js app, run the following command in your terminal.
 
-{{< tabs groupId="shell" >}}
-{{% tab name="Shell" %}}
-```sh
-npx create-next-app fauna-shops
+{{< tabs groupId="package-manager" >}}
+{{% tab name="NPM" %}}
+```console
+$ npx create-next-app fauna-shops
+```
+{{% /tab %}}
+
+{{% tab name="Yarn" %}}
+```console
+$ yarn create next-app fauna-shops
 ```
 {{% /tab %}}
 {{< /tabs >}}
 
 Run your Next.js app with the following command to ensure everything is working after the Next CLI scaffolds a new application.
 
-{{< tabs groupId="shell" >}}
-{{% tab name="Shell" %}}
-```sh
-cd fauna-shop
-npm run dev
+{{< tabs groupId="package-manager" >}}
+{{% tab name="NPM" %}}
+```console
+$ cd fauna-shop
+$ npm run dev
+```
+{{% /tab %}}
+
+{{% tab name="Yarn" %}}
+```console
+$ cd fauna-shop
+$ yarn run dev
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -40,10 +53,16 @@ Navigate to [localhost:3000](http://localhost:3000/) in your browser and review 
 
 Next, add apollo client and GraphQL dependencies to your application. Run the following command. 
 
-{{< tabs groupId="shell" >}}
-{{% tab name="Shell" %}}
-```sh
-npm install @apollo/client graphql
+{{< tabs groupId="package-manager" >}}
+{{% tab name="NPM" %}}
+```console
+$ npm install @apollo/client graphql
+```
+{{% /tab %}}
+
+{{% tab name="Yarn" %}}
+```console
+$ yarn add @apollo/client graphql
 ```
 {{% /tab %}}
 {{< /tabs >}}
@@ -236,10 +255,16 @@ export default function Home() {
 
 Run your application with the following command.
 
-{{< tabs groupId="shell" >}}
-{{% tab name="Shell" %}}
-```sh
-npm run dev
+{{< tabs groupId="package-manager" >}}
+{{% tab name="NPM" %}}
+```console
+$ npm run dev
+```
+{{% /tab %}}
+
+{{% tab name="Yarn" %}}
+```console
+$ yarn run dev
 ```
 {{% /tab %}}
 {{< /tabs >}}
