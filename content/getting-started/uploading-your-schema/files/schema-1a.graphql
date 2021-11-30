@@ -1,4 +1,4 @@
-# schema.graphql
+# schema-1a.graphql
 
 type Store {
     name: String!

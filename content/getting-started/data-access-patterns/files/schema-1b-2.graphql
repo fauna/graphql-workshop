@@ -1,0 +1,19 @@
+# schema-1b-2.graphql
+
+type Owner {
+    name: String!
+    email: String! @unique
+    stores: [Store]! @relation
+}
+
+type Store {
+    name: String!
+    email: String!
+    paymentMethods: [String]
+    categories: [String]
+    owner: Owner!
+}
+
+type Query {
+    findOwnerByEmail(email: String): [Owner]
+}

@@ -1,6 +1,8 @@
+# schema-1b-1.graphql
+
 type Owner {
     name: String!
-    email: String!
+    email: String! @unique
     stores: [Store]! @relation
 }
 

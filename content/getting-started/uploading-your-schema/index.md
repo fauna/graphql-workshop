@@ -10,7 +10,7 @@ pre: "<b>a. </b>"
 
 Navigate to the [Fauna Dashboard](https://dashboard.fauna.com/) in your browser and create a new database by choosing *Create Database*. Note the options shown in the following screenshot.
 
-1. **Name**: The name of your database, in this case *GraphQL_Workshop*. Database names cannot contain spaces or the `%` character and cannot be `events`, `sets`, `self`, `documents`, or `_` (the underscore character). You can change the name of your database at any time.
+1. **Name**: The name of your database, in this case *GraphQL_Workshop*. Database names cannot contain spaces or the *%* character and cannot be *events*, *sets*, *self*, *documents*, or *_* (the underscore character). You can change the name of your database at any time.
 1. **Region Group**: The [Region Group][region-groups] where you want to create your database. If you are unsure, choose *Classic* as shown in the screenshot. Note that you cannot change the Region Group of a database after creation!
 1. **Use demo data**: Whether to populate your database with demo data. Do not select this option for this workshop.
 1. **Create**: Choose the *Create* button to create your database.
@@ -22,12 +22,12 @@ Navigate to the [Fauna Dashboard](https://dashboard.fauna.com/) in your browser 
 
 ## Uploading a GraphQL schema
 
-Create a GraphQL schema with a single type `Store` as shown in the following example.
+Create a GraphQL schema with a single type *Store* as shown in the following example.
 
-{{< tabs groupId="query-language" >}}
+{{< tabs groupId="schema" >}}
 {{% tab name="GraphQL" %}}
 ```gql
-# schema.graphql
+# schema-1a.graphql
 
 type Store {
     name: String!
@@ -39,7 +39,7 @@ type Store {
 {{% /tab %}}
 {{< /tabs >}}
 
-Save your schema as `schema.graphql` or download a copy using the following link.
+Save your schema as *schema-1a.graphql* or download a copy using the following link.
 
 {{< attachments
       title="Initial GraphQL schema"
@@ -98,6 +98,27 @@ mutation {
 }
 ```
 {{% /tab %}}
+
+{{% tab name="Result" %}}
+```json
+{
+  "data": {
+    "createStore": {
+      "_id": "316700907109614160",
+      "name": "Fauna Labs",
+      "email": "owner@fauna-labs.com",
+      "paymentMethods": [
+        "Fauna bucks",
+        "Credit Card"
+      ],
+      "categories": [
+        "Software and Internet"
+      ]
+    }
+  }
+}
+```
+{{% /tab %}}
 {{< /tabs >}}
 
 Return to the *Collections* tab, choose the *Store* collection, and expand the new store document. Copy the *id* to use in the next step. The *id* is the string enclosed in quotes highlighted in the following screenshot.
@@ -123,17 +144,13 @@ Next, use a generated query to find your new store by its *id*. Return to the *G
 }
 ```
 {{% /tab %}}
-{{< /tabs >}}
 
-You should receive a response similar to the following but with a different *_id*.
-
-{{< tabs groupId="output-format" >}}
-{{% tab name="JSON" %}}
+{{% tab name="Result" %}}
 ```json
 {
   "data": {
     "findStoreByID": {
-      "_id": "316700907109614160",
+      "_id": "<store-id>",
       "name": "Fauna Labs",
       "email": "owner@fauna-labs.com",
       "paymentMethods": [
@@ -154,7 +171,7 @@ You should receive a response similar to the following but with a different *_id
 
 In this section you learned how to create a database and upload a GraphQL schema using Fauna. You explored the mutations, queries, and collections that Fauna automatically generates from a GraphQL schema. Finally, you used the GraphQL playground to invoke a mutation and a query.
 
-In the next [section]({{< ref "/getting-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.
+In [the next section]({{< ref "/getting-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.
 
 ---
 
