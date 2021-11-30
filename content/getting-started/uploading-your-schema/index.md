@@ -6,13 +6,23 @@ weight: 20
 pre: "<b>a. </b>"
 ---
 
-{{< attachments
-      title="Files for this section" 
-      pattern=".*(graphql)" 
-      style="fauna"
-/>}}
+## Creating your database
 
-Create a simple GraphQL schema with only one type. Refer to the following example. Save your schema as `schema.graphql`.
+Navigate to the [Fauna Dashboard](https://dashboard.fauna.com/) in your browser and create a new database by choosing *Create Database*. Note the options shown in the following screenshot.
+
+1. **Name**: The name of your database, in this case *GraphQL_Workshop*. Database names cannot contain spaces or the `%` character and cannot be `events`, `sets`, `self`, `documents`, or `_` (the underscore character). You can change the name of your database at any time.
+1. **Region Group**: The [Region Group][region-groups] where you want to create your database. If you are unsure, choose *Classic* as shown in the screenshot. Note that you cannot change the Region Group of a database after creation!
+1. **Use demo data**: Whether to populate your database with demo data. Do not select this option for this workshop.
+1. **Create**: Choose the *Create* button to create your database.
+
+{{< figure
+  src="images/create-database.png" 
+  alt="Screen capture showing the 'Create Database' options from the Fauna dashboard."
+>}}
+
+## Uploading a GraphQL schema
+
+Create a GraphQL schema with a single type `Store` as shown in the following example.
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
@@ -29,39 +39,55 @@ type Store {
 {{% /tab %}}
 {{< /tabs >}}
 
-Head over to [Fauna Dashboard](https://dashboard.fauna.com/). Create a new database by selecting Create Database.
+Save your schema as `schema.graphql` or download a copy using the following link.
+
+{{< attachments
+      title="Initial GraphQL schema"
+      pattern=".*(graphql)" 
+      style="fauna"
+/>}}
+
+Navigate to the *GraphQL* tab in the Fauna dashboard, choose *Import Schema*, and select the GraphQL schema you created or downloaded.
 
 {{< figure
-  src="images/ch.png" 
-  alt="create new database"
->}}
-
-Select GraphQL from the dashboard menu. Notice that there is an option to import your GraphQL schema. Select Import Schema and upload the GraphQL schema file you created.
-
-{{< figure
-  src="images/import.png" 
+  src="images/import-schema.png" 
   alt="Import Schema"
 >}}
 
-Once the schema is uploaded, the GraphQL playground will initiate. Navigate to the Docs section of GraphQL playground. Notice that Fauna has auto-generated some basic queries and mutations based on your schema.
+## Exploring generated GraphQL resources
 
+The GraphQL playground displays after your schema upload completes. Choose the *Docs* tab in the GraphQL playground and notice that Fauna automatically generates the following queries and mutations based on your schema.
+
+* *findStoreById*
+* *createStore*
+* *updateStore*
+* *deleteStore*
 
 {{< figure
-  src="images/3.png" 
+  src="images/graphql-playground-docs-tab.png"
   alt="GraphQL playground docs tab"
 >}}
 
-Your GraphQL backend is ready. Create a new store by running the following mutation in the playground. 
+Navigate to the *Collections* tab in the Fauna dashboard and notice that Fauna also generates a *Store* collection for you based on the *Store* type you define in your schema. Your *Store* collection should be empty.
+
+{{< figure
+  src="images/user-collection.png"
+  alt="GraphQL playground docs tab"
+>}}
+
+## Calling mutations and queries
+
+Your GraphQL backend is ready to store and retrieve data! Return to the *GraphQL* tab and create a new store by running the following mutation in the playground. 
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
 ```gql
 mutation {
   createStore(data: {
-    name: "Bed and Bath 24"
-    email: "becky@email.com"
-    paymentMethods: ["Paypal", "Credit Card"]
-    categories: ["Bed & Bath"]
+    name: "Fauna Labs"
+    email: "owner@fauna-labs.com"
+    paymentMethods: ["Fauna bucks", "Credit Card"]
+    categories: ["Software and Internet"]
   }) {
     _id
     name
@@ -74,14 +100,14 @@ mutation {
 {{% /tab %}}
 {{< /tabs >}}
 
-Navigate to *Collections* and review the `Store` Collection and the store document you created.
+Return to the *Collections* tab, choose the *Store* collection, and expand the new store document. Copy the *id* to use in the next step. The *id* is the string enclosed in quotes highlighted in the following screenshot.
 
 {{< figure
-  src="images/4.png" 
-  alt="Collection and Documents"
+  src="images/user-collection-with-store.png" 
+  alt="Store collection with a single document"
 >}}
 
-Let's go and find a store by its id. Write the following query into your GraphQL playground. Make sure to replace the *<store-id>* placeholder with an _id of a document in store collection.
+Next, use a generated query to find your new store by its *id*. Return to the *GraphQL* tab and paste the following query into your GraphQL playground, replacing the *<store-id>* placeholder with the *id* you copied previously.
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
@@ -99,7 +125,7 @@ Let's go and find a store by its id. Write the following query into your GraphQL
 {{% /tab %}}
 {{< /tabs >}}
 
-It returns a response simmilar to following.
+You should receive a response similar to the following but with a different *_id*.
 
 {{< tabs groupId="output-format" >}}
 {{% tab name="JSON" %}}
@@ -107,16 +133,15 @@ It returns a response simmilar to following.
 {
   "data": {
     "findStoreByID": {
-      "_id": "311680702751965764",
-      "name": "Forever 23",
-      "email": "forever23@email.com",
+      "_id": "316700907109614160",
+      "name": "Fauna Labs",
+      "email": "owner@fauna-labs.com",
       "paymentMethods": [
-        "Paypal",
+        "Fauna bucks",
         "Credit Card"
       ],
       "categories": [
-        "Clothes",
-        "Accessories"
+        "Software and Internet"
       ]
     }
   }
@@ -125,4 +150,12 @@ It returns a response simmilar to following.
 {{% /tab %}}
 {{< /tabs >}}
 
-That’s about it for this section. In the next [section]({{< ref "/getting-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.
+## Review
+
+In this section you learned how to create a database and upload a GraphQL schema using Fauna. You explored the mutations, queries, and collections that Fauna automatically generates from a GraphQL schema. Finally, you used the GraphQL playground to invoke a mutation and a query.
+
+In the next [section]({{< ref "/getting-started/data-access-patterns" >}}), you learn about various data access patterns and how to create custom resolvers in Fauna.
+
+---
+
+[region-groups]: https://docs.fauna.com/fauna/current/learn/understanding/region_groups
