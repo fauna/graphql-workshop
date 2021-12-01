@@ -691,7 +691,7 @@ hr {
     background: #4d5257;
 }
 #body-inner pre {
-    white-space: pre-wrap;
+    white-space: no-wrap;
 }
 .tabs-wrapper pre {
     margin: 1rem 0;

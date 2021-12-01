@@ -1,0 +1,28 @@
+// Copyright Fauna, Inc.
+// SPDX-License-Identifier: MIT-0
+
+// The first two lines are required for all user-defined functions.
+//
+// "Query" lets Fauna know that you are defining a query, *not* invoking it!
+// See fauna.link/fql-query
+//
+// "Lambda" defines an anonymous function.
+// See fauna.link/fql-lambda
+//
+// "Lambda" accepts two arguments.
+// 1. A single variable or array of variables. In this case, your UDF does not 
+//    accept any variables, so you define an empty array.
+// 2. The body of the function, written as a valid FQL expression.
+//
+// This example is a single FQL expression which counts the number of documents
+// in the "Store" collection. 
+//
+// Note: Count runs in O(n) time, so this is not appropriate to call regularly
+// in your production workloads!
+// See fauna.link/fql-count
+Query(
+  Lambda(
+    [],
+    Count(Documents(Collection("Store")))
+  )
+)

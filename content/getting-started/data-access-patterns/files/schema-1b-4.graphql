@@ -1,3 +1,6 @@
+# Copyright Fauna, Inc.
+# SPDX-License-Identifier: MIT-0
+#
 # schema-1b-4.graphql
 
 type Owner {
@@ -16,5 +19,5 @@ type Store {
 
 type Query {
     findOwnerByEmail(email: String): Owner @index(name: "getByEmail")
-    getAllOwners: [Owner]
+    listOwners: [Owner]
 }

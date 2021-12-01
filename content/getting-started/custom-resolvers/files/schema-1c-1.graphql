@@ -1,4 +1,7 @@
-# schema-1b-2.graphql
+# Copyright Fauna, Inc.
+# SPDX-License-Identifier: MIT-0
+#
+# schema-1c-1.graphql
 
 type Owner {
     name: String!
@@ -16,5 +19,6 @@ type Store {
 
 type Query {
     findOwnerByEmail(email: String): Owner @index(name: "getByEmail")
-    getAllOwners: [Owner]
+    listOwners: [Owner] 
+    countStores: Int @resolver(name: "GetStoreCount")
 }

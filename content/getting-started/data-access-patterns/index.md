@@ -333,7 +333,7 @@ query {
 
 ### Get all owners
 
-Fauna automatically generates queries based on their parameters and return values. To generate a query that returns all owners, add the highlighted line to your schema or download the linked file.
+Fauna automatically generates queries based on their parameters and return values. To generate a query that returns all owners, add the highlighted line to your schema or download the linked schema.
 
 {{< tabs groupId="schema" >}}
 {{< tab name="GraphQL" >}}
@@ -341,25 +341,27 @@ Fauna automatically generates queries based on their parameters and return value
 type Query {
   findOwnerByEmail(email: String): [Owner] @index(name: "getByEmail")
   # Add the following line
-  getAllOwners: [Owner]
+  listOwners: [Owner]
 }
 {{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
-      title="Owner by email with named index"
+      title="List all owners"
       pattern="schema-1b-4.graphql" 
       style="fauna"
 />}}
 
-Replace your existing GraphQL schema with the new schema and run the following query to get a list of all owners.
+Replace your existing GraphQL schema with the new schema and review the *Docs* section of your GraphQL playground. Notice that Fauna creates the *listOwners* query automatically.
+
+Run the following query to get a list of all owners.
 
 {{< tabs groupId="query-language" >}}
 {{% tab name="GraphQL" %}}
 ```gql
 query {
-  getAllOwners {
+  listOwners {
     data {
       _id
       name
@@ -374,7 +376,7 @@ query {
 ```json
 {
   "data": {
-    "getAllOwners": {
+    "listOwners": {
       "data": [
         {
           "_id": "316716761533645391",
@@ -389,7 +391,7 @@ query {
 {{% /tab %}}
 {{< /tabs >}}
 
-As written here, this query only returns the first 64 owners it finds. This is because the generated query uses the [Paginate][fql-paginate] function, which defaults to a page size of 64. You learn how to use pagination and change page sizes in the next section.
+As written here, this query only returns the first 64 owners it finds. This is because the generated query uses the [Paginate][fql-paginate] function, which defaults to a page size of 64. <!-- You learn how to use pagination and change page sizes later in this workshop. -->
 
 ## Review
 
@@ -398,5 +400,5 @@ In this section you learned how to implement common data access patterns in Faun
 In [the next section]({{< ref "/getting-started/custom-resolvers" >}}), you learn how resolvers work and how to create custom resolvers and user-defined functions (UDFs) in Fauna.
 
 ---
-[fql-paginate]: https://docs.fauna.com/fauna/current/api/fql/functions/paginate?lang=shell
-[indexes]: https://docs.fauna.com/fauna/current/api/fql/indexes?lang=shell
+[fql-paginate]: https://docs.fauna.com/fauna/current/api/fql/functions/paginate
+[indexes]: https://docs.fauna.com/fauna/current/api/fql/indexes
