@@ -1,0 +1,28 @@
+# Copyright Fauna, Inc.
+# SPDX-License-Identifier: MIT-0
+#
+# schema-1d-1.graphql
+
+type Owner {
+    name: String!
+    email: String! @unique
+    stores: [Store]! @relation
+}
+
+type Store {
+    name: String!
+    email: String!
+    paymentMethods: [String]
+    categories: [String]
+    owner: Owner!
+}
+
+type Query {
+    findOwnerByEmail(email: String): Owner @index(name: "getByEmail")
+    listOwners: [Owner] 
+    countStores: Int @resolver(name: "GetStoreCount")
+}
+
+type Mutation {
+    registerOwner(email: String!, password: String!, name: String!): Owner @resolver(name: "RegisterUser")
+}

@@ -1,3 +1,6 @@
+// Copyright Fauna, Inc.
+// SPDX-License-Identifier: MIT-0
+
 Query(
   Lambda(
     ["email", "password", "name"],
@@ -5,8 +8,7 @@ Query(
       credentials: { password: Var("password") },
       data: { 
         email: Var("email"), 
-        name: Var("name"),
-        stores: []
+        name: Var("name")
       }
     })
   )

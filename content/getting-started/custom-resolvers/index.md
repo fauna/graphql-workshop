@@ -51,7 +51,7 @@ Navigate to the *Functions* tab in the Fauna dashboard and choose *New Function*
   alt="Creating a user-defined function."
 >}}
 
-1. Name your UDF *GetStoreCount*.
+1. Name your UDF `GetStoreCount`.
 1. Leave the role as *None* for now. This causes the UDF to run with the same permissions as the identity that invokes it. You learn more about roles in the [User authentication]({{< ref "/getting-started/user-authentication" >}}) section. 
 1. Copy and paste the following code in the *Function Body* section then choose *Save* to create your function.
 
@@ -110,7 +110,7 @@ type Query {
 
 {{< attachments
       title="Count stores with custom resolver"
-      pattern="schema-1c-1.graphql"
+      pattern="schema-1c.graphql"
       style="fauna"
 />}}
 
@@ -150,6 +150,7 @@ In this section, you learned how GraphQL resolvers work and created a custom res
 In [the next section]({{< ref "/getting-started/user-authentication" >}}), you learn how to authenticate users and control access to resources using GraphQL and Fauna.
 
 ---
+[fql]: https://docs.fauna.com/fauna/current/api/fql/
 [fql-count]: https://fauna.link/fql-count
 [fql-lambda]: https://fauna.link/fql-lambda
 [fql-query]: https://fauna.link/fql-query

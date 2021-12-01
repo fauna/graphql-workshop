@@ -34,7 +34,7 @@ erDiagram
     }
 {{< /mermaid >}}
 
-The application database contains collections for both owners and stores. Each owner can manage multiple stores and every store belongs to exactly one owner. This is a classic example of a one-to-many relationship.
+The application database contains collections for both owners and stores. Each owner can manage multiple stores and every store belongs to exactly one owner. This is a classic example of a [one-to-many relationship][one-to-many].
 
 You can implement this database using the following GraphQL schema.
 
@@ -400,3 +400,4 @@ In [the next section]({{< ref "/getting-started/custom-resolvers" >}}), you lear
 ---
 [fql-paginate]: https://docs.fauna.com/fauna/current/api/fql/functions/paginate
 [indexes]: https://docs.fauna.com/fauna/current/api/fql/indexes
+[one-to-many]: https://docs.fauna.com/fauna/v4/api/graphql/relations#one2many

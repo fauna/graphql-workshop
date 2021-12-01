@@ -10,7 +10,7 @@ pre: "<b>a. </b>"
 
 Navigate to the [Fauna Dashboard](https://dashboard.fauna.com/) in your browser and create a new database by choosing *Create Database*. Note the options shown in the following screenshot.
 
-1. **Name**: The name of your database, in this case *GraphQL_Workshop*. Database names cannot contain spaces or the *%* character and cannot be *events*, *sets*, *self*, *documents*, or *_* (the underscore character). You can change the name of your database at any time.
+1. **Name**: The name of your database, in this case `GraphQL_Workshop`. Database names cannot contain spaces or the *%* character and cannot be *events*, *sets*, *self*, *documents*, or *_* (the underscore character). You can change the name of your database at any time.
 1. **Region Group**: The [Region Group][region-groups] where you want to create your database. If you are unsure, choose *Classic* as shown in the screenshot. Note that you cannot change the Region Group of a database after creation!
 1. **Use demo data**: Whether to populate your database with demo data. Do not select this option for this workshop.
 1. **Create**: Choose the *Create* button to create your database.
