@@ -55,17 +55,17 @@ Navigate to the *Functions* tab in the Fauna dashboard and choose *New Function*
 1. Leave the role as *None* for now. This causes the UDF to run with the same permissions as the identity that invokes it. You learn more about roles in the [User authentication]({{< ref "/getting-started/user-authentication" >}}) section. 
 1. Copy and paste the following code in the *Function Body* section then choose *Save* to create your function.
 
-{{< tabs groupId="udfs" >}}
-{{% tab name="FQL" %}}
-```js
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Query(
   Lambda(
     [],
     Count(Documents(Collection("Store")))
   )
 )
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
@@ -73,6 +73,10 @@ Query(
       pattern="CountStores.fql"
       style="fauna"
 />}}
+
+{{% notice note %}}
+UDFs are written in the Fauna Query Language (FQL) - the functional programming language at the heart of Fauna. FQL supports function composition, so you can compose complex expressions from simpler components.
+{{% /notice %}}
 
 ### Anatomy of a UDF
 
@@ -93,7 +97,7 @@ Update your schema to add a *countStores* query using the *@resolver* directive 
 
 {{< tabs groupId="schema" >}}
 {{< tab name="GraphQL" >}}
-{{< highlight gql "hl_lines=5" >}}
+{{< highlight graphql "hl_lines=5" >}}
 type Query {
   findOwnerByEmail(email: String): [Owner] @relation(name: "OwnerByEmail")
   listOwners: [Owner]
@@ -120,24 +124,23 @@ Replace your schema and review the *Docs* section of your GraphQL playground. No
 Run the following query to count how many stores have been created in your application.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql  >}}
 query {
   countStores
 }
+{{< /highlight >}}
+{{< /tab >}}
 
-```
-{{% /tab %}}
-
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "countStores": 1
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 ## Review

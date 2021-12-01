@@ -25,18 +25,16 @@ Navigate to the [Fauna Dashboard](https://dashboard.fauna.com/) in your browser 
 Create a GraphQL schema with a single type *Store* as shown in the following example.
 
 {{< tabs groupId="schema" >}}
-{{% tab name="GraphQL" %}}
-```gql
-# schema-1a.graphql
-
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 type Store {
     name: String!
     email: String!
     paymentMethods: [String]
     categories: [String]
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Save your schema as *schema-1a.graphql* or download a copy using the following link.
@@ -80,8 +78,8 @@ Navigate to the *Collections* tab in the Fauna dashboard and notice that Fauna a
 Your GraphQL backend is ready to store and retrieve data! Return to the *GraphQL* tab and create a new store by running the following mutation in the playground. 
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 mutation {
   createStore(data: {
     name: "Fauna Labs"
@@ -96,11 +94,11 @@ mutation {
     categories
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "createStore": {
@@ -117,8 +115,8 @@ mutation {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Return to the *Collections* tab, choose the *Store* collection, and expand the new store document. Copy the *id* to use in the next step. The *id* is the string enclosed in quotes highlighted in the following screenshot.
@@ -131,9 +129,9 @@ Return to the *Collections* tab, choose the *Store* collection, and expand the n
 Next, use a generated query to find your new store by its *id*. Return to the *GraphQL* tab and paste the following query into your GraphQL playground, replacing the *<store-id>* placeholder with the *id* you copied previously.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
-{
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
+query {
   findStoreByID(id: "<store-id>") {
     _id
     name
@@ -142,11 +140,11 @@ Next, use a generated query to find your new store by its *id*. Return to the *G
     categories
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "findStoreByID": {
@@ -163,8 +161,8 @@ Next, use a generated query to find your new store by its *id*. Return to the *G
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 ## Review

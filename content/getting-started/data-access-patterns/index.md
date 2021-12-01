@@ -39,10 +39,8 @@ The application database contains collections for both owners and stores. Each o
 You can implement this database using the following GraphQL schema.
 
 {{< tabs groupId="schema" >}}
-{{% tab name="GraphQL" %}}
-```gql
-# schema-1b-1.graphql
-
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 type Owner {
     name: String!
     email: String! @unique
@@ -56,8 +54,8 @@ type Store {
     categories: [String]
     owner: Owner!
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 You can copy and paste this schema or download a copy using the following link.
@@ -106,8 +104,8 @@ The *owner_stores_by_owner* index defines the one-to-many relationship between *
 Run the following mutation in the GraphQL playground to create a new *Owner*.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 mutation {
   createOwner(data: {
     name: "Fauna Owner"
@@ -118,11 +116,11 @@ mutation {
     name
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "createOwner": {
@@ -132,8 +130,8 @@ mutation {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Copy the value of *_id* to use when creating a *Store* in the next step.
@@ -150,8 +148,8 @@ You can use the plus tab in the GraphQL playground to open multiple tabs. This a
 Create a new store by running the following mutation. In the owner field reference the owner you create in the previous mutation by replacing *<owner-id>* with the value of *_id* that your mutation returns.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 mutation {
   createStore(data: {
     name: "Fauna Swag Shop"
@@ -166,11 +164,11 @@ mutation {
     name
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "createStore": {
@@ -179,8 +177,8 @@ mutation {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Notice the [connect](https://docs.fauna.com/fauna/v4/api/graphql/relations#connect) keyword in the previous mutation. The *connect* keyword creates a relationship between a new entity and an existing entity, in this case, a new *Store* and an existing *Owner*. 
@@ -194,8 +192,8 @@ Fauna combines the simplicity of a document database with the ability to model c
 The following query finds an owner and all the stores associated with the owner. Fauna automatically generates the *findOwnerByID* query when you upload your GraphQL schema.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 query {
   findOwnerByID(id: "<owner-id>") {
     _id
@@ -210,11 +208,11 @@ query {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "findOwnerByID": {
@@ -236,8 +234,8 @@ query {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 ## Finding an owner by email
@@ -250,14 +248,14 @@ The easiest way is to query documents by an attribute is to define a query in yo
 
 For example, to query *Owner* by the *email* attribute, add the following query to your GraphQL schema or download the linked schema.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tabs groupId="schema" >}}
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 type Query {
   findOwnerByEmail(email: String): Owner
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
@@ -282,13 +280,13 @@ The previous method is a shorthand for this method that uses the query name as t
 To query *Owner* by the *email* attribute using a named index and the *@index* directive, update the definition of the *findOwnerByEmail* query in your schema with the following code or download the linked schema.
 
 {{< tabs groupId="schema" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 type Query {
   findOwnerByEmail(email: String): [Owner] @index(name: "getByEmail")
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
@@ -304,8 +302,8 @@ Be sure to use the same email address that you used when creating an owner previ
 {{% /notice %}}
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 query {
   findOwnerByEmail(email: "owner@fauna-labs.com") {
     _id
@@ -313,11 +311,11 @@ query {
     email
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "findOwnerByEmail": {
@@ -327,8 +325,8 @@ query {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 ### Get all owners
@@ -358,8 +356,8 @@ Replace your existing GraphQL schema with the new schema and review the *Docs* s
 Run the following query to get a list of all owners.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 query {
   listOwners {
     data {
@@ -369,11 +367,11 @@ query {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{% tab name="Result" %}}
-```json
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "listOwners": {
@@ -387,8 +385,8 @@ query {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 As written here, this query only returns the first 64 owners it finds. This is because the generated query uses the [Paginate][fql-paginate] function, which defaults to a page size of 64. <!-- You learn how to use pagination and change page sizes later in this workshop. -->

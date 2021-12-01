@@ -12,20 +12,17 @@ pre: "<b>d. </b>"
       style="fauna"
 />}}
 
-In the previous section, you learned how to access data using different access patterns in Fauna. You also learned how to create custom resolvers and UDFs to perform computation on your data. In this section, you learn how to do user authentication using the fundamentals of data access and UDFs that you learned previously. 
+In the previous section, you learned how GraphQL resolvers work and created a custom resolver using a UDF in Fauna. In this section, you apply your knowledge of UDFs to authenticate users and manage access to documents.
 
-Notice that the previous GraphQL schema represents a data model of a simple multi-vendor e-commerce application. You have a `one_to_many` relationship between `Owner` and `Store` types. An owner can have multiple stores, and a store belongs to exactly one owner. 
+Remember that in your application an owner can have multiple stores but a store belongs to exactly one owner. Store owners need to register, log in, and manage their stores. User-defined functions (UDFs) are the key to implementing this functionality. 
 
-In your application, store owners can register, log in, and manage their stores. User-defined functions (UDFs) are the key to implementing this functionality. 
+## Registering new users
 
-### User Registration
+Navigate to the *Functions* section of the Fauna dashboard and choose *New Function* to create a new UDF.  Name your UDF *RegisterNewUser* and leave the *Role* set to *None*. Add the following code to the function body and choose *Save* to create the UDF.
 
-
-Navigate to *Function* > *New Function* to create a new UDF.  Name your UDF `UserRegistration`. In the function body, add the following code. Select *Save* to create the UDF.
-
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-```js
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Query(
   Lambda(
     ["email", "password", "name"],
@@ -39,24 +36,24 @@ Query(
     })
   )
 )
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
-
-{{% notice note %}}
-*💡 The UDF is writen in a functional language called FQL (Fauna Query Language). Function compositions in FQL are similar to JavaScript.  Like JavaScript functions are first class citizens in FQL, meaning you can pass functions as arguments and compose functions together. You learn more about FQL in the later section where you get to disect this function.*
-{{% /notice %}}
 
 Running this UDF registers a new owner (creates a new record in the Owner collection). Fauna shell gives you the ability to test your UDFs. Let's go ahead and try this UDF.
 
 Navigate to *Shell* from Fauna dashboard. In the shell, add the following code to call the UDF. Notice the `Call` function in the following code snippet. The first argument in the `Call` function is the name of the UDF you are trying to execute. You add the arguments for your UDF in sequential order. In this case, you specify the user email, password, and username in that order. Execute the UDF by selecting *Run Query*.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-```js
-Call("UserRegistration", "johndoe@email.com", "pass123456", "Jon Doe" )
-```
-{{% /tab %}}
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
+Call(
+  "UserRegistration",
+  // ["email", "password", "name"]
+  ["johndoe@email.com", "pass123456", "Jon Doe"]
+)
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< figure
@@ -75,9 +72,9 @@ Lets attach this UDF to a GraphQL mutation. Create a new mutation called `signup
 
 > Follow this link to learn more about [graphql directives in Fauna](https://docs.fauna.com/fauna/v4/api/graphql/directives/)
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tabs groupId="schema" >}}
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 type Owner {
   name: String!
   email: String!
@@ -99,15 +96,15 @@ type Query {
 type Mutation {
   signup(email: String!, password: String!, name: String!): Owner @resolver(name: "UserRegistration")
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Navigate back to GraphQL playground and upload the updated schema. Run the following mutation to register a new user.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 mutation {
   signup(email: "shadid@fauna.com", name: "Shadid", password: "Pass12345") {
     _id
@@ -115,14 +112,11 @@ mutation {
     email
   }
 }
-```
-{{% /tab %}}
-{{< /tabs >}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{< tabs groupId="output-format" >}}
-{{% tab name="JSON" %}}
-```json
-// response
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "signup": {
@@ -132,17 +126,17 @@ mutation {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 ### User Login
 
 Navigate to *Function > New Function* again to create a new UDF. Name your UDF `UserLogin`. In the function body, add the following code. Select Save to create the UDF.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-```js
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Query(
   Lambda(
     ["email", "password"],
@@ -161,40 +155,37 @@ Query(
     )
   )
 )
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Once the UDF is created you can run it in the Fauna shell. Navigate to Dashboard > Shell and run the UDF with the following command.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-```js
+{{< tabs groupId="fauna-shell" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Call("UserLogin", "johndoe@email.com", "pass123456")
-```
-{{% /tab %}}
-{{< /tabs >}}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-```js
-// response 
+{{< tab name="Result" >}}
+{{< highlight js >}}
 {
   secret: "fnEEVx2xB2ACRARTR_-UQAZEgHZB-rfk_CHWpf3Z02Mn08ZS_Qc",
   ttl: Time("2021-10-18T02:19:35.312990Z"),
   email: "johndoe@email.com"
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Running this UDF authenticates your user (owner). The UDF returns a user access token. In the next section, you will learn how to use this access token to interact with specific resources in Fauna.
 
 Create a new mutation called `login` in your GraphQL schema and attach the `UserLogin` UDF as the resolver. The UDF returns an object. You create an embedded object and assign it as a return type for your `login` mutation. Refer to the following code and make the changes to your schema.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tabs groupId="schema" >}}
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 type Owner {
   name: String!
   email: String!
@@ -209,7 +200,7 @@ type Store {
   owner: Owner!
 }
 
-# Embeded type for returned token response
+# Embedded type for returned token response
 type Token @embedded {
   ttl: Time!
   secret: String!
@@ -225,29 +216,26 @@ type Mutation {
   signup(email: String!, password: String!, name: String!): Owner @resolver(name: "UserRegistration")
   login(email: String!, password: String!): Token @resolver(name: "UserLogin")
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Upload your updated GraphQL schema. Run the following mutation in the GraphQL playground to verify that the login functionality is working.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql >}}
 mutation {
   login(email: "shadid@fauna.com", password: "Pass12345") {
     ttl
     secret
   }
-} 
-```
-{{% /tab %}}
-{{< /tabs >}}
+}
+{{< /highlight >}}
+{{< /tab >}}
 
-{{< tabs groupId="output-format" >}}
-{{% tab name="JSON" %}}
-```JSON
-// success response
+{{< tab name="Result" >}}
+{{< highlight json >}}
 {
   "data": {
     "login": {
@@ -255,8 +243,8 @@ mutation {
       "secret": "<identity_token>"
     }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 That’s it you have implemented a simple authentication with Fauna. When an owner of a store logs in to your client application, that person gets this temporary access token. This temporary token has limited privileges and can only query specific resources. 
