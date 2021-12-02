@@ -1,5 +1,5 @@
 ---
-title: "Introduction"
+title: "Chapter introduction"
 date: 2021-10-13T13:35:32-04:00
 draft: false
 weight: 10
@@ -18,6 +18,10 @@ weight: 10
 * A modern web browser and internet connection.
 
 Fauna is a flexible, developer-friendly, transactional serverless database delivered as a secure and scalable cloud API with native GraphQL. When you use Fauna you don't have to worry about database provisioning, scaling, sharding, replication, or correctness.  If you know GraphQL you will feel right at home with Fauna.
+
+{{% notice note %}}
+We suggest completing this chapter of the workshop even if you have already built applications with GraphQL and Fauna. This chapter provides both a foundation for the second chapter and some suggested practices that we believe help users build more effectively with Fauna.
+{{% /notice %}}
 
 ---
 

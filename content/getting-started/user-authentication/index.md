@@ -264,7 +264,7 @@ In this section, you learned how to use custom resolvers to authenticate users a
 
 Congratulations! You have completed the first chapter of this workshop, *Getting started with Fauna*.
 
-In the next chapter, [*Building with Fauna*]({{< ref "/building" >}}), you apply what you have learned so far to build a web application with Fauna, GraphQL, and [Next.js][next.js].
+In the next chapter, [*Building with Fauna*]({{< ref "/building" >}}), you apply what you have learned so far to build a fullstack serverless web app with Fauna, GraphQL, and [Next.js][next.js].
 
 ---
 [credentials]: https://docs.fauna.com/fauna/current/security/credentials
