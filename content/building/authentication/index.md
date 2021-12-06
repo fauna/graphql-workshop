@@ -11,12 +11,25 @@ In this section, you will learn how to do user authentication from your client a
 
 You can find the completed code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.2-user-auth).
 
-### User Signup
-To get started, create a new file called `components/Signup.js` in the root of your application and add the following code. This React component is your signup form.
+## Installing dependencies
+
+Run the following command to add [UIKit][uikit] to your application to provide some basic styling.
+
+{{< tabs groupID="framework" >}}
+{{< tab name="Next.js" >}}
+{{< highlight console >}}
+$ npm install uikit
+{{< /highlight >}}
+{{< /tab >}}
+{{< /tabs >}}
+
+## User Signup
+
+First, create a new folder named `components` in the root of your application. In the *components* folder, create a new file named `Signup.js`  and add the following code. This creates a React component containing a signup form.
 
 {{< tabs groupId="frontend" >}}
-{{% tab name="Next.js" %}}
-```jsx
+{{< tab name="Next.js" >}}
+{{< highlight jsx >}}
 import { useState, useEffect } from 'react'
 
 const INITAL_STATE = {
@@ -28,14 +41,6 @@ const INITAL_STATE = {
 export default function Signup() {
 
   const [state, setState] = useState(INITAL_STATE);
-
-  useEffect(() => {
-    if(data) {
-      alert('Signup Complete')
-      setState(INITAL_STATE);
-      console.log(data);
-    }
-  }, [data])
 
   const handleChange = e => {
     setState({
@@ -49,7 +54,7 @@ export default function Signup() {
   }
 
   return (
-    <div uk-grid>
+    <div uk-grid="true">
       <div>
         <div className="uk-card uk-card-default uk-card-body">
           <h3 className="uk-card-title">Sign up</h3>
@@ -94,17 +99,22 @@ export default function Signup() {
     </div>
   )
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
-Next, create a new file called `pages/signup.js`. Creating a file under pages creates a new route in Next.js. Adding the `pages/signup.js` file adds a new `/signup` route to your application. Make the following changes to your `pages/signup.js` file. 
+{{< attachments
+      title="components/Signup.js"
+      pattern="Signup.js" 
+      style="fauna"
+/>}}
+
+
+Next, create a new */signup* route in your application by creating a new file called `signup.js` in the *pages* directory. Add the following code to your *pages/signup.js* file. 
 
 {{< tabs groupId="frontend" >}}
-{{% tab name="Next.js" %}}
-```jsx
-// pages/signup.js
-
+{{< tab name="Next.js" >}}
+{{< highlight jsx >}}
 import Signup from '../components/Signup'
 import styles from '../styles/Home.module.css'
 
@@ -115,8 +125,8 @@ export default function SignUpPage() {
     </div>
   )
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 > Notice, we are plugging in the `Signup` component to signup page. We do this because it is a good practice not to have API logic in your page level component.
@@ -132,7 +142,7 @@ Run the application with npm run dev command and visit [localhost:3000/signup](h
 In the previous section, you created a signup mutation in GraphQL. On the signup page on form submit, you call this `signup` mutation using the apollo-client library. Make the following changes to your Signup component.
 
 
-First, import the `useMutation` and `gql` funciton from apollo-client library. Define the `signup` mutation as a JavaScript query string constant.
+First, import the `useMutation` and `gql` functions from apollo-client library. Define the `signup` mutation as a JavaScript query string constant.
 
 {{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}
@@ -444,3 +454,5 @@ If you are getting a secret back from your GraphQL request, that means everythin
 
 You can find the completed code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.2-user-auth).
 
+---
+[uikit]: https://getuikit.com/
