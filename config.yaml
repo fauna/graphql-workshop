@@ -1,6 +1,6 @@
 baseURL: https://graphql.workshops.fauna.com/
 languageCode: en-us
-title: Getting started with Fauna and GraphQL
+title: Fauna for GraphQL developers
 
 theme: fauna-workshop-theme
 

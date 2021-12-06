@@ -6,6 +6,8 @@ weight: 20
 pre: "<b>a. </b>"
 ---
 
+In this section you learn how to create a database and GraphQL service in Fauna. You learn about the resources that Fauna automatically generates from your GraphQL schema. Finally, you use the GraphQL playground to invoke a mutation and a query.
+
 ## Creating your database
 
 Navigate to the [Fauna Dashboard](https://dashboard.fauna.com/) in your browser and create a new database by choosing *Create Database*. Note the options shown in the following screenshot.
