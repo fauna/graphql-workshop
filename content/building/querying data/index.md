@@ -24,7 +24,7 @@ Navigate to Fauna [dashboard](https://dashboard.fauna.com/accounts/login). Selec
   alt="specify privileges"
 >}}
 
-> The `findOwnerByEmail` will let you query a user by email using the generated access token. The `owner_stores_by_owner` will let you query the stores that belong to a particular user.
+> The *findOwnerByEmail* query lets you query a user by email using the generated access token. The *owner_stores_by_owner* lets you query the stores that belong to a particular user.
 
 Membership in Fauna specific identities that should have the specified privileges. In this scenario all the records in the Owner collection are members.
 
@@ -223,8 +223,8 @@ Wrap your `pages/index.js` page component with the new layout you created. Make 
 {{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}
 ```jsx
-import Dashboard from '../componets/Dashboard'
-import Layout from '../componets/Layout'
+import Dashboard from '../components/Dashboard'
+import Layout from '../components/Layout'
 import styles from '../styles/Home.module.css'
 
 export default function Home() {
@@ -248,4 +248,4 @@ Navigate to your browser and notice that the new layout is now applied.
   alt="adding indexes"
 >}}
 
-That’s all for this section. In the next section, you will implement Create Delete and Update stores. You will also do a deep dive into custom resolvers and Fauna Query Language (FQL).
+That’s all for this section. In the next section, you implement *Create* *Delete* and *Update* stores. You also do a deep dive into custom resolvers and Fauna Query Language (FQL).

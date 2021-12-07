@@ -136,7 +136,7 @@ export default function SignUpPage() {
 />}}
 
 {{% notice note %}}
-Notice, we are plugging in the *Signup* component to signup page. We do this because it is a good practice not to have API logic in your page level component.
+You plug in the *Signup* component to signup page. You do this because it is a good practice not to have API logic in your page level component.
 {{% /notice %}}
 
 Run the application with npm run dev command and visit [localhost:3000/signup](http://localhost:3000/signup). Ensure that the signup page is loading.  
