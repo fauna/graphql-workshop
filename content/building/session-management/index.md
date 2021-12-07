@@ -265,7 +265,7 @@ import Cookie from 'js-cookie'
 
 const SIGN_UP = gql`
   mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
-    signup(email: $email, name: $name, password: $password) {
+    registerOwner(email: $email, name: $name, password: $password) {
       _id
       name
       email

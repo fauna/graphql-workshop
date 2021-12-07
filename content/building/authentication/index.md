@@ -105,7 +105,7 @@ export default function Signup() {
 
 {{< attachments
       title="components/Signup.js"
-      pattern="Signup.js" 
+      pattern="Components-Signup-v1.js" 
       style="fauna"
 />}}
 
@@ -128,6 +128,12 @@ export default function SignUpPage() {
 {{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
+
+{{< attachments
+      title="components/Signup.js"
+      pattern="pages-signup-v1.js" 
+      style="fauna"
+/>}}
 
 > Notice, we are plugging in the `Signup` component to signup page. We do this because it is a good practice not to have API logic in your page level component.
 
@@ -152,7 +158,7 @@ import { useMutation, gql } from '@apollo/client';
 
 const SIGN_UP = gql`
   mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
-    signup(email: $email, name: $name, password: $password) {
+    registerOwner(email: $email, name: $name, password: $password) {
       _id
       name
       email
@@ -214,7 +220,7 @@ import { useMutation, gql } from "@apollo/client";
 
 const SIGN_UP = gql`
   mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
-    signup(email: $email, name: $name, password: $password) {
+    registerOwner(email: $email, name: $name, password: $password) {
       _id
       name
       email
@@ -309,6 +315,12 @@ export default function Signup() {
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+{{< attachments
+      title="components/Signup.js"
+      pattern="Components-Signup-final.js" 
+      style="fauna"
+/>}}
 
 After you update the `Signup` component, try registering a user. Navigate to *Collections* in your Fauna dashboard and review the `Owner` collection. Your newly registered users will appear in this collection.
 
@@ -417,6 +429,12 @@ export default function Login() {
 {{% /tab %}}
 {{< /tabs >}}
 
+{{< attachments
+      title="components/Login.js"
+      pattern="Components-Login.js" 
+      style="fauna"
+/>}}
+
 Create a new page `pages/login.js`. Add the following code to this file. You plug your `Login` component into your login page component.
 
 {{< tabs groupId="frontend" >}}
@@ -437,6 +455,12 @@ export default function LoginPage() {
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+{{< attachments
+      title="components/Login.js"
+      pattern="pages-login.js" 
+      style="fauna"
+/>}}
 
 To ensure everything is working as intended, run the application with `npm run dev command`, and visit [localhost:3000/login](http://localhost:3000/login). Verify the login function is working. Log in with a user you have registered before. Observe the console tab in your browser.
 
