@@ -88,6 +88,7 @@ const LOGIN = gql`
     login(email: $email, password: $password) {
         ttl
         secret
+        email
     }
   }
 `;

@@ -12,32 +12,29 @@ In this section, you learn how to query data from your client application and im
 
 In the previous section, you were able to log in a user and save their session in browser cookies. To query retrieve data using the access token (saved in session cookies) you first need to define a role in Fauna. This role will specify the resources you can interact with. 
 
-Navigate to Fauna [dashboard](https://dashboard.fauna.com/accounts/login). Select *Security > Roles > New Role*. 
+Navigate to Fauna [dashboard](https://dashboard.fauna.com/accounts/login). Select *Security > Roles > New Role* to create a new role.
+
+1. Name your new role `AuthRole` since all authenticated users will assume this role. 
+1. In the collection section Add Owner and Store. Provide *read* privilege to both **Owner** and **Store** collections. 
+1. In the *Indexes* section add `findOwnerByEmail` and `owner_stores_by_owner` index. Give read privilege to both of these indexes.
+2. Navigate to the membership tab.
 
 {{< figure
-  src="./images/1.png" 
-  alt="navigate to security"
->}}
-
-Name your new role `AuthRole` since all authenticated users will assume this role. In the collection section, provide `read` privilege to both `Owner` and `Store` collections. 
-
-{{< figure
-  src="./images/2.png" 
+  src="./images/create_new_auth_role.png" 
   alt="specify privileges"
 >}}
 
-Navigate to the membership tab and add `Owner` collection as the member collection. This is what tells Fauna that the Owner collection is where you are storing user information and logging in. 
+> The `findOwnerByEmail` will let you query a user by email using the generated access token. The `owner_stores_by_owner` will let you query the stores that belong to a particular user.
+
+Membership in Fauna specific identities that should have the specified privileges. In this scenario all the records in the Owner collection are members.
+
+1. In the membership tab add **Owner** collection as the member collection. 
+2. Select Save.
+
 
 {{< figure
-  src="./images/3.png" 
-  alt="adding membership"
->}}
-
-Navigate back to the *Privileges* tab. In the *Indexes* section add `findOwnerByEmail` and `owner_stores_by_owner` index. Give read privilege to both of these indexes. The `findOwnerByEmail` will let you query a user by email using the generated access token. The `owner_stores_by_owner` will let you query the stores that belong to a particular user.
-
-{{< figure
-  src="./images/4.png" 
-  alt="adding indexes"
+  src="./images/select_membership.png" 
+  alt="select membership"
 >}}
 
 When an owner logs in to your application you want to show that user their basic information (i.e. username, email) and all the stores that belong to that owner. To do so you can make the following GraphQL query with the owner’s email as a parameter.
@@ -47,14 +44,13 @@ When an owner logs in to your application you want to show that user their basic
 ```gql
 query findbyEmail($email: String!) {
   findOwnerByEmail(email: $email) {
-    data {
-      email
-      name
-      stores {
-        data {
-          _id
-          name
-        }
+    _id
+    name
+    email
+    stores {
+      data {
+        _id
+        name
       }
     }
   }
@@ -79,17 +75,16 @@ import { useLazyQuery, gql } from '@apollo/client'
 const FindOwnerByEmail = gql`
   query findbyEmail($email: String!) {
     findOwnerByEmail(email: $email) {
-      data {
-        email
-        name
-        stores {
-          data {
-            _id
-            name
-          }
-        }
-      }
-    }
+			_id
+			name
+			email
+			stores {
+				data {
+					_id
+					name
+				}
+			}
+  	}
   }
 `;
 
@@ -254,5 +249,3 @@ Navigate to your browser and notice that the new layout is now applied.
 >}}
 
 That’s all for this section. In the next section, you will implement Create Delete and Update stores. You will also do a deep dive into custom resolvers and Fauna Query Language (FQL).
-
-Find the complete code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.4-query-data).
