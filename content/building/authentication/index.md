@@ -135,7 +135,9 @@ export default function SignUpPage() {
       style="fauna"
 />}}
 
-> Notice, we are plugging in the `Signup` component to signup page. We do this because it is a good practice not to have API logic in your page level component.
+{{% notice note %}}
+Notice, we are plugging in the *Signup* component to signup page. We do this because it is a good practice not to have API logic in your page level component.
+{{% /notice %}}
 
 Run the application with npm run dev command and visit [localhost:3000/signup](http://localhost:3000/signup). Ensure that the signup page is loading.  
 
@@ -322,7 +324,7 @@ export default function Signup() {
       style="fauna"
 />}}
 
-After you update the `Signup` component, try registering a user. Navigate to *Collections* in your Fauna dashboard and review the `Owner` collection. Your newly registered users will appear in this collection.
+After you update the *Signup* component, try registering a user. Navigate to *Collections* in your Fauna dashboard and review the *Owner* collection. Your newly registered users will appear in this collection.
 
 {{< figure
   src="./images/1.png" 
@@ -435,7 +437,7 @@ export default function Login() {
       style="fauna"
 />}}
 
-Create a new page `pages/login.js`. Add the following code to this file. You plug your `Login` component into your login page component.
+Create a new page `pages/login.js`. Add the following code to this file. You plug your *Login* component into your login page component.
 
 {{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}

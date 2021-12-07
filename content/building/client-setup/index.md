@@ -122,14 +122,12 @@ Navigate to the *Security* section of the [Fauna dashboard][fauna-dashboard] and
 >}}
 
 1. Name your role `FrontEndRole`.
-1. In the index section, add the *findOwnerByEmail* index.
-1. Ensure *read* permission is selected.
 1. In the Functions section, add the *RegisterUser* and *LoginUser* UDFs to this role.
 1. Ensure that *Call* permissions are selected for both functions.
 1. Choose *Save* to create the role.
 
 {{< figure
-  src="./images/front-end-role-v2.png" 
+  src="./images/front-end-role.png" 
   alt="Adding function call permissions to role"
 >}}
 

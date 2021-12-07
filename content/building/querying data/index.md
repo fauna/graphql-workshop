@@ -75,16 +75,16 @@ import { useLazyQuery, gql } from '@apollo/client'
 const FindOwnerByEmail = gql`
   query findbyEmail($email: String!) {
     findOwnerByEmail(email: $email) {
-			_id
-			name
-			email
-			stores {
-				data {
-					_id
-					name
-				}
-			}
-  	}
+      _id
+      name
+      email
+      stores {
+        data {
+          _id
+          name
+        }
+      }
+  	}  
   }
 `;
 

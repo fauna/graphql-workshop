@@ -1,6 +1,8 @@
 // Copyright Fauna, Inc.
 // SPDX-License-Identifier: MIT-0
 
+// components/Signup.js
+
 import { useState, useEffect } from 'react'
 
 const INITAL_STATE = {
