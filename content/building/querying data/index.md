@@ -73,18 +73,18 @@ import { useLazyQuery, gql } from '@apollo/client'
 
 
 const FindOwnerByEmail = gql`
-  query findbyEmail($email: String!) {
-    findOwnerByEmail(email: $email) {
-      _id
-      name
-      email
-      stores {
-        data {
-          _id
-          name
-        }
+query findbyEmail($email: String!) {
+  findOwnerByEmail(email: $email) {
+    _id
+    name
+    email
+    stores {
+      data {
+        _id
+        name
       }
-  	}  
+    }
+  	}
   }
 `;
 
@@ -99,6 +99,7 @@ export default function Dashboard() {
       router.push('/login')
     } 
     const current_user_email = JSON.parse(cookies).email;
+		console.log('Find Email', JSON.parse(cookies));
     getCurrentUser({
       variables: {
         email: current_user_email
@@ -110,9 +111,9 @@ export default function Dashboard() {
     return <div>Loading...</div>
   }
 
-  if(data?.findOwnerByEmail?.data[0]) {
-    const ownerInfo = data.findOwnerByEmail?.data[0];
-    const stores = data.findOwnerByEmail?.data[0].stores.data;
+  if(data?.findOwnerByEmail?.stores?.data) {
+    const stores = data?.findOwnerByEmail?.stores?.data
+    const ownerInfo = data.findOwnerByEmail;
     return (
       <>
         <h4>{ownerInfo.name}</h4>
@@ -127,17 +128,21 @@ export default function Dashboard() {
           justifyContent: 'center' 
         }}>
           <ul className="uk-list uk-list-large uk-list-striped">
-            {stores.map(store => (
-              <li key={store._id}>
-                <div className="container">
-                  <div>{store.name}</div>
-                  <p uk-margin>
-                    <button className="uk-button uk-button-secondary uk-button-small">Edit</button>
-                    <button className="uk-button uk-button-danger uk-button-small">Delete</button>
-                  </p>
-                </div>
-              </li>
-            ))}
+            {
+              Object.keys(stores).map((store, index) => {
+                return (
+                  <li key={store._id}>
+                    <div className="container">
+                      <div>{store.name}</div>
+                      <p uk-margin>
+                        <button className="uk-button uk-button-secondary uk-button-small">Edit</button>
+                        <button className="uk-button uk-button-danger uk-button-small">Delete</button>
+                      </p>
+                    </div>
+                  </li>
+                )
+              })
+            }
           </ul>
         </div>
       </>
