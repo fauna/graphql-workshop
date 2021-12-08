@@ -8,7 +8,7 @@ pre: "<b>e. </b>"
 
 This chapter builds the front-end functionality to *create*, *delete*, and *update* store data in Fauna.
 
-Create a new file, `pages/store/new.js`. Add the following code to your file.
+Create a new file, `pages/store/new.js`, and add the following code.
 
 {{< tabs groupId="frontend" >}}
 {{< tab name="Next.js" >}}
@@ -394,7 +394,7 @@ export default function StoreEditForm() {
 
 Fauna allows fine-grained access control. You can set access rules (predicates) so that users can only modify their data and not others. 
 
-Head over to Fauna dashboard. Navigatte to *Security > Roles > AuthUserRole*. Expand the store collection. Add the following rules to your *write* access.
+Head over to the Fauna dashboard. Navigate to *Security > Roles > AuthUserRole*. Expand the store collection. Add the following rules to your *write* access.
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}
@@ -418,9 +418,9 @@ Lambda(
   alt="Add write predicate"
 >}}
 
-The rule defines that only the owner of the store can update a store.  
+The rule defines that only a store's owner can update that store.  
 
-Simmilarly add the following predicate for *delete*. This rule defines that only owner is allowed to delete a store. 
+Similarly, add the following predicate for *delete*. This rule defines that only a store's owner can delete a store. 
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}
@@ -433,7 +433,7 @@ Lambda("ref", Equals(
 {{< /tab >}}
 {{< /tabs >}}
 
-Add a predicate for *create* as well. The following rule ensures that logged in users can add store and owner *id* is associated with a store when its created.
+Add a predicate for *create* as well. The following rule ensures that logged-in users can add store and owner *id* is associated with a store when it is created.
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}
@@ -445,4 +445,4 @@ Lambda("values", Equals(Identity(), Select(["data", "owner"], Var("values"))))
 
 Select *Save* to save your access control rules. Now, users can only modify or delete their data from your front end.
 
-In this chapter, you learned how to apply fined-grained access control to your data. In the next chapter you learn more about custom resolvers and Fauna Query Language (FQL).
+In this chapter, you learned how to apply fine-grained access control to your data. In the next chapter, you learn more about custom resolvers and Fauna Query Language (FQL).
