@@ -52,7 +52,7 @@ export default function Login() {
     )
     router.push('/')
   }
-    }, [data])
+    }, [data, router])
     
     const doLogin = e => {
         e.preventDefault();
@@ -88,6 +88,7 @@ const LOGIN = gql`
     login(email: $email, password: $password) {
         ttl
         secret
+        email
     }
   }
 `;
@@ -110,7 +111,7 @@ export default function Login() {
       )
       router.push('/')
     }
-  }, [data])
+  }, [data, router])
     
   const doLogin = e => {
     e.preventDefault();
@@ -194,7 +195,7 @@ export default function Dashboard() {
     if(!cookies) {
       router.push('/login')
     } 
-  }, [cookies])
+  }, [cookies, router])
 
   return <div>Dashboard</div>
 }
@@ -265,7 +266,7 @@ import Cookie from 'js-cookie'
 
 const SIGN_UP = gql`
   mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
-    signup(email: $email, name: $name, password: $password) {
+    registerOwner(email: $email, name: $name, password: $password) {
       _id
       name
       email
@@ -380,7 +381,7 @@ const httpLink = createHttpLink({
 const authLink = setContext((_, { headers }) => {
   // get the authentication token from local storage if it exists
   const cookies = Cookie.get('fauna-session');
-  const token = cookies ? JSON.parse(cookies).secret : process.env.NEXT_PUBLIC_FAUNA_SECRECT
+  const token = cookies ? JSON.parse(cookies).secret : process.env.NEXT_PUBLIC_FAUNA_SECRET
   // return the headers to the context so httpLink can read them
   return {
     headers: {
@@ -408,5 +409,3 @@ Run your application with `npm run dev` command and sign in with a user you have
 >}}
 
 In the next section, you learn how to retrieve the user access token from your cookies and make GraphQL queries and mutations using it. 
-
-Get the complete code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.3-sessions).
