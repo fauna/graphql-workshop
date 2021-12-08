@@ -303,7 +303,6 @@ const LOGIN = gql`
       ttl
       secret
       email
-      ownerID
     }
   }
 `;

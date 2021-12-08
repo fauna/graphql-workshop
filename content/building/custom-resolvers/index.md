@@ -2,8 +2,8 @@
 title: "Custom resolvers"
 date: 2021-10-13T13:35:32-04:00
 draft: false
-weight: 60
-pre: "<b>e. </b>"
+weight: 70
+pre: "<b>f. </b>"
 ---
 
 
