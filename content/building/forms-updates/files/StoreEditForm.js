@@ -1,34 +1,45 @@
 // Copyright Fauna, Inc.
 // SPDX-License-Identifier: MIT-0
 
-// components/StoreForm.js
+// components/StoreEditForm.js
 
 import { useState, useEffect } from 'react'
-import { useMutation, gql } from '@apollo/client'
+import { useMutation, useLazyQuery, gql } from '@apollo/client'
+import { useRouter } from 'next/router'
 import Cookie from 'js-cookie';
 
-const CREATE_NEW_STORE = gql`
-    mutation CreateNewStore($name: String!, $email: String!, $categories: [String], $paymentMethods: [String] $ownerID: ID!) {
-			createStore(data: {
-				name: $name,
-				email: $email,
-				categories: $categories,
-				paymentMethods: $paymentMethods
-				owner: {
-						connect: $ownerID
-				}
-			}) {
+const UPDATE_STORE = gql`
+	mutation updateStore(
+			$id: ID!
+			$input: StoreInput!
+	) {
+		updateStore(data: $input, id: $id) {
+			_id
+			name
+			email
+			paymentMethods
+			categories
+			owner {
 				_id
-				name
 				email
-				categories
-				paymentMethods
-				owner {
-						_id
-						email
-				}
 			}
-    }
+		}
+  }
+`;
+
+const GET_CURRENT_STORE = gql`
+	query GetCurrentStor($id: ID!) {
+		findStoreByID(id: $id) {
+			_id
+			name
+			email
+			categories
+			paymentMethods
+			owner {
+				_id
+			}
+		}
+	}
 `;
 
 const INITAL_STATE = {
@@ -38,17 +49,40 @@ const INITAL_STATE = {
 	categories: ''
 }
 
-export default function StoreForm() {
+export default function StoreEditForm() {
 
 	const [state, setState] = useState(INITAL_STATE)
-	const [createNewStore, { data, loading, error }] = useMutation(CREATE_NEW_STORE)
+	const [updateStore, { data: updatedStore }] = useMutation(UPDATE_STORE)
+	const [getCurrentStore, { data: currentStore }] = useLazyQuery(GET_CURRENT_STORE)
+	const router = useRouter()
+	const { id } = router.query
 
 	useEffect(() => {
-		if(data) {
-			alert('New Store Added')
-			setState(INITAL_STATE)
+		if(id) {
+			getCurrentStore({
+				variables: {
+						id,
+				}
+			})
 		}
-	}, [data])
+	}, [id])
+
+	useEffect(() => {
+		if(currentStore) {
+			const {paymentMethods, categories} = currentStore.findStoreByID
+			setState({
+				...currentStore.findStoreByID,
+				paymentMethods: paymentMethods.toString(),
+				categories: categories.toString()
+			})
+		}
+	}, [currentStore])
+
+	useEffect(() => {
+		if(updatedStore) {
+			alert('Store Updated')
+		}
+	}, [updatedStore])
 
 	const handleChange = (e) => {
 		setState({
@@ -60,12 +94,25 @@ export default function StoreForm() {
 	const submit = e => {
 		e.preventDefault()
 		const cookies = Cookie.get('fauna-session')
-		createNewStore({
+		if(!cookies) {
+			router.push('/login');
+		}
+			
+		const ownerID = JSON.parse(cookies).ownerID;
+		if(ownerID !== state.owner._id) {
+			alert('This store does not belong to you')
+			return;
+		}
+
+		updateStore({
 			variables: {
-				...state,
-				ownerID: JSON.parse(cookies).ownerID,
-				categories: state.categories.split(','),
-				paymentMethods: state.paymentMethods.split(',')
+				id,
+				input: {
+					name: state.name,
+					email: state.email,
+					categories: state.categories.split(','),
+					paymentMethods: state.paymentMethods.split(',')
+				}
 			}
 		}).catch(e => console.log(e));
 	}

@@ -73,18 +73,18 @@ import { useLazyQuery, gql } from '@apollo/client'
 
 
 const FindOwnerByEmail = gql`
-query findbyEmail($email: String!) {
-  findOwnerByEmail(email: $email) {
-    _id
-    name
-    email
-    stores {
-      data {
-        _id
-        name
+  query findbyEmail($email: String!) {
+    findOwnerByEmail(email: $email) {
+      _id
+      name
+      email
+      stores {
+        data {
+          _id
+          name
+        }
       }
     }
-  	}
   }
 `;
 
@@ -129,14 +129,28 @@ export default function Dashboard() {
         }}>
           <ul className="uk-list uk-list-large uk-list-striped">
             {
-              Object.keys(stores).map((store, index) => {
+              Object.keys(stores).map((_, index) => {
+                const store = stores[index]
                 return (
                   <li key={store._id}>
                     <div className="container">
                       <div>{store.name}</div>
                       <p uk-margin>
-                        <button className="uk-button uk-button-secondary uk-button-small">Edit</button>
-                        <button className="uk-button uk-button-danger uk-button-small">Delete</button>
+                        <button 
+                          className="uk-button uk-button-secondary uk-button-small" 
+                          onClick={() => {
+                            router.push(`/store/${store._id}/edit`)
+                          }}
+                        >
+                          Edit</button>
+                        <button 
+                          className="uk-button uk-button-danger uk-button-small"
+                          onClick={() => {
+                            alert('Delete not implemented yet')
+                          }}
+                        >
+                          Delete
+                        </button>
                       </p>
                     </div>
                   </li>
@@ -150,9 +164,18 @@ export default function Dashboard() {
   }
   return <div>Dashboard</div>
 }
+}
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+{{< attachments
+	title="components/Dashboard.js"
+	pattern="Dashboard.js" 
+	style="fauna"
+/>}}
+
+
 
 Run your application with `npm run dev` command and make sure everything is working as intended.
 
