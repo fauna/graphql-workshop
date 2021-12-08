@@ -396,10 +396,9 @@ Fauna allows fine-grained access control. You can set access rules (predicates) 
 
 Head over to Fauna dashboard. Navigatte to *Security > Roles > AuthUserRole*. Expand the store collection. Add the following rules to your *write* access.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-
-```Clojure
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Lambda(
   ["oldData", "newData"],
   And(
@@ -410,7 +409,7 @@ Lambda(
     )
   )
 )
-```
+{{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
 
@@ -423,27 +422,24 @@ The rule defines that only the owner of the store can update a store.
 
 Simmilarly add the following predicate for *delete*. This rule defines that only owner is allowed to delete a store. 
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-
-```Clojure
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Lambda("ref", Equals(
   Identity(), // logged in user
   Select(["data", "owner"], Get(Var("ref")))
 ))
-```
+{{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
 
 Add a predicate for *create* as well. The following rule ensures that logged in users can add store and owner *id* is associated with a store when its created.
 
-{{< tabs groupId="query-language" >}}
-{{% tab name="FQL" %}}
-
-```Clojure
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
 Lambda("values", Equals(Identity(), Select(["data", "owner"], Var("values"))))
-```
-
+{{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
 
