@@ -10,8 +10,8 @@ import Cookie from 'js-cookie';
 
 const UPDATE_STORE = gql`
 	mutation updateStore(
-			$id: ID!
-			$input: StoreInput!
+		$id: ID!
+		$input: StoreInput!
 	) {
 		updateStore(data: $input, id: $id) {
 			_id
@@ -61,7 +61,7 @@ export default function StoreEditForm() {
 		if(id) {
 			getCurrentStore({
 				variables: {
-						id,
+					id,
 				}
 			})
 		}
