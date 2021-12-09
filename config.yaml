@@ -13,6 +13,15 @@ params:
   disableMermaid: true
   showVisitedLinks: true
 
+  # Google Analytics
+  googleAnalytics: G-6ZXCGDLZ8W
+  
+  # OpenGraph/Twitter card parameters
+  description: Learn how to build applications that scale to any size userbase with GraphQL and Fauna!
+  images:
+  - images/twitter-card-site-image.png
+  title: Fauna for GraphQL developers
+
 menu:
   shortcuts:
     - name: <i class='fas fa-fw fa-book'></i> Fauna Docs
