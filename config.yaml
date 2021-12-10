@@ -4,6 +4,9 @@ title: Fauna for GraphQL developers
 
 theme: fauna-workshop-theme
 
+# Google Analytics
+googleAnalytics: "G-6ZXCGDLZ8W"
+
 params:
   # Change default color scheme with a variant one. Optional: can also be one of "red", "blue", or "green".
   themeVariant: "flora"
@@ -13,14 +16,16 @@ params:
   disableMermaid: true
   showVisitedLinks: true
 
-  # Google Analytics
-  googleAnalytics: G-6ZXCGDLZ8W
-  
   # OpenGraph/Twitter card parameters
   description: Learn how to build applications that scale to any size userbase with GraphQL and Fauna!
   images:
   - images/twitter-card-site-image.png
   title: Fauna for GraphQL developers
+
+outputs:
+  home:
+    - HTML
+    - JSON
 
 menu:
   shortcuts:
