@@ -15,10 +15,15 @@ In this section, you learn how to set up your fullstack serverless application w
 
 To create a new fullstack serverless app, run the following command in your terminal.
 
-{{< tabs groupId="framework" >}}
+{{< tabs groupID="framework" >}}
 {{< tab name="Next.js" >}}
 {{< highlight console >}}
 $ npm init next-app fauna-shop --use-npm
+{{< /highlight >}}
+{{< /tab >}}
+{{< tab name="Svelte.js" >}}
+{{< highlight console >}}
+$ npm init svelte@next fauna-shop
 {{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
@@ -32,6 +37,13 @@ $ cd fauna-shop
 $ npm run dev
 {{< /highlight >}}
 {{< /tab >}}
+{{< tab name="Svelte.js" >}}
+{{< highlight console >}}
+$ cd fauna-shop
+$ npm i 
+$ npm run dev -- --open
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 Navigate to [http://localhost:3000](http://localhost:3000/) in your browser and review the running application.
@@ -43,11 +55,19 @@ Navigate to [http://localhost:3000](http://localhost:3000/) in your browser and 
   alt="Welcome to Next.js"
 >}}
 {{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< figure
+  src="./images/welcome-to-svelte.png" 
+  alt="Welcome to Next.js"
+>}}
+{{< /tab >}}
+
 {{< /tabs >}}
 
 ## Installing dependencies
 
-Run the following command to add the [Apollo GraphQL client][apollo-client] and GraphQL dependencies to your application.
+Run the following command to add the [Apollo GraphQL client](https://www.apollographql.com/docs/react/why-apollo/) and GraphQL dependencies to your application.
 
 {{< tabs groupID="framework" >}}
 {{< tab name="Next.js" >}}
@@ -55,11 +75,21 @@ Run the following command to add the [Apollo GraphQL client][apollo-client] and 
 $ npm install @apollo/client graphql
 {{< /highlight >}}
 {{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< highlight console >}}
+$ npm i @apollo/client svelte-apollo graphql
+{{< /highlight >}}
+{{< /tab >}}
+
 {{< /tabs >}}
 
-## Configuring your GraphQL client
 
+
+## Configuring your GraphQL client
 Create a new file called `apollo-client.js` in the project's root with the following code.
+
+If you are using Svelte.js create a new layout file `src/routes/__layout.svelte` and add the following code.
 
 {{< tabs groupID="framework" >}}
 {{< tab name="Next.js" >}}
@@ -94,13 +124,64 @@ const client = new ApolloClient({
 export default client;
 {{< /highlight >}}
 {{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< highlight jsx >}}
+<script>
+  import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client/core";
+  import { setContext } from '@apollo/client/link/context';
+  import { setClient } from "svelte-apollo";
+  import Cookie from 'js-cookie';
+  
+  const httpLink = createHttpLink({
+    uri: 'https://graphql.fauna.com/graphql',
+  });
+
+  const authLink = setContext((_, { headers }) => {
+    const token = import.meta.env.VITE_PUBLIC_FAUNA_SECRET
+    // return the headers to the context so httpLink can read them
+    return {
+      headers: {
+        ...headers,
+        authorization: token ? `Bearer ${token}` : ''
+      }
+    };
+  });
+
+  const client = new ApolloClient({
+    link: authLink.concat(httpLink),
+    cache: new InMemoryCache(),
+  });
+
+  setClient(client);
+
+</script>
+
+<slot></slot>
+{{< /highlight >}}
+{{< /tab >}}
+
 {{< /tabs >}}
 
+{{< tabs groupID="framework" >}}
+
+{{< tab name="Next.js" >}}
 {{< attachments
-      title="Apollo Client"
-      pattern="apollo-client.js" 
-      style="fauna"
+  title="Apollo Client"
+  pattern="apollo-client.js" 
+  style="fauna"
 />}}
+{{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< attachments
+  title="Layout Svelte"
+  pattern="layout.svelte" 
+  style="fauna"
+/>}}
+{{< /tab >}}
+
+{{ /tabs }}
 
 {{% notice note %}}
 Region groups give you control over where your data resides. You choose the Region Group for your application when you create your database in the first chapter. To learn more about Region Groups visit the [documentation](https://docs.fauna.com/fauna/current/learn/understanding/region_groups).
