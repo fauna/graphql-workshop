@@ -15,17 +15,34 @@ You can find the completed code for this section in this [Github link](https://g
 
 Run the following command to add [UIKit][uikit] to your application to provide some basic styling.
 
+If you are using Svelt you can directly add the style sheet in your `__layout.svelte` file.
+
 {{< tabs groupID="framework" >}}
 {{< tab name="Next.js" >}}
 {{< highlight console >}}
 $ npm install uikit
 {{< /highlight >}}
 {{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< highlight jsx >}}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/css/uikit.min.css" />
+<script>
+...
+</script>
+{{< /highlight >}}
+{{< /tab >}}
+
 {{< /tabs >}}
 
 ## User Signup
 
+##### Next.js
 First, create a new folder named `components` in the root of your application. In the *components* folder, create a new file named `Signup.js`  and add the following code. This creates a React component containing a signup form.
+
+##### Svelte.js
+Create a new file `src/lib/Signup.js`. Add the following code to this file to create a *Signup* component. 
+
 
 {{< tabs groupId="frontend" >}}
 {{< tab name="Next.js" >}}
@@ -101,16 +118,100 @@ export default function Signup() {
 }
 {{< /highlight >}}
 {{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+
+{{< highlight jsx >}}
+<script>
+  let password = "";
+  let email = "";
+  let name = "";
+
+  const signUpUser = mutation(SIGN_UP);
+
+  async function onSubmit(e) {
+    const formData = new FormData(e.target);
+  }
+</script>
+
+<div uk-grid="true">
+  <div class="main-container">
+    <div class="uk-card uk-card-default uk-card-body">
+      <h3 class="uk-card-title">Sign up</h3>
+        <form on:submit|preventDefault={onSubmit}>
+          <div class="uk-margin">
+            <input 
+              class="uk-input" 
+              type="text"
+              placeholder="Username" 
+              name="name" 
+              autoComplete="off"
+              bind:value="{name}"
+            />
+          </div>
+          <div class="uk-margin">
+            <input 
+              class="uk-input" 
+              type="text" 
+              placeholder="Email" 
+              name="email"
+              bind:value="{email}"
+            />
+          </div>
+          <div class="uk-margin">
+            <input 
+              class="uk-input" 
+              type="password" 
+              placeholder="Password" 
+              name="password"
+              bind:value="{password}"
+            />
+          </div>
+          <div class="uk-margin">
+            <input class="uk-input" type="submit" />
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .main-container {
+    margin: 20% auto 0 auto;
+    max-width: 500px;
+  }
+</style>
+{{< /highlight >}}
+{{< /tab >}}
+
 {{< /tabs >}}
 
+
+{{< tabs groupId="frontend" >}}
+
+{{< tab name="Next.js" >}}
 {{< attachments
       title="components/Signup.js"
       pattern="Components-Signup-v1.js" 
       style="fauna"
 />}}
+{{< /tab >}}
 
+{{< tab name="Svelte.js" >}}
+{{< attachments
+      title="src/lib/Signup.svelte"
+      pattern="lib-Signup.svelte" 
+      style="fauna"
+/>}}
+{{< /tab >}}
 
+{{< /tabs >}}
+
+##### Next.js
 Next, create a new */signup* route in your application by creating a new file called `signup.js` in the *pages* directory. Add the following code to your *pages/signup.js* file. 
+
+##### Svelte.js
+Next, create a new route */signup*. Create a new file `src/routes/signup.svelte` and add the following code.
 
 {{< tabs groupId="frontend" >}}
 {{< tab name="Next.js" >}}
@@ -127,13 +228,41 @@ export default function SignUpPage() {
 }
 {{< /highlight >}}
 {{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< highlight jsx >}}
+
+<script>
+  import Signup from '$lib/Signup.svelte';
+</script>
+
+<Signup />
+
+{{< /highlight >}}
+{{< /tab >}}
+
+
 {{< /tabs >}}
 
+{{< tabs groupId="frontend" >}}
+
+{{< tab name="Next.js" >}}
 {{< attachments
-      title="components/Signup.js"
-      pattern="pages-signup-v1.js" 
+  title="components/Signup.js"
+  pattern="pages-signup-v1.js" 
+  style="fauna"
+/>}}
+{{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< attachments
+      title="routes/signup.svelte"
+      pattern="routes-signup.svelte" 
       style="fauna"
 />}}
+{{< /tab >}}
+
+{{< /tabs >}}
 
 {{% notice note %}}
 You plug in the *Signup* component to signup page. You do this because it is a good practice not to have API logic in your page level component.
@@ -147,10 +276,15 @@ Run the application with npm run dev command and visit [localhost:3000/signup](h
   alt="Signup page"
 >}}
 
+
+
 In the previous section, you created a signup mutation in GraphQL. On the signup page on form submit, you call this `signup` mutation using the apollo-client library. Make the following changes to your Signup component.
 
-
+##### Next.js
 First, import the `useMutation` and `gql` functions from apollo-client library. Define the `signup` mutation as a JavaScript query string constant.
+##### Svelte.js
+Import `mutation` and `gql` from apollo-client library. Define the `signup` mutation as a JavaScript query string constant.
+
 
 {{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}
@@ -169,9 +303,33 @@ const SIGN_UP = gql`
 `;
 ```
 {{% /tab %}}
+
+{{% tab name="Svelte.js" %}}
+
+```jsx
+...
+import { mutation } from "svelte-apollo";
+import { gql } from "@apollo/client/core";
+  
+const SIGN_UP = gql`
+  mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
+    registerOwner(email: $email, name: $name, password: $password) {
+      _id
+      name
+      email
+    }
+  }
+`;
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
+##### Next.js
 Next, attach the mutation with a button. So when the button is selected the mutation fires. Create a `useEffect` hook to listen on the signup response. 
+
+##### Svelte.js
+Next, on signup form submit make call the mutation to register a user.
 
 {{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}
@@ -208,9 +366,42 @@ export default function Signup() {
 }
 ```
 {{% /tab %}}
+
+{{% tab name="Svelte.js" %}}
+```js
+...
+async function onSubmit(e) {
+  const formData = new FormData(e.target);
+  const data = {};
+  for (let field of formData) {
+    const [key, value] = field;
+    data[key] = value;
+  }
+  console.log(data)
+
+  try {
+    await signUpUser({
+      variables: {
+        ...data
+      }
+    });
+    alert('User Signed Up Successfully');
+  } catch (error) {
+    console.log(error);
+  }
+}
+```
+
+{{% /tab %}}
+
 {{< /tabs >}}
 
+##### Next.js
 With all the updates applied your `components/Signup.js` will be simmilar to the following code snippet.
+
+##### Svelte.js
+With all the updates applied your `src/lib/Signup.svelte` will be simmilar to the following code snippet.
+
 
 {{< tabs groupId="frontend" >}}
 {{% tab name="Next.js" %}}
@@ -316,12 +507,110 @@ export default function Signup() {
 }
 ```
 {{% /tab %}}
+
+{{% tab name="Svelte.js" %}}
+```jsx
+// src/lib/Signup.svelte
+
+<script>
+  import { mutation } from "svelte-apollo";
+  import { gql } from "@apollo/client/core";
+  
+  const SIGN_UP = gql`
+    mutation OwnerSignUp($email: String!, $name: String!, $password: String! ) {
+      registerOwner(email: $email, name: $name, password: $password) {
+        _id
+        name
+        email
+      }
+    }
+  `;
+
+  let password = "";
+  let email = "";
+  let name = "";
+
+  const signUpUser = mutation(SIGN_UP);
+
+  async function onSubmit(e) {
+    const formData = new FormData(e.target);
+    const data = {};
+    for (let field of formData) {
+      const [key, value] = field;
+      data[key] = value;
+    }
+    console.log(data)
+
+    try {
+      await signUpUser({
+        variables: {
+          ...data
+        }
+      });
+      alert('User Signed Up Successfully');
+    } catch (error) {
+      console.log(error);
+    }
+  }
+</script>
+
+<div uk-grid="true">
+  <div class="main-container">
+    <div class="uk-card uk-card-default uk-card-body">
+      <h3 class="uk-card-title">Sign up</h3>
+        <form on:submit|preventDefault={onSubmit}>
+          <div class="uk-margin">
+            <input 
+              class="uk-input" 
+              type="text"
+              placeholder="Username" 
+              name="name" 
+              autoComplete="off"
+              bind:value="{name}"
+            />
+          </div>
+          <div class="uk-margin">
+            <input 
+              class="uk-input" 
+              type="text" 
+              placeholder="Email" 
+              name="email"
+              bind:value="{email}"
+            />
+          </div>
+          <div class="uk-margin">
+            <input 
+              class="uk-input" 
+              type="password" 
+              placeholder="Password" 
+              name="password"
+              bind:value="{password}"
+            />
+          </div>
+          <div class="uk-margin">
+            <input class="uk-input" type="submit" />
+          </div>
+        </form>
+    </div>
+  </div>
+</div>
+
+<style>
+  .main-container {
+    margin: 20% auto 0 auto;
+    max-width: 500px;
+  }
+</style>
+
+```
+
+{{% /tab %}}
 {{< /tabs >}}
 
 {{< attachments
-      title="components/Signup.js"
-      pattern="Components-Signup-final.js" 
-      style="fauna"
+  title="components/Signup.js"
+  pattern="Components-Signup-final.js" 
+  style="fauna"
 />}}
 
 After you update the *Signup* component, try registering a user. Navigate to *Collections* in your Fauna dashboard and review the *Owner* collection. Your newly registered users will appear in this collection.
