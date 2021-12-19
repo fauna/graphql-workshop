@@ -13,8 +13,9 @@ You can find the completed code for this section in this [Github link](https://g
 
 ## Installing dependencies
 
+##### Next.js
 Run the following command to add [UIKit][uikit] to your application to provide some basic styling.
-
+##### Svelte.js
 If you are using Svelt you can directly add the style sheet in your `__layout.svelte` file.
 
 {{< tabs groupID="framework" >}}
@@ -26,6 +27,7 @@ $ npm install uikit
 
 {{< tab name="Svelte.js" >}}
 {{< highlight jsx >}}
+// __layout.svelte
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.9.4/dist/css/uikit.min.css" />
 <script>
 ...
@@ -607,11 +609,28 @@ export default function Signup() {
 {{% /tab %}}
 {{< /tabs >}}
 
+
+{{< tabs groupId="frontend" >}}
+
+{{< tab name="Next.js" >}}
 {{< attachments
   title="components/Signup.js"
   pattern="Components-Signup-final.js" 
   style="fauna"
 />}}
+{{< /tab >}}
+
+{{< tab name="Svelte.js" >}}
+{{< attachments
+  title="src/lib/Signup.svelte"
+  pattern="lib-Signup-final.svelte" 
+  style="fauna"
+/>}}
+{{< /tab >}}
+
+{{< /tabs >}}
+
+
 
 After you update the *Signup* component, try registering a user. Navigate to *Collections* in your Fauna dashboard and review the *Owner* collection. Your newly registered users will appear in this collection.
 
