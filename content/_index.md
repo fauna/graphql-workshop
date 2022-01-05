@@ -18,7 +18,7 @@ In the second section, [Building with Fauna]({{< ref "building" >}}), you create
 You must have a Fauna account to complete this workshop. If you don't have one already, you can [sign up for an account][fauna-signup] and complete this workshop using Fauna's free tier. You do not need to provide payment information until you upgrade your plan. 
 
 {{% notice note %}}
-This workshop assumes that you are already familiar with GraphQL and are exploring Fauna for its native GraphQL support. If you are not familiar with GraphQL, visit [Introduction to GraphQL][graphql-learn] on the GraphQL website.
+This workshop assumes that you are already familiar with GraphQL and are exploring Fauna for its native GraphQL support. If you are not familiar with GraphQL, visit [Introduction to GraphQL](https://graphql.org/learn/) on the GraphQL website.
 {{% /notice %}}
 
 Once you have access to your Fauna account, continue to the first section, [Getting started with Fauna]({{< ref "getting-started">}}).
