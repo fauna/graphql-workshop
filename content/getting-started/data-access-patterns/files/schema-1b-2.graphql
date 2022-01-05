@@ -18,5 +18,5 @@ type Store {
 }
 
 type Query {
-    findOwnerByEmail(email: String): [Owner]
+    findOwnerByEmail(email: String): Owner
 }
