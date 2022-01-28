@@ -5,8 +5,9 @@ draft: false
 weight: 20
 pre: "<b>1. </b>"
 disableMermaid: false
+chapter: true
 ---
 
 ### ➡️ Chapter 2.1 : Next.js path
 
-Follow this chapter if you would like to build your application with Next.js. For Svelte.js, follow chapter 2.2.
+Follow this section if you would like to build your application with Next.js. For Svelte.js, follow section 2.2.
