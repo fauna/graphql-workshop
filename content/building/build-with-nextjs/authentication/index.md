@@ -2,7 +2,7 @@
 title: "Authentication"
 date: 2021-10-13T13:35:32-04:00
 draft: false
-weight: 30
+weight: 22
 pre: "<b>b. </b>"
 ---
 

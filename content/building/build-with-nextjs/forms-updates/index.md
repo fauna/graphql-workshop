@@ -2,7 +2,7 @@
 title: "Frontend forms and updates"
 date: 2021-10-13T13:35:32-04:00
 draft: false
-weight: 60
+weight: 25
 pre: "<b>e. </b>"
 ---
 
