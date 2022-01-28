@@ -140,6 +140,7 @@ When you invoke a UDF that does not have its own role, the UDF runs with the sam
 The key that you create for your front-end application only has permission to invoke the *RegisterUser* and *LoginUser* UDFs, but the UDFs need permission to create and read documents in the *Owner* collection. You do not want to give these permissions directly to the front-end role. Instead, create tightly-scoped roles for each UDF.
 
 Return to the *Security* section of the dashboard and create another new role. 
+
 1. Name this role `RegisterUserUDF`.
 1. Select the *Owner* collection.
 1. Ensure *Create* permissions are provided, and choose *Save* to create the new role.
