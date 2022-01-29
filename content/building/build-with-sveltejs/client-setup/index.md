@@ -72,7 +72,7 @@ Next, create a new file `src/client.js` in your application. Add the following c
 
 {{< tabs groupID="framework" >}}
 {{< tab name="Svelte.js" >}}
-{{< highlight jsx >}}
+{{< highlight svelte >}}
 
 import { createClient } from '@urql/svelte';
 
@@ -283,7 +283,7 @@ If you haven't registered any users yet refer back to the [Authentication sectio
 
 {{< tabs groupId="framework" >}}
 {{< tab name="Svelte.js" >}}
-{{< highlight jsx >}}
+{{< highlight svelte >}}
 <script>
   import { setClient, mutation } from '@urql/svelte';
   import client from '../client';

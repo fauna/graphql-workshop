@@ -49,7 +49,7 @@ Create a new route for user signup. Create a new file `src/routes/signup.svelte`
 
 {{< tabs groupId="frontend" >}}
 {{< tab name="Svelte.js" >}}
-{{< highlight jsx >}}
+{{< highlight svelte >}}
 
 <script lang="js">
   import { setClient, mutation } from '@urql/svelte';
@@ -163,7 +163,7 @@ Next, create a new page for users to log in to the application. Create a new fil
 
 {{< tabs groupId="frontend" >}}
 {{< tab name="Svelte.js" >}}
-{{< highlight jsx >}}
+{{< highlight svelte >}}
 <script>
   import { setClient, mutation } from '@urql/svelte';
   import client from '../client';
