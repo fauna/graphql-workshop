@@ -173,7 +173,7 @@ Create a new navbar component. Create a new file `src/lib/Nav.svelte` and add th
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
 ```svelte
-
+// src/lib/Nav.svelte
 <script lang="js">
   import Cookies from 'js-cookie';
 
@@ -224,6 +224,7 @@ Apply a layout to your application, so the Navbar component appears on every pag
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
 ```svelte
+// src/routes/__layout.svelte
 <script>
   import Nav from '$lib/Nav.svelte';
 </script>
@@ -256,11 +257,11 @@ Update the `userSession` in svelte-store when a user successfully logs in. Make 
 
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["3",20]}
+```svelte {hl_lines=["4",21]}
+// src/routes/login.svelte
 <script>
   ...
   import { userSession } from '../store';
-
   ...
 
   async function onSubmit(e) {
@@ -291,7 +292,8 @@ Update the `src/lib/Nav.svelte` file as follows.
 
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["3","7-8", "14-15", "27-50"]}
+```svelte {hl_lines=["4","6-14", "20-21", "33-56"]}
+// src/lib/Nav.svelte
 <script lang="js">
   import Cookies from 'js-cookie';
   import { userSession } from '../store.js';
@@ -299,6 +301,11 @@ Update the `src/lib/Nav.svelte` file as follows.
   let user;
   userSession.subscribe(val => {
     user = val;
+    const cookies = Cookies.get('fauna-session');
+    if(!val && cookies) {
+      user = JSON.parse(cookies);
+      userSession.set(user);
+    }
   });
 
 

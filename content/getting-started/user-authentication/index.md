@@ -158,7 +158,8 @@ Query(
       {
         secret: Select("secret", Var("credentials")),
         ttl: Select("ttl", Var("credentials")),
-        email: Var("email")
+        email: Var("email"),
+        ownerId: Select(["instance", "id"], Var("credentials"))
       }
     )
   )
@@ -217,6 +218,7 @@ type Token @embedded {
     ttl: Time!
     secret: String!
     email: String!
+    ownerId: String!
 }
 {{< /highlight >}}
 {{< /tab >}}

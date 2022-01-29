@@ -23,7 +23,7 @@ When a user logs in, use the js-cookie library to store the login response in th
 
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["35-39",3,17]}
+```svelte {hl_lines=["35-40",3,17,18]}
 <script>
   import { setClient, mutation } from '@urql/svelte';
   import Cookies from 'js-cookie';
@@ -41,6 +41,7 @@ When a user logs in, use the js-cookie library to store the login response in th
           secret
           ttl
           email
+          ownerId
         }
       }
     `,
