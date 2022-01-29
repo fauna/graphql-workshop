@@ -157,3 +157,208 @@ Next, add the following code to your `src/routes/index.svelte` file.
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+Run your application with `npm run dev` command and make sure everything is working as intended.
+
+{{< figure
+  src="./images/app-status.png" 
+  alt="Application Status"
+>}}
+
+### Updating the app UI
+
+Modify the layout of the application. The app right now could use a navbar for better navigation. Next, go ahead and add a Navbar.
+
+Create a new navbar component. Create a new file `src/lib/Nav.svelte` and add the following code for Navbar.
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+```svelte
+
+<script lang="js">
+  import Cookies from 'js-cookie';
+
+  function logout() {
+    Cookies.remove('fauna-session');
+    alert('User Logoed Out');
+  }
+</script>
+
+<nav class="uk-navbar-container wrap" >
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li class="uk-active"><a href='/'>Fauna E-Com</a></li>
+    </ul>
+  </div>
+  <div class="uk-navbar-right">
+    <ul class="uk-navbar-nav">
+      <li >
+        <a href='/store/new' class="uk-button uk-button-primary add-btn">
+          Add Store
+        </a>
+      </li>
+      <li >
+        <!-- svelte-ignore a11y-missing-attribute -->
+        <a on:click={logout} class="uk-button uk-button-danger add-btn">
+          Logout
+        </a>
+      </li>
+    </ul>
+  </div>
+</nav>
+
+<style>
+.wrap {
+  display: flex;
+}
+.add-btn {
+  color: azure;
+}
+</style>
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+Apply a layout to your application, so the Navbar component appears on every page. Create a new file `src/routes/__layout.svelte` and add the following code snippet.
+
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+```svelte
+<script>
+  import Nav from '$lib/Nav.svelte';
+</script>
+<Nav />
+<slot></slot>
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Once the changes are applied notice that a navbar is appearing in every pages of your application.
+
+Currently, the `Add Store` and `Logout` buttons are always visible. These buttons should only be visible when a user is logged. Otherwise, display the `Register` and `Login` buttons. 
+
+You can use a svelte **writeable store** to manage the state of your application dynamically. First create a new file `src/store.js` and add the following code.
+
+
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+```svelte
+import { writable } from 'svelte/store';
+
+export const userSession = writable(null);
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+
+Update the `userSession` in svelte-store when a user successfully logs in. Make the following changes to your `src/routes/login.svelte` file.
+
+
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+```svelte {hl_lines=["3",20]}
+<script>
+  ...
+  import { userSession } from '../store';
+
+  ...
+
+  async function onSubmit(e) {
+    const formData = new FormData(e.target);
+
+    ...
+    if(resp.data?.login) {
+      alert('Login Successful');
+
+      Cookies.set(
+        'fauna-session', 
+        JSON.stringify(resp.data.login),
+        { expires: new Date(resp.data.login.ttl) }
+      );
+
+      userSession.update(() => (resp.data.login));
+
+      goto('/')
+    }
+  }
+</script>
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Update the `src/lib/Nav.svelte` file as follows.
+
+
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+```svelte {hl_lines=["3","7-8", "14-15", "27-50"]}
+<script lang="js">
+  import Cookies from 'js-cookie';
+  import { userSession } from '../store.js';
+
+  let user;
+  userSession.subscribe(val => {
+    user = val;
+  });
+
+
+  function logout() {
+    Cookies.remove('fauna-session');
+    alert('User Logoed Out');
+    userSession.update(() => null);
+    window.location.reload();
+  }
+</script>
+
+<nav class="uk-navbar-container wrap" >
+  <div class="uk-navbar-left">
+    <ul class="uk-navbar-nav">
+      <li class="uk-active"><a href='/'>Fauna E-Com</a></li>
+    </ul>
+  </div>
+  <div class="uk-navbar-right">
+    <ul class="uk-navbar-nav">
+      {#if user}
+        <li >
+          <a href='/store/new' class="uk-button uk-button-primary add-btn">
+            Add Store
+          </a>
+        </li>
+        <li >
+          <!-- svelte-ignore a11y-missing-attribute -->
+          <a on:click={logout} class="uk-button uk-button-danger add-btn">
+            Logout
+          </a>
+        </li>
+      {:else}
+        <li >
+          <a href='/login' class="uk-button uk-button-primary add-btn">
+            Login
+          </a>
+        </li>
+        <li >
+          <a href='/signup' class="uk-button uk-button-danger add-btn">
+            Signup
+          </a>
+        </li>
+      {/if}
+    </ul>
+  </div>
+</nav>
+
+<style>
+.wrap {
+  display: flex;
+}
+.add-btn {
+  color: azure;
+}
+</style>
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+
+Now your application state will be synced when user logs in or logs out. 
+
+That’s all for this section. In the next section, you implement *Create* *Delete* and *Update* stores. You also do a deep dive into custom resolvers and Fauna Query Language (FQL).
