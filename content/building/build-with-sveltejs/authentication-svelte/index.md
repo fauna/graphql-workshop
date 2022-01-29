@@ -261,5 +261,8 @@ To ensure everything is working as intended, run the application with `npm run d
   alt="Login response"
 >}}
 
+
+If you are getting a secret back from your GraphQL request, that means everything is working as intended. You can now use this secret to interact with other resources in Fauna. In the next section, you learn how to manage your user sessions with the client. 
+
 ---
 [uikit]: https://getuikit.com/
