@@ -138,7 +138,7 @@ Next, add the following code to your `src/routes/index.svelte` file.
         <div class="container">
           <div>{store.name}</div>
           <p uk-margin>
-            <a href="/store/{store._id}">Edit</a>
+            <a href="/store/{store._id}">View</a>
           </p>
         </div>
       </li>
