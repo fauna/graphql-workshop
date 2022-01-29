@@ -201,11 +201,11 @@ Create a new page to show each store. Create a new file `src/routes/store/[id].s
 
   query(currentStore)
 
-  export let post = null;
+  export let store = null;
 
   currentStore.subscribe(({data}) => {
     if(data) {
-      post = data.findPostByID;
+      store = data.findStoreByID;
     }
   })
 
@@ -243,3 +243,229 @@ Create a new page to show each store. Create a new file `src/routes/store/[id].s
 {{< /tabs >}}
 
 ### Edit store
+
+Create a new form component to edit stores. Create a new file `src/lib/EditStore.svelte` and add the following code. 
+
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+```svelte
+<script>
+  import Cookies from 'js-cookie';
+  import { setClient, mutation } from '@urql/svelte';
+  import { clientWithCookieSession } from '../client';
+  import { goto } from '$app/navigation';
+
+  let userSession = Cookies.get('fauna-session');
+
+  if(userSession) {
+    const { secret } = JSON.parse(userSession);
+    setClient(clientWithCookieSession(secret));
+  }
+
+
+  const updateStore = mutation({
+    query: `
+      mutation UpdateStore(
+        $id: ID!, 
+        $name: String!, 
+        $email: String!, 
+        $categories: [String!], 
+        $paymentMethods: [String!]) 
+        {
+          updateStore(id: $id, data: {
+            name: $name,
+            email: $email,
+            categories: $categories,
+            paymentMethods: $paymentMethods
+          }) {
+            _id
+          }
+        }
+    `
+  })
+
+	export let selectedStore;
+  let isEdit = false;
+  let name = '';
+  let email = '';
+  let categories = [''];
+  let paymentMethods = [''];
+  let errorMessage = '';
+
+  function toggleEdit() {
+    isEdit = !isEdit;
+    if(isEdit) {
+      name = selectedStore.name;
+      email = selectedStore.email;
+      categories = selectedStore.categories.join(',');
+      paymentMethods = selectedStore.paymentMethods.join(',');
+    }
+  }
+
+  async function onSubmit(e) {
+    const response = await updateStore({ 
+      id: selectedStore._id, 
+      name, 
+      email,
+      categories,
+      paymentMethods
+    })
+    console.log('updatedPost', response);
+    const { data, error } = response;
+    if(error) {
+      errorMessage = error.message;
+    }
+    if(data) {
+      alert('Store updated');
+      goto(`/`);
+    }
+  }
+</script>
+
+
+{#if isEdit}
+<div class="uk-card uk-card-default wrap">
+  <h5>Edit Store</h5>
+    {#if errorMessage}
+      <p class="error">{errorMessage}</p>
+    {/if}
+    <form on:submit|preventDefault={onSubmit} >
+      <div class="input-blocks">
+        <label for="name">Store Name</label>
+        <input
+          class="uk-input" 
+          type="text"
+          name="name"
+          bind:value={name}
+        />
+      </div>
+      <div class="input-blocks">
+        <label for="email">Email</label>
+        <input
+          class="uk-input" 
+          type="text"
+          name="email"
+          bind:value={email}
+        />
+      </div>
+      <div class="input-blocks">
+        <label for="paymentMethods">Payment methods (seperated by commas)</label>
+        <input
+          class="uk-input" 
+          type="text"
+          name="paymentMethods"
+          bind:value={paymentMethods}
+        />
+      </div>
+      <div class="input-blocks">
+        <label for="categories">Categories (seperated by commas)</label>
+        <input
+          class="uk-input" 
+          type="text"
+          name="categories"
+          bind:value={categories}
+        />
+      </div>
+      <button class="update uk-button" type="submit" disabled={!userSession}>Update</button>
+    </form>
+</div>
+{/if}
+
+<button on:click={toggleEdit} class="update uk-button" disabled={!userSession}>Edit</button>
+
+<style>
+  .error {
+    color: coral;
+  }
+  .update {
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+  .wrap {
+    margin-top: 20px;
+    padding: 40px;
+  }
+</style>
+```
+{{% /tab %}}
+{{< /tabs >}}
+
+Next, add this component to view store page. Make the following changes to `src/routes/store/[id].svelte` file.
+
+{{< tabs groupId="frontend-svelte" >}}
+{{% tab name="Svelte.js" %}}
+
+```svelte {hl_lines=["4","9"]}
+// src/routes/store/[id].svelte
+<script lang="js">
+  ...
+  import EditStore from '$lib/EditStore.svelte';
+
+  ...
+<div class="uk-container">
+  ...
+  <EditStore selectedStore={store}/>
+</div>
+
+```
+
+{{% /tab %}}
+{{< /tabs >}}
+
+
+## Fine Grained Access Control
+
+Ideally, you only allow the data owner to make any changes. For instance, in this application, only the store owner should update their store information. Fauna allows fine-grained access control. You can set access rules (predicates) so that users can only modify their data and not others.
+
+Head over to the Fauna dashboard. Navigate to *Security > Roles > AuthUserRole*. Expand the store collection. Add the following rules to your *write* access.
+
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
+Lambda(
+  ["oldData", "newData"],
+  And(
+    Equals(Identity(), Select(["data", "owner"], Var("oldData"))),
+    Equals(
+      Select(["data", "owner"], Var("oldData")),
+      Select(["data", "owner"], Var("newData"))
+    )
+  )
+)
+{{< /highlight >}}
+{{< /tab >}}
+{{< /tabs >}}
+
+{{< figure
+  src="../../build-with-nextjs/forms-updates/images/add-write-predicate.png" 
+  alt="Add write predicate"
+>}}
+
+The rule defines that only a store's owner can update that store.  
+
+Similarly, add the following predicate for *delete*. This rule defines that only a store's owner can delete a store. 
+
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
+Lambda("ref", Equals(
+  Identity(), // logged in user
+  Select(["data", "owner"], Get(Var("ref")))
+))
+{{< /highlight >}}
+{{< /tab >}}
+{{< /tabs >}}
+
+Add a predicate for *create* as well. The following rule ensures that logged-in users can add store and owner *id* is associated with a store when it is created.
+
+{{< tabs groupId="UDFs" >}}
+{{< tab name="FQL" >}}
+{{< highlight js >}}
+Lambda("values", Equals(Identity(), Select(["data", "owner"], Var("values"))))
+{{< /highlight >}}
+{{< /tab >}}
+{{< /tabs >}}
+
+Select *Save* to save your access control rules. Now, users can only modify or delete their data from your front end.
+
+In this chapter, you learned how to apply fine-grained access control to your data. In the next chapter, you learn more about custom resolvers and Fauna Query Language (FQL).
