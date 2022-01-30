@@ -323,6 +323,8 @@ If you haven't registered any users yet refer back to the [Authentication sectio
     style="fauna"
 />}}
 
+Make sure to replace the `email` and `password` with a valid email and password. Use a user you already registered in [Authentication section]({{< ref "/getting-started/user-authentication" >}}).
+
 Navigate to [localhost:3000](http://localhost:3000/) and open your browser's developer tools to the *Console* tab. Choose the *Login* button. You should see the response from the *login* mutation in the console!
 
 {{< figure
@@ -335,6 +337,10 @@ Navigate to [localhost:3000](http://localhost:3000/) and open your browser's dev
 In this session, you configured Fauna to perform user authentication with least privileged access and connected your front-end application to Fauna.
 
 In [the next section]({{< ref "authentication" >}}), you implement client-side user registration and login forms for your application.
+
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-sveltekit/tree/2.a) 
 
 ---
 [fauna-dashboard]: https://dashboard.fauna.com
