@@ -9,8 +9,6 @@ pre: "<b>b. </b>"
 
 In this section, you will learn how to do user authentication from your client application. 
 
-You can find the completed code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.2-user-auth).
-
 
 ## Adding Styles [Optional]
 
@@ -45,9 +43,9 @@ Add some basic styling to your application. You can add [UIKit][uikit] library f
 
 ## User Signup
 
-Create a new route for user signup. Create a new file `src/routes/signup.svelte` and add the following code.
+You need a page where users can signup as store owners in your application. Create a new file `src/routes/signup.svelte` and add the following code.
 
-{{< tabs groupId="frontend" >}}
+{{< tabs groupId="framework" >}}
 {{< tab name="Svelte.js" >}}
 {{< highlight svelte >}}
 
@@ -145,7 +143,7 @@ Create a new route for user signup. Create a new file `src/routes/signup.svelte`
     style="fauna"
 />}}
 
-In the previous code snippet, you have a simple form page. When you submit the form the `registerOwner` mutation is fired and a new owner is registered.
+In the previous code snippet, you have a simple form. When a user submits the form the `registerOwner` mutation is fired and a new owner is registered.
 
 Visit [localhost:3000/signup](http://localhost:3000/signup) and try to register a owner.
 
@@ -262,7 +260,13 @@ To ensure everything is working as intended, run the application with `npm run d
 >}}
 
 
-If you are getting a secret back from your GraphQL request, that means everything is working as intended. You can now use this secret to interact with other resources in Fauna. In the next section, you learn how to manage your user sessions with the client. 
+If you are getting a secret back from your GraphQL request, that means everything is working as intended. You can now use this secret to interact with other resources in Fauna. 
+
+In the next section, you learn how to manage your user sessions in the client application. 
+
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-sveltekit/tree/2.b) 
 
 ---
 [uikit]: https://getuikit.com/
