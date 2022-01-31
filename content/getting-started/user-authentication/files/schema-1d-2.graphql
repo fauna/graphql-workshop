@@ -33,5 +33,6 @@ type Token @embedded {
     ttl: Time!
     secret: String!
     email: String!
+    ownerId: String!
 }
 

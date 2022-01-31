@@ -2,7 +2,7 @@
 title: "Frontend forms and updates"
 date: 2021-10-13T13:35:32-04:00
 draft: false
-weight: 60
+weight: 25
 pre: "<b>e. </b>"
 ---
 
@@ -394,7 +394,7 @@ export default function StoreEditForm() {
 
 Fauna allows fine-grained access control. You can set access rules (predicates) so that users can only modify their data and not others. 
 
-Head over to the Fauna dashboard. Navigate to *Security > Roles > AuthUserRole*. Expand the store collection. Add the following rules to your *write* access.
+Head over to the Fauna dashboard. Navigate to *Security > Roles > AuthRole*. Expand the store collection. Add the following rules to your *write* access.
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}
