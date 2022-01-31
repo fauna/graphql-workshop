@@ -395,3 +395,9 @@ Update the `src/lib/Nav.svelte` file as follows.
 Now your application state will be synced when user logs in or logs out. 
 
 That’s all for this section. In the next section, you implement *Create* *Delete* and *Update* stores. You also do a deep dive into custom resolvers and Fauna Query Language (FQL).
+
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-sveltekit/tree/2.d) 
+
+---

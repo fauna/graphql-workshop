@@ -469,3 +469,9 @@ Lambda("values", Equals(Identity(), Select(["data", "owner"], Var("values"))))
 Select *Save* to save your access control rules. Now, users can only modify or delete their data from your front end.
 
 In this chapter, you learned how to apply fine-grained access control to your data. In the next chapter, you learn more about custom resolvers and Fauna Query Language (FQL).
+
+
+
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-sveltekit/tree/main) 
