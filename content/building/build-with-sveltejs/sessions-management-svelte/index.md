@@ -19,7 +19,7 @@ npm i js-cookie
 {{% /tab %}}
 {{< /tabs >}}
 
-When a user logs in, use the js-cookie library to store the login response in the browser cookies section. Make the following changes to your `src/routes/login.svelte` file.
+When a user logs in, use the js-cookie library to store the login response in the browser cookies. Make the following changes to your `src/routes/login.svelte` file.
 
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
@@ -122,3 +122,11 @@ Sign in with a user you have registered. Observe your browser cookies. Notice th
 >}}
 
 In the next section, you learn how to retrieve the user access token from your cookies and make GraphQL queries and mutations using it. 
+
+
+
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-sveltekit/tree/2.c) 
+
+----

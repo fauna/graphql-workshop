@@ -19,7 +19,7 @@ npm i js-cookie
 {{% /tab %}}
 {{< /tabs >}}
 
-Open the `components/Login.js` file and add the following code changes. You use the js-cookie library to store the login response in the browser cookies section. You can retrieve this cookie and the secret inside it whenever needed and query Fauna.
+Open the `components/Login.js` file and add the following code changes. You use the js-cookie library to store the login response in the browser cookies. You can retrieve this cookie and the secret inside it whenever needed and query Fauna.
 
 
 {{< tabs groupId="frontend" >}}
