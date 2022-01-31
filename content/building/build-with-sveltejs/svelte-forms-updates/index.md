@@ -84,7 +84,7 @@ Create a new page to add new stores. Create a file `src/routes/store/new.svelte`
 
       console.log('resp', resp);
       if(resp.data.createStore) {
-        alert('Post created successfully')
+        alert('Store created successfully')
         goto('/')
       }
     } catch (error) {
