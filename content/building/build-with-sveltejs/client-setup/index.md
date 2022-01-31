@@ -9,6 +9,8 @@ disableMermaid: false
 
 In this section, you learn how to set up your fullstack serverless application with Fauna. 
 
+📗 [Final Code](https://github.com/fauna-labs/fauna-shop-sveltekit/tree/main) 
+
 ## Creating your app
 
 Run the following command in your terminal to create a new Svelte application. 
