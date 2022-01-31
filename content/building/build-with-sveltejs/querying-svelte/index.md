@@ -158,6 +158,12 @@ Next, add the following code to your `src/routes/index.svelte` file.
 {{% /tab %}}
 {{< /tabs >}}
 
+{{< attachments
+    title="src/routes/index.svelte"
+    pattern="index.svelte" 
+    style="fauna"
+/>}}
+
 Run your application with `npm run dev` command and make sure everything is working as intended.
 
 {{< figure
@@ -219,6 +225,13 @@ Create a new navbar component. Create a new file `src/lib/Nav.svelte` and add th
 {{% /tab %}}
 {{< /tabs >}}
 
+{{< attachments
+    title="src/lib/Nav.svelte"
+    pattern="Nav.svelte" 
+    style="fauna"
+/>}}
+
+
 Apply a layout to your application, so the Navbar component appears on every page. Create a new file `src/routes/__layout.svelte` and add the following code snippet.
 
 {{< tabs groupId="frontend-svelte" >}}
@@ -257,7 +270,7 @@ Update the `userSession` in svelte-store when a user successfully logs in. Make 
 
 {{< tabs groupId="frontend-svelte" >}}
 {{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["4",21]}
+```svelte {hl_lines=["4",20]}
 // src/routes/login.svelte
 <script>
   ...
@@ -286,6 +299,12 @@ Update the `userSession` in svelte-store when a user successfully logs in. Make 
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+{{< attachments
+    title="src/routes/index.svelte"
+    pattern="index.svelte" 
+    style="fauna"
+/>}}
 
 Update the `src/lib/Nav.svelte` file as follows.
 
@@ -364,6 +383,13 @@ Update the `src/lib/Nav.svelte` file as follows.
 ```
 {{% /tab %}}
 {{< /tabs >}}
+
+
+{{< attachments
+    title="src/lib/Nav.svelte"
+    pattern="Nav-2.svelte" 
+    style="fauna"
+/>}}
 
 
 Now your application state will be synced when user logs in or logs out. 
