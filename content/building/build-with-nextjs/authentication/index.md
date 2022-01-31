@@ -11,14 +11,38 @@ In this section, you will learn how to do user authentication from your client a
 
 You can find the completed code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.2-user-auth).
 
-## Installing dependencies
 
-Run the following command to add [UIKit][uikit] to your application to provide some basic styling.
+## Adding Styles [Optional]
+
+Add some basic styling to your application. You can add [UIKit][uikit] library for styling. Make the following changes to your `pages/_app.js` file. Feel free to use other CSS library of your choice or write your own CSS.
+
 
 {{< tabs groupID="framework" >}}
 {{< tab name="Next.js" >}}
-{{< highlight console >}}
-$ npm install uikit
+{{< highlight jsx >}}
+
+/* eslint-disable @next/next/no-sync-scripts */
+import Head from 'next/head';
+import { ApolloProvider } from '@apollo/client';
+import client from '../apollo-client';
+import '../styles/globals.css';
+
+function MyApp({ Component, pageProps }) {
+  return (
+    <>
+    <Head>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/css/uikit.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit.min.js" />
+        <script src="https://cdn.jsdelivr.net/npm/uikit@3.7.6/dist/js/uikit-icons.min.js" />
+      </Head>
+      <ApolloProvider client={client}>
+        <Component {...pageProps} />
+      </ApolloProvider>
+    </>
+  );
+}
+
+export default MyApp;
 {{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
@@ -478,7 +502,10 @@ To ensure everything is working as intended, run the application with `npm run d
 
 If you are getting a secret back from your GraphQL request, that means everything is working as intended. You can now use this secret to interact with other resources in Fauna. In the next section, you learn how to manage your user sessions with the client.
 
-You can find the completed code for this section in this [Github link](https://github.com/fauna-labs/fauna-workshop/tree/section-1.2-user-auth).
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-nextjs/tree/2.b) 
+
 
 ---
 [uikit]: https://getuikit.com/

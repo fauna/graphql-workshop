@@ -290,7 +290,7 @@ export default MyApp;
       style="fauna"
 />}}
 
-Replace the contents of *pages/index.js* with the following code. Make sure to use a valid *username* and *password* for a registered user. If you haven't registered any users yet refer back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) for instructions on signing up a new user.
+Replace the contents of `pages/index.js` with the following code. Make sure to use a valid *username* and *password* for a registered user. If you haven't registered any users yet refer back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) for instructions on signing up a new user.
 
 {{< tabs groupId="framework" >}}
 {{< tab name="Next.js" >}}
@@ -371,6 +371,12 @@ Navigate to [localhost:3000](http://localhost:3000/) and open your browser's dev
 In this session, you configured Fauna to perform user authentication with least privileged access and connected your front-end application to Fauna.
 
 In [the next section]({{< ref "authentication" >}}), you implement client-side user registration and login forms for your application.
+
+
+#### Complete Code
+
+📙 Get the final code for this section [here](https://github.com/fauna-labs/fauna-shop-nextjs/tree/2.a) 
+
 
 ---
 [fauna-dashboard]: https://dashboard.fauna.com
