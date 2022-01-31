@@ -8,9 +8,9 @@ pre: "<b>d. </b>"
 
 In this section, you learn how to query data from your client application and implement attribute-based access control (ABAC).
 
-> “Attribute-based access control, also known as policy-based access control for IAM, defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.” – wikipedia
+> “Attribute-based access control, also known as policy-based access control for IAM, defines an access control paradigm whereby access rights are granted to users through the use of policies which combine attributes together.” – Wikipedia
 
-In the previous section, you were able to log in a user and save their session in browser cookies. To query retrieve data using the access token (saved in session cookies) you first need to define a role in Fauna. This role will specify the resources you can interact with. 
+In the previous section, you were able to log in a user and save their session in browser cookies. To retrieve data using the access token (saved in session cookies) you first need to define a role in Fauna. This role will specify the resources you can interact with. 
 
 Navigate to Fauna [dashboard](https://dashboard.fauna.com/accounts/login). Select *Security > Roles > New Role* to create a new role.
 
@@ -40,8 +40,8 @@ Membership in Fauna specific identities that should have the specified privi
 When an owner logs in to your application you want to show that user their basic information (i.e. username, email) and all the stores that belong to that owner. To do so you can make the following GraphQL query with the owner’s email as a parameter.
 
 {{< tabs groupId="query-language" >}}
-{{% tab name="GraphQL" %}}
-```gql
+{{< tab name="GraphQL" >}}
+{{< highlight graphql  >}}
 query findbyEmail($email: String!) {
   findOwnerByEmail(email: $email) {
     _id
@@ -55,22 +55,22 @@ query findbyEmail($email: String!) {
     }
   }
 }
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
-You will use the secret retrieved from the `login` function to make the previous query. The secret is saved in the browser session cookies when a user logs in. Therefore, you can retrieve it from the cookies. Once you retrieve the session secret, you can pass it down to the GraphQL client and set the header.
+You use the secret retrieved from the `login` function to make the previous query. The secret is saved in the browser session cookies when a user logs in. Therefore, you can retrieve it from the cookies. Once you retrieve the session secret, you can pass it down to the GraphQL client and set the header.
 
 Create a new function called `clientWithCookieSession` in your `src/client.js` file as follows. The `clientWithCookieSession` takes in a token as parameter and sets up the `@urql/svelte` client.
 
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
-// src/client.js
+{{< tab name="SvelteKit" >}}
+{{< highlight js  >}}
 ...
 export const clientWithCookieSession = token => createClient({
-  url: 'https://graphql.us.fauna.com/graphql',
+  url,
+  
   fetchOptions: () => {
     console.log('token', token);
     return {
@@ -78,16 +78,22 @@ export const clientWithCookieSession = token => createClient({
     };
   },
 });
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
-Next, add the following code to your `src/routes/index.svelte` file.
+{{< attachments
+    title="src/client.js"
+    pattern="client.js" 
+    style="fauna"
+/>}}
+
+
+Next, replace the contents of `src/routes/index.svelte` with the following code.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
-// src/routes/index.svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte >}}
 <script>
   import { operationStore, query, setClient } from '@urql/svelte';
 	import {clientWithCookieSession} from '../client';
@@ -153,9 +159,8 @@ Next, add the following code to your `src/routes/index.svelte` file.
     max-width: 350px;
   }
 </style>
-
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
@@ -177,9 +182,8 @@ Modify the layout of the application. The app right now could use a navbar for b
 
 Create a new navbar component. Create a new file `src/lib/Nav.svelte` and add the following code for Navbar.
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
-// src/lib/Nav.svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte >}}
 <script lang="js">
   import Cookies from 'js-cookie';
 
@@ -220,9 +224,8 @@ Create a new navbar component. Create a new file `src/lib/Nav.svelte` and add th
   color: azure;
 }
 </style>
-```
-
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
@@ -235,43 +238,38 @@ Create a new navbar component. Create a new file `src/lib/Nav.svelte` and add th
 Apply a layout to your application, so the Navbar component appears on every page. Create a new file `src/routes/__layout.svelte` and add the following code snippet.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
-// src/routes/__layout.svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte >}}
 <script>
   import Nav from '$lib/Nav.svelte';
 </script>
 <Nav />
 <slot></slot>
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
-Once the changes are applied notice that a navbar is appearing in every pages of your application.
+After you apply the changes, notice that a navbar appears in every page of your application.
 
-Currently, the `Add Store` and `Logout` buttons are always visible. These buttons should only be visible when a user is logged. Otherwise, display the `Register` and `Login` buttons. 
+Currently, the `Add Store` and `Logout` buttons are always visible. These buttons should only be visible when a user is logged in. Otherwise, the app should display the `Login` and `Signup` buttons. 
 
-You can use a svelte **writeable store** to manage the state of your application dynamically. First create a new file `src/store.js` and add the following code.
-
+You can use a Svelte **writeable store** to manage the state of your application dynamically. First, create a new file `src/store.js` and add the following code.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight js >}}
 import { writable } from 'svelte/store';
 
 export const userSession = writable(null);
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
-
-Update the `userSession` in svelte-store when a user successfully logs in. Make the following changes to your `src/routes/login.svelte` file.
-
+Update the `userSession` in *svelte-store* when a user successfully logs in. Make the following changes to your `src/routes/login.svelte` file.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["4",20]}
-// src/routes/login.svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte "hl_lines=3 19" >}}
 <script>
   ...
   import { userSession } from '../store';
@@ -296,8 +294,8 @@ Update the `userSession` in svelte-store when a user successfully logs in. Make 
     }
   }
 </script>
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 {{< attachments
@@ -310,9 +308,8 @@ Update the `src/lib/Nav.svelte` file as follows.
 
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["4","6-14", "20-21", "33-56"]}
-// src/lib/Nav.svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte "hl_lines=3 5-13 19-20 32-55" >}}
 <script lang="js">
   import Cookies from 'js-cookie';
   import { userSession } from '../store.js';
@@ -380,10 +377,9 @@ Update the `src/lib/Nav.svelte` file as follows.
   color: azure;
 }
 </style>
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
-
 
 {{< attachments
     title="src/lib/Nav.svelte"

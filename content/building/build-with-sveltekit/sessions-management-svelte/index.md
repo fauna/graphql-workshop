@@ -7,23 +7,23 @@ pre: "<b>c. </b>"
 ---
 
 
-In this section, you learn about session management in your client application. There are several ways to manage sessions in single-page web applications. The most common one is to manage sessions through browser cookies. In this section, you learn how to manage sessions with browser cookies and svelte store.
+In this section, you learn about session management in your client application. There are several ways to manage sessions in single-page web applications. The most common one is to manage sessions through browser cookies. In this section, you learn how to manage sessions with browser cookies and Svelte store.
 
 The `js-cookie` npm package is the easiest way to work with cookies. Install this package in your project with the following command.
 
 {{< tabs groupId="shell" >}}
-{{% tab name="Shell" %}}
-```console
-npm i js-cookie
-```
-{{% /tab %}}
+{{< tab name="Shell" >}}
+{{< highlight console >}}
+$ npm i js-cookie
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
 When a user logs in, use the js-cookie library to store the login response in the browser cookies. Make the following changes to your `src/routes/login.svelte` file.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte {hl_lines=["35-40",3,17,18]}
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte "hl_lines=3 17-18 36-40" >}}
 <script>
   import { setClient, mutation } from '@urql/svelte';
   import Cookies from 'js-cookie';
@@ -110,11 +110,11 @@ When a user logs in, use the js-cookie library to store the login response in th
     min-width: 300px;
   }
 </style>
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
 
-Sign in with a user you have registered. Observe your browser cookies. Notice that a cookie value named fauna-session is saved. 
+Return to [localhost:3000/login](http://localhost:3000) and sign in with a user you have registered. Inspect your browser cookies and notice that your application creates a cookie named *fauna-session*.
 
 {{< figure
   src="../../build-with-nextjs/session-management/images/1.png" 

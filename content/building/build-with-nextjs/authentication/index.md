@@ -17,7 +17,7 @@ You can find the completed code for this section in this [Github link](https://g
 Add some basic styling to your application. You can add [UIKit][uikit] library for styling. Make the following changes to your `pages/_app.js` file. Feel free to use other CSS library of your choice or write your own CSS.
 
 
-{{< tabs groupID="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight jsx >}}
 

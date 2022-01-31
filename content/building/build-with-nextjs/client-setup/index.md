@@ -15,7 +15,7 @@ In this section, you learn how to set up your fullstack serverless application w
 
 To create a new fullstack serverless app, run the following command in your terminal.
 
-{{< tabs groupId="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight console >}}
 $ npm init next-app fauna-shop --use-npm
@@ -25,7 +25,7 @@ $ npm init next-app fauna-shop --use-npm
 
 Run your app to ensure everything is working correctly before making any changes.
 
-{{< tabs groupID="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight console >}}
 $ cd fauna-shop
@@ -36,7 +36,7 @@ $ npm run dev
 
 Navigate to [http://localhost:3000](http://localhost:3000/) in your browser and review the running application.
 
-{{< tabs groupID="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< figure
   src="./images/welcome-to-nextjs.png" 
@@ -49,7 +49,7 @@ Navigate to [http://localhost:3000](http://localhost:3000/) in your browser and 
 
 Run the following command to add the [Apollo GraphQL client][apollo-client] and GraphQL dependencies to your application.
 
-{{< tabs groupID="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight console >}}
 $ npm install @apollo/client graphql
@@ -61,7 +61,7 @@ $ npm install @apollo/client graphql
 
 Create a new file called `apollo-client.js` in the project's root with the following code.
 
-{{< tabs groupID="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight jsx >}}
 import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client';
@@ -262,7 +262,7 @@ Restart your Next.js application after updating the environment variable.
 
 Adding an *ApolloProvider* for Fauna allows you to execute GraphQL queries and mutations from your components. To add an *ApolloProvider*, replace the contents of *pages/_app.js* with the following code. 
 
-{{< tabs groupId="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight jsx >}}
 import { ApolloProvider } from '@apollo/client';
@@ -292,7 +292,7 @@ export default MyApp;
 
 Replace the contents of `pages/index.js` with the following code. Make sure to use a valid *username* and *password* for a registered user. If you haven't registered any users yet refer back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) for instructions on signing up a new user.
 
-{{< tabs groupId="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight jsx >}}
 import styles from '../styles/Home.module.css'
@@ -351,7 +351,7 @@ export default function Home() {
 
 Run your application with the following command.
 
-{{< tabs groupID="framework" >}}
+{{< tabs groupId="nextjs" >}}
 {{< tab name="Next.js" >}}
 {{< highlight console >}}
 $ npm run dev

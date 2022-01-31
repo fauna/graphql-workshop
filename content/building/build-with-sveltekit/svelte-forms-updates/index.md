@@ -6,16 +6,15 @@ weight: 35
 pre: "<b>e. </b>"
 ---
 
-This chapter builds the front-end functionality to *create*, *delete*, and *update* store data in Fauna.
+This chapter completes the front-end functionality to *create*, *read*, *update*, and *delete* (CRUD) shop data in Fauna.
 
 ### Create a new store
 
 Create a new page to add new stores. Create a file `src/routes/store/new.svelte` and add the following code. On form submit, you create a new store for the logged-in user.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
-// src/routes/store/new.svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte >}}
 <script lang="js">
   import Cookies from 'js-cookie';
   import { setClient, mutation } from '@urql/svelte';
@@ -153,19 +152,23 @@ Create a new page to add new stores. Create a file `src/routes/store/new.svelte`
     max-width: 300px;
   }
 </style>
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
+
+{{< attachments
+    title="src/routes/store/new.svelte"
+    pattern="new.svelte"
+    style="fauna"
+/>}}
 
 ### View Store
 
 Create a new page to show each store. Create a new file `src/routes/store/[id].svelte` and add the following code. Notice in the following code `findStoreByID` is used to retrieve store information.
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
-// src/routes/store/[id].svelte
-
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte >}}
 <script lang="js">
   import { operationStore, query, setClient } from '@urql/svelte';
   import { page } from '$app/stores';
@@ -236,19 +239,23 @@ Create a new page to show each store. Create a new file `src/routes/store/[id].s
   }
 </style>
 
-
-```
-
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
+
+{{< attachments
+    title="src/routes/store/[id].svelte"
+    pattern="\[id\].svelte"
+    style="fauna"
+/>}}
 
 ### Edit store
 
 Create a new form component to edit stores. Create a new file `src/lib/EditStore.svelte` and add the following code. 
 
 {{< tabs groupId="frontend-svelte" >}}
-{{% tab name="Svelte.js" %}}
-```svelte
+{{< tab name="SvelteKit" >}}
+{{< highlight svelte >}}
 <script>
   import Cookies from 'js-cookie';
   import { setClient, mutation } from '@urql/svelte';
@@ -386,9 +393,15 @@ Create a new form component to edit stores. Create a new file `src/lib/EditStore
     padding: 40px;
   }
 </style>
-```
-{{% /tab %}}
+{{< /highlight >}}
+{{< /tab >}}
 {{< /tabs >}}
+
+{{< attachments
+    title="src/lib/EditStore.svelte"
+    pattern="EditStore.svelte"
+    style="fauna"
+/>}}
 
 Next, add this component to view store page. Make the following changes to `src/routes/store/[id].svelte` file.
 
@@ -413,11 +426,11 @@ Next, add this component to view store page. Make the following changes to `src/
 {{< /tabs >}}
 
 
-## Fine Grained Access Control
+## Fine-grained Access Control
 
 Ideally, you only allow the data owner to make any changes. For instance, in this application, only the store owner should update their store information. Fauna allows fine-grained access control. You can set access rules (predicates) so that users can only modify their data and not others.
 
-Head over to the Fauna dashboard. Navigate to *Security > Roles > AuthUserRole*. Expand the store collection. Add the following rules to your *write* access.
+Head over to the Fauna dashboard. Navigate to *Security > Roles > AuthRole*. Expand the *Store* collection. Choose the code icon (`</>`) underneath *Write* and add the following rules.
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}
@@ -443,7 +456,7 @@ Lambda(
 
 The rule defines that only a store's owner can update that store.  
 
-Similarly, add the following predicate for *delete*. This rule defines that only a store's owner can delete a store. 
+Similarly, add the following predicate for *Delete*. This rule defines that only a store's owner can delete a store. 
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}
@@ -456,7 +469,7 @@ Lambda("ref", Equals(
 {{< /tab >}}
 {{< /tabs >}}
 
-Add a predicate for *create* as well. The following rule ensures that logged-in users can add store and owner *id* is associated with a store when it is created.
+Add a predicate for *Create* as well. The following rule ensures that logged-in users can add store and owner *id* is associated with a store when it is created.
 
 {{< tabs groupId="UDFs" >}}
 {{< tab name="FQL" >}}

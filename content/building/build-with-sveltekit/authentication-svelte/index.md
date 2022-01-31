@@ -15,9 +15,9 @@ In this section, you will learn how to do user authentication from your client a
 Add some basic styling to your application. You can add [UIKit][uikit] library for styling. Make the following changes to your `src/app.html` file. Feel free to use a CSS library of your choice or write your own CSS.
 
 
-{{< tabs groupID="framework" >}}
-{{< tab name="Svelte.js" >}}
-{{< highlight html >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
+{{< highlight html "hl_lines=10 13-14" >}}
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -45,8 +45,8 @@ Add some basic styling to your application. You can add [UIKit][uikit] library f
 
 You need a page where users can signup as store owners in your application. Create a new file `src/routes/signup.svelte` and add the following code.
 
-{{< tabs groupId="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight svelte >}}
 
 <script lang="js">
@@ -160,7 +160,7 @@ Navigate to *Collections* in your Fauna dashboard and review the *Owner* collect
 Next, create a new page for users to log in to the application. Create a new file `src/routes/login.svelte` and add the following code. 
 
 {{< tabs groupId="frontend" >}}
-{{< tab name="Svelte.js" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight svelte >}}
 <script>
   import { setClient, mutation } from '@urql/svelte';
@@ -247,7 +247,7 @@ Next, create a new page for users to log in to the application. Create a new fil
 {{< /tab >}}
 {{< /tabs >}}
 
-To ensure everything is working as intended, run the application with `npm run dev` command, and visit [localhost:3000/login](http://localhost:3000/login). Verify the login function is working. Log in with a user you have registered before. Observe the console tab in your browser.
+To ensure everything is working as intended, run the application with `npm run dev` command, and visit [localhost:3000/login](http://localhost:3000/login). Verify the login function is working. Log in with a user you have registered before. Inspect the GraphQL response in the *Network->XHR* tab in your browser's developer tools.
 
 {{< figure
   src="../../build-with-nextjs/authentication/images/3.png" 

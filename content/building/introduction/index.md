@@ -7,7 +7,7 @@ weight: 10
 
 ## Learning goals
 
-* Connect to Fauna from a Next.js application using GraphQL.
+* Connect to Fauna from a JavaScript application using GraphQL.
 * Implement user authentication and access control in your app.
 * Retrieve and store data in your application using GraphQL and Fauna.
 
@@ -21,6 +21,14 @@ weight: 10
 {{% notice note %}}
 We suggest completing the first chapter of this workshop before proceeding with this chapter, even if you have already built applications with GraphQL and Fauna. The first chapter provides both foundational knowledge and some suggested practices that we believe help users build more effectively with Fauna.
 {{% /notice %}}
+
+## Application framework options
+
+You can choose to build your application using one of the following frameworks.
+
+* [Next.js]({{< relref "build-with-nextjs" >}})
+
+* [SvelteKit]({{< relref "build-with-sveltekit" >}})
 
 ---
 

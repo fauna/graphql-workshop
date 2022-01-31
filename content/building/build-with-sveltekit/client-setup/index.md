@@ -15,8 +15,8 @@ In this section, you learn how to set up your fullstack serverless application w
 
 Run the following command in your terminal to create a new Svelte application. 
 
-{{< tabs groupId="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight console >}}
 $ npm init svelte@next fauna-shop
 {{< /highlight >}}
@@ -35,8 +35,8 @@ The Svelte CLI gives you some options to customize our application. Choose the f
 
 Run the newly created application with the following command.
 
-{{< tabs groupId="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight console >}}
 $ cd fauna-shop
 $ npm i
@@ -47,8 +47,8 @@ $ npm run dev
 
 Navigate to [http://localhost:3000](http://localhost:3000/) in your browser and review the running application.
 
-{{< tabs groupId="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< figure
   src="./images/welcome-to-svelte.png" 
   alt="Welcome to Next.js"
@@ -58,12 +58,12 @@ Navigate to [http://localhost:3000](http://localhost:3000/) in your browser and 
 
 ### Setting up Svelte GraphQL client
 
-here are many popular libraries that you can use to consume GraphQL in Svelte. The `@urql/svelte` library is one of the most popular ones. This workshop uses `@urql/svelte` library as GraphQL client.
+There are many popular libraries that you can use to consume GraphQL in Svelte. The `@urql/svelte` library is one of the most popular ones. This workshop uses the `@urql/svelte` library as its GraphQL client.
 
 Run the following command to add the library in your project.
 
-{{< tabs groupID="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight console >}}
 $ npm i @urql/svelte graphql --save
 {{< /highlight >}}
@@ -72,23 +72,23 @@ $ npm i @urql/svelte graphql --save
 
 Next, create a new file `src/client.js` in your application. Add the following code snippet to the file.
 
-{{< tabs groupID="framework" >}}
-{{< tab name="Svelte.js" >}}
-{{< highlight svelte >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
+{{< highlight js >}}
 
 import { createClient } from '@urql/svelte';
 
+/**
+  Uncomment the appropriate line according to the
+  region group where you created your database.
+**/
+
+// const url = 'https://graphql.eu.fauna.com/graphql'
+// const url = 'https://graphql.us.fauna.com/graphql'
+const url = 'https://graphql.fauna.com/graphql'
+
 export default createClient({
-  
-  /**
-    Uncomment the appropriate line according to the
-    region group where you created your database.
-  **/
-
-	//url: https://graphql.eu.fauna.com/graphql
-  //url: https://graphql.us.fauna.com/graphql
-
-  url: `https://graphql.fauna.com/graphql`,
+  url,
 
   fetchOptions: () => {
     const token = import.meta.env.VITE_PUBLIC_FAUNA_KEY;
@@ -96,8 +96,7 @@ export default createClient({
       headers: { authorization: token ? `Bearer ${token}` : '' },
     };
   },
-}); 
-
+});
 {{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
@@ -268,8 +267,8 @@ Restart your Svelte application after updating the environment variable.
 
 Run your application with the following command.
 
-{{< tabs groupID="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight console >}}
 $ npm run dev
 {{< /highlight >}}
@@ -278,13 +277,13 @@ $ npm run dev
 
 ### Testing out the login functionality
 
-Open the `src/routes/index.svelte` in your code and add the following code. In the following code snippet, you have a simple button to test the login functionality. When the button is selected, it fires the `login` mutation.
+Open the `src/routes/index.svelte` in your code and replace the contents with the following code. In the following code snippet, you have a simple button to test the login functionality. When the button is selected, it fires the `login` mutation.
 
 If you haven't registered any users yet refer back to the [Authentication section]({{< ref "/getting-started/user-authentication" >}}) for instructions on signing up a new user.
 
 
-{{< tabs groupId="framework" >}}
-{{< tab name="Svelte.js" >}}
+{{< tabs groupId="sveltekit" >}}
+{{< tab name="SvelteKit" >}}
 {{< highlight svelte >}}
 <script>
   import { setClient, mutation } from '@urql/svelte';
