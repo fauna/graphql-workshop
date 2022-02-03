@@ -11,7 +11,7 @@ Welcome to Fauna! This workshop helps [GraphQL][graphql] developers build applic
 
 In the first section, [Getting started with Fauna]({{< ref "getting-started" >}}), you learn how Fauna automatically creates queries, mutations, and other resources based on your GraphQL schema. You learn how to navigate the Fauna dashboard and accomplish common tasks such as user authentication with GraphQL.
 
-In the second section, [Building with Fauna]({{< ref "building" >}}), you create a single-tenant application in Next.js that allows users to register for accounts and create their own sites. You setup your application, connect to Fauna, implement user authentication, and create your first custom resolver in the [Fauna Query Language (FQL)](fql).
+In the second section, [Building with Fauna]({{< ref "building" >}}), you create a single-tenant application in Next.js that allows users to register for accounts and create their own sites. You setup your application, connect to Fauna, implement user authentication, and create your first custom resolver in the [Fauna Query Language (FQL)][fql].
 
 ## Pre-requisites
 
