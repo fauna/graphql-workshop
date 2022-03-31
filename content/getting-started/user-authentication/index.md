@@ -264,13 +264,10 @@ When an owner of a store logs in to your client application, that person receive
 
 In this section, you learned how to use custom resolvers to authenticate users and manage access to documents.
 
-Congratulations! You have completed the first chapter of this workshop, *Getting started with Fauna*.
-
-In the next chapter, [*Building with Fauna*]({{< ref "/building" >}}), you apply what you have learned so far to build a fullstack serverless web app with Fauna, GraphQL, and [Next.js][next.js].
+In [the next section]({{< ref "/getting-started/auto-resolvers" >}}), you learn how to automatically generate user-defined functions (UDFs) for CRUD operations on simple GraphQL types in Fauna.
 
 ---
 [credentials]: https://docs.fauna.com/fauna/current/security/credentials
 [embedded-directive]: https://docs.fauna.com/fauna/v4/api/graphql/directives/d_embedded
 [fql-call]: https://docs.fauna.com/fauna/current/api/fql/functions/call
 [graphql-directives]: https://docs.fauna.com/fauna/v4/api/graphql/directives/
-[next.js]: https://nextjs.org
