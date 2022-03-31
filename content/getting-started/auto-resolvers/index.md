@@ -35,6 +35,7 @@ type Category @generateUDFResolvers {
 Return to the *GraphQL* section of the Fauna dashboard and replace your schema with the updated schema.
 
 Navigate to the *Functions* section of the Fauna dashboard and notice that Fauna has created five new UDFs for you:
+
 * *createCategory* - Creates a new *Category* with the information you specify.
 * *deleteCategory* - Deletes a *Category* with the specified ID.
 * *findCategoryByID* - Returns the information for a *Category* with the specified ID.
