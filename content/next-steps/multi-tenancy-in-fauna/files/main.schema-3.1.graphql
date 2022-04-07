@@ -2,7 +2,6 @@ type Owner {
   name: String!
   email: String! @unique
   stores: [Store]! @relation
-  shopdbs: [ShopDB!]
 }
 
 type Store {
@@ -11,12 +10,15 @@ type Store {
   paymentMethods: [String]
   categories: [String]
   owner: Owner!
+  isActive: Boolean
+  publicKey: String
 }
 
 type Query {
   findOwnerByEmail(email: String): Owner
   listOwners: [Owner] 
   countStores: Int @resolver(name: "GetStoreCount")
+  allShops: [Store]
 }
 
 type Mutation {
@@ -30,10 +32,4 @@ type Token @embedded {
   secret: String!
   email: String!
   ownerId: String!
-}
-
-# Embeded type for child database
-type ShopDB @embedded {
-  shopId: String!
-  secret: String!
 }
