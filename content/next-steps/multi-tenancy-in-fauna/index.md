@@ -92,8 +92,10 @@ mutation CreateProduct {
 {{% /tab %}}
 {{< /tabs >}}
 
-You require a public key to query this database from your front-end application. Go ahead and create a new role and a security key. 
-Head over to _Security > Roles > New Role_ and create a new role. You can name this new role `public`. Give read access to `products` and `allProducts` index.
+Your front-end application requires a key to query this database. Go ahead and create a new role and a security key for this child database. 
+
+Head over to _Security > Roles > New Role_ and create a new role. 
+You can name this new role `public`. Give read access to `products` and `allProducts` index.
 
 {{< figure
   src="./images/public_key_1.png" 

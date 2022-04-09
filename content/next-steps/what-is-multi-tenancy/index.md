@@ -7,7 +7,7 @@ pre: "<b>a. </b>"
 disableMermaid: false
 ---
 
-Database Multi-tenancy is an architecture pattern in which each vendor (tenant) has the flexibility to put their data in an isolated database instance. 
+Siloed Database Multi-tenancy is an architecture pattern in which each vendor (tenant) has the flexibility to put their data in an isolated database instance. This is in contrast to a Shared Multi-tenancy model, in which tenants share the same set of tables, but are logically separated by application logic. For the purposes of this workshop, we will be implementing the siloed model. For brevity, we henceforth simply just refer to it as Database Multitenancy.
 
 {{< mermaid >}}
 flowchart TB

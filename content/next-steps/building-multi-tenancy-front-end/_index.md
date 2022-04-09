@@ -10,7 +10,9 @@ This section demonstrates how a multi-tenant web application works. The aim of t
 
 ### Turning the demo app into multi-tenant app
 
-In the example marketplace app, you can set up each shop as a separate frontend app with its dedicated child database. In this workshop, however, we will not deploy individual frontend apps for each shop. We would instead treat a particular shop page as a separate application.
+In the example marketplace app, you can set up each shop as a separate frontend app with its dedicated child database. 
+
+In the example marketplace app, you can set up each shop as a separate front-end app with its dedicated child database. However, we will not deploy individual front-end apps for each shop in this workshop. Instead, let's assume each shop page (i.e. /shops/:<shopId>) is an individual app. 
 
 In your parent database, head over to the _Security > Roles > FrontEndRole_ and provide read access to `Store` collection and `allShops` index.
 

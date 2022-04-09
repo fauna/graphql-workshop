@@ -185,6 +185,8 @@ export default function ShopPage() {
   style="fauna"
 />}}
 
+This code may be repetitive as the apollo client is already initialized in the client.js file. However, keep in mind that we are treating each of the `/pages/store/[id]` routes as a separate application. Because of this, you re-initialize the apollo client with the child database secret. You will most likely have a separate front-end in an actual application. 
+
 Next, create a new component to view the products. Create a new file called `components/Products.js` and add the following code.
 
 
