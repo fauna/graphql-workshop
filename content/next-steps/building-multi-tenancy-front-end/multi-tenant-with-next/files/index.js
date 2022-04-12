@@ -4,9 +4,9 @@
 import { useEffect } from 'react'
 import { useLazyQuery, gql } from '@apollo/client'
 import { useRouter } from 'next/router'
-import { setContext } from '@apollo/client/link/context'
-import { createHttpLink } from '@apollo/client'
 import Products from '../../../components/Products'
+import { httpLink, setCustomAuthToken } from '../../../apollo-client'
+
 
 const ALL_PRODUCTS = gql`
   query ALL_PRODUCTS {
@@ -39,18 +39,7 @@ export default function ShopPage() {
 
   useEffect(() => {
     if(publicKey) {
-      const httpLink = createHttpLink({
-        uri: 'https://graphql.us.fauna.com/graphql',
-      });
-      const authLink = setContext((_, { headers }) => {
-        return {
-          headers: {
-            ...headers,
-            authorization: `Bearer ${publicKey}`,
-          }
-        }
-      });
-      client.setLink(authLink.concat(httpLink));
+      client.setLink(setCustomAuthToken(publicKey).concat(httpLink));
       execQuery();
     }
   }, [publicKey])

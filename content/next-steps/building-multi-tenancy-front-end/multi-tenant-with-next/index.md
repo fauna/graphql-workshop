@@ -106,12 +106,13 @@ Create a new file `pages/store/[id]/index.js` and add the following code.
 {{< tab name="Next.js" >}}
 {{< highlight jsx >}}
 
+
 import { useEffect } from 'react'
 import { useLazyQuery, gql } from '@apollo/client'
 import { useRouter } from 'next/router'
-import { setContext } from '@apollo/client/link/context'
-import { createHttpLink } from '@apollo/client'
 import Products from '../../../components/Products'
+import { httpLink, setCustomAuthToken } from '../../../apollo-client'
+
 
 const ALL_PRODUCTS = gql`
   query ALL_PRODUCTS {
@@ -144,18 +145,7 @@ export default function ShopPage() {
 
   useEffect(() => {
     if(publicKey) {
-      const httpLink = createHttpLink({
-        uri: 'https://graphql.us.fauna.com/graphql',
-      });
-      const authLink = setContext((_, { headers }) => {
-        return {
-          headers: {
-            ...headers,
-            authorization: `Bearer ${publicKey}`,
-          }
-        }
-      });
-      client.setLink(authLink.concat(httpLink));
+      client.setLink(setCustomAuthToken(publicKey).concat(httpLink));
       execQuery();
     }
   }, [publicKey])
@@ -174,7 +164,6 @@ export default function ShopPage() {
   )
 }
 
-
 {{< /highlight >}}
 {{< /tab >}}
 {{< /tabs >}}
@@ -185,7 +174,34 @@ export default function ShopPage() {
   style="fauna"
 />}}
 
-This code may be repetitive as the apollo client is already initialized in the client.js file. However, keep in mind that we are treating each of the `/pages/store/[id]` routes as a separate application. Because of this, you re-initialize the apollo client with the child database secret. You will most likely have a separate front-end in an actual application. 
+Add the following code to your `apollo-client.js` file. The following code snippet sets specific authorization headers to Apollo client. 
+
+{{< tabs groupId="frontend" >}}
+{{< tab name="Next.js" >}}
+{{< highlight jsx >}}
+
+// ... partials of apollo-client.js
+export const setCustomAuthToken = (token) => setContext((_, { headers }) => ({
+  headers: {
+    ...headers,
+    authorization: `Bearer ${token}`
+  }
+}));
+
+{{< /highlight >}}
+{{< /tab >}}
+{{< /tabs >}}
+
+{{< attachments
+  title="apollo-client.js.js"
+  pattern="apollo-client.js.js" 
+  style="fauna"
+/>}}
+
+
+The apollo client is already initialized in the client.js file. However, keep in mind that we are treating each of the `/pages/store/[id]` routes as a separate application. Because of this, you reset the apollo client's header authorization token with the child database's secret. 
+
+You will most likely have a separate front-end in an actual application. 
 
 Next, create a new component to view the products. Create a new file called `components/Products.js` and add the following code.
 
