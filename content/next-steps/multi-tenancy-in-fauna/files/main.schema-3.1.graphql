@@ -1,0 +1,35 @@
+type Owner {
+  name: String!
+  email: String! @unique
+  stores: [Store]! @relation
+}
+
+type Store {
+  name: String!
+  email: String!
+  paymentMethods: [String]
+  categories: [String]
+  owner: Owner!
+  isActive: Boolean
+  publicKey: String
+}
+
+type Query {
+  findOwnerByEmail(email: String): Owner
+  listOwners: [Owner] 
+  countStores: Int @resolver(name: "GetStoreCount")
+  allShops: [Store]
+}
+
+type Mutation {
+  registerOwner(email: String!, password: String!, name: String!): Owner @resolver(name: "RegisterUser")
+  login(email: String!, password: String!): Token @resolver(name: "LoginUser")
+}
+
+# Embeded type for returned token response
+type Token @embedded {
+  ttl: Time!
+  secret: String!
+  email: String!
+  ownerId: String!
+}

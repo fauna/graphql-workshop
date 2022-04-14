@@ -1,15 +1,13 @@
 ---
-title: "Next steps"
+title: "Multi-tenant application"
 date: 2021-09-15T13:35:32-04:00
 draft: false
-weight: 99
+weight: 30
 pre: "<b>3. </b>"
 ---
 
-Go learn cool stuff.
 
-Build a multi-tenant SaaS app. (continue workshop)
+# Chapter Three
 
-Calvin paper.
-Other studies.
-Fauna Labs.
+Building a Multi-tenant application
+

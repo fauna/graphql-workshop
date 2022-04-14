@@ -1,0 +1,29 @@
+# Copyright Fauna, Inc.
+# SPDX-License-Identifier: MIT-0
+#
+# schema-1b-3.graphql
+type Invoice {
+  shopId: ID!
+  amount: Float!
+  payment: Payment!
+  customerNo: String!
+  createdAt: Date!
+}
+
+type Product {
+  name: String!
+  price: Float!
+  description: String!
+  image: String
+}
+
+enum Payment {
+  CreditCard,
+  DebitCard,
+  Paypal,
+  Bitcoin
+}
+
+type Query {
+  allProducts: [Product]
+}
