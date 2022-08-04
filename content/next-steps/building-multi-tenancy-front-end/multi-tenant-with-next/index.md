@@ -210,7 +210,7 @@ Next, create a new component to view the products. Create a new file called `com
 {{< tab name="Next.js" >}}
 {{< highlight jsx >}}
 export default function Products({products}) {
-  const palceHolder = 'https://images.unsplash.com/photo-1636390785299-b4df455163dd';
+  const placeHolder = 'https://images.unsplash.com/photo-1636390785299-b4df455163dd';
   return (
     <div className="uk-grid-column-small uk-grid-row-large uk-child-width-1-3@s uk-text-center" uk-grid="true">
       {
@@ -218,7 +218,7 @@ export default function Products({products}) {
           <div key={product._id}>
             <div className="uk-card uk-card-hover uk-card-body">
               <h3 className="uk-card-title">{product.name}</h3>
-              <img src={product.image ? product.image : palceHolder} />
+              <img src={product.image ? product.image : placeHolder} />
               <p>{product.description}</p>
               <a className="uk-button uk-button-primary">Buy</a>
             </div>
