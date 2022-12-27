@@ -5,7 +5,7 @@ title: Fauna for GraphQL developers
 theme: fauna-workshop-theme
 
 # Google Analytics
-googleAnalytics: "G-6ZXCGDLZ8W"
+googleAnalytics: "UA-51914115-2"
 
 params:
   # Change default color scheme with a variant one. Optional: can also be one of "red", "blue", or "green".
